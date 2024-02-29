@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dirb8km766jwk"]
+
+[ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="1_ibkcl"]
+
+[node name="Level" type="Node2D"]
+
+[node name="CharacterBase" parent="." instance=ExtResource("1_ibkcl")]
+position = Vector2(569, 308)
