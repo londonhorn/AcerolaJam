@@ -1,30 +1,37 @@
 extends CharacterBody2D
 
-const SPEED = 1500
-const FRICTION = 40
-var acceleration_speed = 500
+@onready var animations = $CharacterSprite1
+
+const GRAVITY = 1000
+
+var max_velocity_y_floor = -600
+var max_velocity_y = -850
+var jump_force_floor = -500
+var jump_force = -800
+
+func _process(_delta):
+	animations_player()
 
 func _physics_process(delta):
-	var input_dir: Vector2 = input()
+	velocity.x = 0
 	
-	if input_dir != Vector2.ZERO:
-		accelerate(input_dir, delta)
-	else:
-		add_friction()
-		
+	jump(delta)
 	move_and_slide()
 
+func jump(delta):
+	velocity.y += GRAVITY * delta
+	
+	if Input.is_action_just_pressed('jump'):
+		if is_on_floor:
+			velocity.y = max(velocity.y + jump_force_floor, max_velocity_y_floor)
+		else:
+			velocity.y = max(velocity.y + jump_force, max_velocity_y)
 
-func input() -> Vector2:
-	var input_dir = Vector2.ZERO
-	input_dir.x = Input.get_axis('left', 'right')
-	input_dir = input_dir.normalized()
-	return input_dir
-
-#acceleration
-func accelerate(direction, delta):
-	velocity = velocity.move_toward(SPEED * direction, (acceleration_speed * delta))
-
-#friction
-func add_friction():
-	velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
+func animations_player():
+	if is_on_floor():
+		animations.play('floor')
+	elif not is_on_floor():
+		if velocity.y < 0:
+			animations.play('flying_up')
+		elif velocity.y > 0:
+			animations.play('flying_falling')

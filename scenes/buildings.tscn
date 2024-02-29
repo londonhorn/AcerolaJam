@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk26qcipdd7ch"]
+
+[ext_resource type="Script" path="res://scripts/buildings.gd" id="1_2ujmd"]
+[ext_resource type="Texture2D" uid="uid://cutnm7csvwmjg" path="res://assets/worlds_objects/building1.png" id="1_bheun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlj5x"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssiwc"]
+size = Vector2(14, 14)
+
+[node name="Buildings" type="AnimatableBody2D"]
+script = ExtResource("1_2ujmd")
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_bheun")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nlj5x")
+
+[node name="HitDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
+shape = SubResource("RectangleShape2D_ssiwc")
