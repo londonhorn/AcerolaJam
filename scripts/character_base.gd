@@ -8,6 +8,7 @@ var max_velocity_y_floor = -600
 var max_velocity_y = -850
 var jump_force_floor = -500
 var jump_force = -800
+var points: int = 0
 
 func _process(_delta):
 	animations_player()
@@ -33,5 +34,11 @@ func animations_player():
 	elif not is_on_floor():
 		if velocity.y < 0:
 			animations.play('flying_up')
-		elif velocity.y > 0:
+		elif velocity.y > 150:
 			animations.play('flying_falling')
+
+func _on_hit_detection_body_entered(body):
+	if body is Enemy:
+		points += body.points
+	body.queue_free()
+	print(points)

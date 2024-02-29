@@ -1,29 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=6 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="1_ibkcl"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://b3sxrt7sxcur7" path="res://scenes/city_background.tscn" id="1_xmupy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
-size = Vector2(1171, 106)
+size = Vector2(1559, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7u5b"]
 size = Vector2(236, 12)
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_pdkn5")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_xmupy")]
 
 [node name="PlaceholderFloor" type="StaticBody2D" parent="."]
 position = Vector2(-6, 559)
 collision_layer = 2
+collision_mask = 5
 
 [node name="ColorRect" type="ColorRect" parent="PlaceholderFloor"]
-offset_right = 1171.0
+offset_right = 1250.0
 offset_bottom = 106.0
 color = Color(0.211765, 0.207843, 0.215686, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceholderFloor"]
-position = Vector2(585.5, 53)
+position = Vector2(779.5, 53)
 shape = SubResource("RectangleShape2D_i0i7f")
 
 [node name="World Border" type="StaticBody2D" parent="."]
@@ -31,9 +34,37 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Border"]
-position = Vector2(577, -6)
+position = Vector2(500, -6)
 shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
 [node name="CharacterBase" parent="." instance=ExtResource("1_ibkcl")]
-position = Vector2(569, 308)
+position = Vector2(450, 308)
+
+[node name="SpawnTimer1" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1194, 500)
+
+[node name="EnemySpawn3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1427, 500)
+
+[node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1305, 500)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[connection signal="timeout" from="SpawnTimer1" to="." method="_on_spawn_timer_1_timeout"]
