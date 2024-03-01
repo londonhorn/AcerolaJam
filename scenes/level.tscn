@@ -40,7 +40,7 @@ shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
 [node name="CharacterBase" parent="." instance=ExtResource("1_ibkcl")]
-position = Vector2(450, 308)
+position = Vector2(296, 429)
 
 [node name="SpawnTimer1" type="Timer" parent="."]
 wait_time = 0.45
@@ -93,5 +93,6 @@ offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("4_vvxes")
 
+[connection signal="character_died" from="CharacterBase" to="." method="_on_character_base_character_died"]
 [connection signal="timeout" from="SpawnTimer1" to="." method="_on_spawn_timer_1_timeout"]
 [connection signal="timeout" from="SpawnTimer2" to="." method="_on_spawn_timer_2_timeout"]

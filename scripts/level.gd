@@ -5,10 +5,16 @@ extends Node2D
 @onready var player = $CharacterBase
 @onready var score = $UI/Score
 
+var pet_level = preload("res://scenes/pet_level.tscn")
 var civilian = preload("res://scenes/civilian.tscn")
 var plane = preload("res://scenes/civilian_plane.tscn")
+
+func _ready():
+	player.can_move = true
+
 func _process(_delta):
 	score_keep()
+
 
 func _on_spawn_timer_1_timeout():
 	
@@ -33,5 +39,5 @@ func _on_spawn_timer_2_timeout():
 func score_keep():
 	score.text = str(player.points)
 
-
-
+func _on_character_base_character_died():
+	get_tree().change_scene_to_packed(pet_level)

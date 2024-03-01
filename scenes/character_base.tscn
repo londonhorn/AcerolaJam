@@ -65,6 +65,7 @@ radius = 19.0
 [node name="CharacterBase" type="CharacterBody2D"]
 collision_mask = 6
 script = ExtResource("1_2vxij")
+points = 200
 level = 1
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]

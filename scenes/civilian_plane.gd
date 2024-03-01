@@ -1,7 +1,9 @@
 extends Enemy
 
-func _physics_process(_delta):
+func _ready():
 	velocity.x = randi_range(-500, -800)
+
+func _physics_process(_delta):
 	
 	move_and_slide()
 
