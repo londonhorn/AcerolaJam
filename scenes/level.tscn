@@ -43,7 +43,7 @@ one_way_collision_margin = 74.8
 position = Vector2(450, 308)
 
 [node name="SpawnTimer1" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.45
 autostart = true
 
 [node name="SpawnTimer2" type="Timer" parent="."]

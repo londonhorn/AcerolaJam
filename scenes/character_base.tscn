@@ -57,10 +57,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_byten"]
-radius = 14.1421
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7awsv"]
-radius = 21.0238
+radius = 19.0
 
 [node name="CharacterBase" type="CharacterBody2D"]
 collision_mask = 6
@@ -68,7 +68,7 @@ script = ExtResource("1_2vxij")
 level = 1
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_pvkv4")
 animation = &"flying_up"
 frame_progress = 0.467787
@@ -82,4 +82,8 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
 shape = SubResource("CircleShape2D_7awsv")
 
+[node name="HealthDecrease" type="Timer" parent="."]
+autostart = true
+
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
+[connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]

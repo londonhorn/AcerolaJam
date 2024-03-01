@@ -4,6 +4,7 @@ extends ProgressBar
 
 
 func _ready():
+	player.health_changed.connect(update)
 	update()
 
 func update():

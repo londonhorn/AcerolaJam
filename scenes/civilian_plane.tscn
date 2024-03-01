@@ -32,12 +32,12 @@ size = Vector2(62, 22)
 collision_layer = 4
 script = ExtResource("1_qujld")
 points = 3
-level = 1
+level = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_j5mfq")
-frame_progress = 0.57303
+frame_progress = 0.614164
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xudbt")

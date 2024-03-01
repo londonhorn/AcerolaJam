@@ -3,6 +3,7 @@ extends Enemy
 signal health_changed
 
 @onready var animations = $CharacterSprite1
+@onready var health_timer = $HealthDecrease
 @onready var current_health: int = max_health
 
 @export var max_health = 100
@@ -13,9 +14,15 @@ var max_velocity_y_floor = -600
 var max_velocity_y = -850
 var jump_force_floor = -500
 var jump_force = -800
+var health_points_tracker = 0
 
 func _process(_delta):
 	animations_player()
+	health_point_increase()
+	
+	if current_health <= 0:
+		get_tree().paused = true
+		queue_free()
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -44,7 +51,18 @@ func animations_player():
 func _on_hit_detection_body_entered(body):
 	if body is Enemy and level >= body.level:
 		points += body.points
+		health_points_tracker += body.points
 		body.queue_free()
 	else:
 		queue_free()
 		get_tree().paused = true
+
+func _on_health_decrease_timeout():
+	current_health = current_health - 5
+	health_changed.emit()
+
+func health_point_increase():
+	if health_points_tracker >= 10:
+		current_health += 3
+		health_points_tracker = 0
+	health_changed.emit()
