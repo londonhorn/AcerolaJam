@@ -60,11 +60,12 @@ animations = [{
 radius = 14.1421
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7awsv"]
-radius = 16.0
+radius = 21.0238
 
 [node name="CharacterBase" type="CharacterBody2D"]
 collision_mask = 6
 script = ExtResource("1_2vxij")
+level = 1
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)

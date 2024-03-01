@@ -1,6 +1,11 @@
-extends CharacterBody2D
+extends Enemy
+
+signal health_changed
 
 @onready var animations = $CharacterSprite1
+@onready var current_health: int = max_health
+
+@export var max_health = 100
 
 const GRAVITY = 1000
 
@@ -8,7 +13,6 @@ var max_velocity_y_floor = -600
 var max_velocity_y = -850
 var jump_force_floor = -500
 var jump_force = -800
-var points: int = 0
 
 func _process(_delta):
 	animations_player()
@@ -38,7 +42,9 @@ func animations_player():
 			animations.play('flying_falling')
 
 func _on_hit_detection_body_entered(body):
-	if body is Enemy:
+	if body is Enemy and level >= body.level:
 		points += body.points
-	body.queue_free()
-	print(points)
+		body.queue_free()
+	else:
+		queue_free()
+		get_tree().paused = true

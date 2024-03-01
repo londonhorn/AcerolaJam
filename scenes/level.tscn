@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=7 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="1_ibkcl"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
-[ext_resource type="PackedScene" uid="uid://b3sxrt7sxcur7" path="res://scenes/city_background.tscn" id="1_xmupy"]
+[ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
+[ext_resource type="Script" path="res://scripts/Health.gd" id="4_vvxes"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(1559, 106)
@@ -42,6 +43,11 @@ one_way_collision_margin = 74.8
 position = Vector2(450, 308)
 
 [node name="SpawnTimer1" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="SpawnTimer2" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [node name="SpawnPoints" type="Node2D" parent="."]
@@ -53,6 +59,18 @@ position = Vector2(1194, 500)
 position = Vector2(1427, 500)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1305, 500)
+
+[node name="SpawnPointsPlanes" type="Node2D" parent="."]
+position = Vector2(0, -200)
+
+[node name="EnemySpawn1" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1194, 500)
+
+[node name="EnemySpawn3" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1427, 500)
+
+[node name="EnemySpawn2" type="Marker2D" parent="SpawnPointsPlanes"]
 position = Vector2(1305, 500)
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -67,4 +85,13 @@ offset_bottom = 23.0
 grow_horizontal = 2
 horizontal_alignment = 1
 
+[node name="Health" type="ProgressBar" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.1
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("4_vvxes")
+
 [connection signal="timeout" from="SpawnTimer1" to="." method="_on_spawn_timer_1_timeout"]
+[connection signal="timeout" from="SpawnTimer2" to="." method="_on_spawn_timer_2_timeout"]

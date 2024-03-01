@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://vs1tgtilq17t"]
+
+[ext_resource type="Texture2D" uid="uid://bmn2n7wy1uywg" path="res://assets/characters/plane_spritesheet.png" id="1_8wxm4"]
+[ext_resource type="Script" path="res://scenes/civilian_plane.gd" id="1_qujld"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5arm"]
+atlas = ExtResource("1_8wxm4")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s547k"]
+atlas = ExtResource("1_8wxm4")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5mfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5arm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s547k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xudbt"]
+size = Vector2(62, 22)
+
+[node name="CivilianPlane" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_qujld")
+points = 3
+level = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_j5mfq")
+frame_progress = 0.57303
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xudbt")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
