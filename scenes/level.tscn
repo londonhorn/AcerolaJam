@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=8 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="3_s2vhx"]
 [ext_resource type="Script" path="res://scripts/Health.gd" id="4_vvxes"]
+[ext_resource type="PackedScene" uid="uid://4551v5aerbvd" path="res://scenes/tank.tscn" id="5_ahnxw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(1559, 106)
@@ -95,6 +96,9 @@ anchor_right = 0.1
 offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("4_vvxes")
+
+[node name="Tank" parent="." instance=ExtResource("5_ahnxw")]
+position = Vector2(1226, 527)
 
 [connection signal="timeout" from="SpawnTimer1" to="." method="_on_spawn_timer_1_timeout"]
 [connection signal="timeout" from="SpawnTimer2" to="." method="_on_spawn_timer_2_timeout"]

@@ -6,10 +6,13 @@ signal health_changed
 @onready var animations = $CharacterSprite1
 @onready var health_timer = $HealthDecrease
 @onready var current_health: int = max_health
+@onready var evolution_sprite_1 = $CharacterSprite1
 
 @export var max_health = 100
 
 const GRAVITY = 1000
+
+var animations_evolution_sprites: Array = ["res://sprite_frames_spot/evolution_0.tres", "res://sprite_frames_spot/evolution_1.tres"]
 
 var max_velocity_y_floor = -600
 var max_velocity_y = -850
@@ -20,11 +23,11 @@ var can_move: bool = true
 
 func _ready():
 	health_changed.emit(max_health, current_health)
+	scale = scale + Globals.character_size
 	
 func _process(_delta):
 	
-	scale = scale + Globals.character_size
-	
+	evolve()
 	animations_player()
 	health_point_increase()
 	player_death()
@@ -77,5 +80,11 @@ func player_death():
 		Globals.total_points = Globals.total_points + points
 		points = 0
 		character_died.emit()
+
+func evolve():
+	animations.sprite_frames = load(animations_evolution_sprites[Globals.evolution])
+	level = Globals.evolution
+
+
 
 

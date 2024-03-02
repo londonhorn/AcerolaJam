@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=5 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
-[ext_resource type="Texture2D" uid="uid://daxvpely55js4" path="res://assets/characters/character_sprite1.png" id="1_mrwul"]
+[ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_byten"]
 radius = 12.0
@@ -9,64 +9,9 @@ radius = 12.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7awsv"]
 radius = 19.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1c0kd"]
-atlas = ExtResource("1_mrwul")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gdho5"]
-atlas = ExtResource("1_mrwul")
-region = Rect2(0, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vo02w"]
-atlas = ExtResource("1_mrwul")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q164u"]
-atlas = ExtResource("1_mrwul")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wdant"]
-atlas = ExtResource("1_mrwul")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_pvkv4"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1c0kd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gdho5")
-}],
-"loop": true,
-"name": &"floor",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vo02w")
-}],
-"loop": true,
-"name": &"flying_falling",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q164u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdant")
-}],
-"loop": true,
-"name": &"flying_up",
-"speed": 15.0
-}]
-
 [node name="CharacterBase" type="CharacterBody2D"]
 collision_mask = 6
 script = ExtResource("1_2vxij")
-max_health = 300
-level = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_byten")
@@ -82,9 +27,8 @@ autostart = true
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_pvkv4")
+sprite_frames = ExtResource("2_rn6vv")
 animation = &"floor"
-frame_progress = 0.109438
 
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
 [connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]

@@ -1,0 +1,56 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://c4kovoxaumcs5"]
+
+[ext_resource type="Texture2D" uid="uid://daxvpely55js4" path="res://assets/characters/character_sprite1.png" id="2_4ppjc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5yvx"]
+atlas = ExtResource("2_4ppjc")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l14eb"]
+atlas = ExtResource("2_4ppjc")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a1m6"]
+atlas = ExtResource("2_4ppjc")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0l3c"]
+atlas = ExtResource("2_4ppjc")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcb2a"]
+atlas = ExtResource("2_4ppjc")
+region = Rect2(96, 0, 32, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5yvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l14eb")
+}],
+"loop": true,
+"name": &"floor",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7a1m6")
+}],
+"loop": true,
+"name": &"flying_falling",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0l3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcb2a")
+}],
+"loop": true,
+"name": &"flying_up",
+"speed": 15.0
+}]

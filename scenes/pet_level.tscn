@@ -71,7 +71,9 @@ anchor_right = 0.2
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
-text = "Increase Size"
+text = "Increase Size
+100 points
+"
 
 [connection signal="pressed" from="UI/RestartButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/SizeButton" to="." method="_on_size_button_pressed"]

@@ -26,22 +26,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xudbt"]
-size = Vector2(62, 22)
+size = Vector2(58, 18)
 
 [node name="CivilianPlane" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_qujld")
 points = 3
-level = 2
+level = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3, 3)
+scale = Vector2(2.7, 2.7)
 sprite_frames = SubResource("SpriteFrames_j5mfq")
 frame_progress = 0.614164
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xudbt")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
