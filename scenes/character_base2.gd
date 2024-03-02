@@ -3,11 +3,10 @@ extends Enemy
 signal character_died
 signal health_changed
 
-@onready var animations = $CharacterSprite1
-@onready var health_timer = $HealthDecrease
+@onready var animations = $AnimatedSprite2D
 @onready var current_health: int = max_health
 
-@export var max_health = 100
+@export var max_health = 250
 
 const GRAVITY = 1000
 
@@ -19,16 +18,14 @@ var health_points_tracker = 0
 var can_move: bool = true
 
 func _ready():
-	health_changed.emit(max_health, current_health)
 	
+	scale += Globals.character_size
+
 func _process(_delta):
-	
-	scale = scale + Globals.character_size
 	
 	animations_player()
 	health_point_increase()
 	player_death()
-	
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -39,6 +36,7 @@ func _physics_process(delta):
 
 func jump(delta):
 	velocity.y += GRAVITY * delta
+	
 	if Input.is_action_just_pressed('jump'):
 		if is_on_floor:
 			velocity.y = max(velocity.y + jump_force_floor, max_velocity_y_floor)
@@ -64,18 +62,17 @@ func _on_hit_detection_body_entered(body):
 
 func _on_health_decrease_timeout():
 	current_health = current_health - 5
-	health_changed.emit(max_health, current_health)
+	print(current_health)
+	health_changed.emit(current_health, max_health)
 
 func health_point_increase():
 	if health_points_tracker >= 10:
 		current_health += 3
 		health_points_tracker = 0
-	health_changed.emit(max_health, current_health)
+	health_changed.emit(current_health, max_health)
 
 func player_death():
 	if current_health <= 0:
 		Globals.total_points = Globals.total_points + points
 		points = 0
 		character_died.emit()
-
-

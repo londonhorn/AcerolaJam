@@ -1,11 +1,8 @@
 extends ProgressBar
 
-@onready var player = $"../../CharacterBase"
 
 
-func _ready():
-	player.health_changed.connect(update)
-	update()
-
-func update():
-	value = player.current_health * 100 / player.max_health
+func _on_character_base_health_changed(max_health, current_health):
+	max_value = max_health
+	value = current_health
+	print(current_health)

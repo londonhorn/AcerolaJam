@@ -22,4 +22,4 @@ func _on_size_button_pressed():
 	if Globals.total_points >= 100:
 		Globals.total_points -= 100
 		Globals.character_size += Vector2(0.1, 0.1)
-		print(Globals.character_size)
+

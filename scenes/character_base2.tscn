@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://6ja4r7jdhp56"]
+
+[ext_resource type="Texture2D" uid="uid://c1i0syik21sb6" path="res://assets/characters/character_sprite2.png" id="1_5ocei"]
+[ext_resource type="Script" path="res://scenes/character_base2.gd" id="1_kwsbb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3i5q"]
+atlas = ExtResource("1_5ocei")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7pl2"]
+atlas = ExtResource("1_5ocei")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kspab"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3i5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7pl2")
+}],
+"loop": true,
+"name": &"floor",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"flying_falling",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"flying_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s7cnw"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mujg4"]
+radius = 24.0
+
+[node name="CharacterBase" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_kwsbb")
+level = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, -10)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_kspab")
+animation = &"floor"
+frame_progress = 0.1573
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s7cnw")
+
+[node name="HitDetection" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
+shape = SubResource("CircleShape2D_mujg4")
+
+[node name="HealthDecrease" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
+[connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]
