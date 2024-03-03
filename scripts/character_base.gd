@@ -62,6 +62,11 @@ func _on_hit_detection_body_entered(body):
 		points += body.points
 		health_points_tracker += body.points
 		body.queue_free()
+	elif body is Projectile and level >= body.level:
+		points += body.points
+		health_points_tracker += body.points
+		body.queue_free()
+		print('hit')
 	else:
 		current_health = 0
 

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bienkvxpgsvpm"]
+
+[ext_resource type="Script" path="res://scripts/tank_bullet.gd" id="1_oehv0"]
+[ext_resource type="Texture2D" uid="uid://btqmmuiqg7wtk" path="res://assets/projectiles/tank_shell.png" id="2_1ppqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ild84"]
+size = Vector2(26, 6)
+
+[node name="TankBullet" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_oehv0")
+level = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_1ppqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ild84")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=7 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="3_s2vhx"]
 [ext_resource type="Script" path="res://scripts/Health.gd" id="4_vvxes"]
-[ext_resource type="PackedScene" uid="uid://4551v5aerbvd" path="res://scenes/tank.tscn" id="5_ahnxw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(1559, 106)
@@ -40,12 +39,12 @@ position = Vector2(500, -6)
 shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
-[node name="SpawnTimer1" type="Timer" parent="."]
-wait_time = 0.45
+[node name="WaveTotalTimer" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
-[node name="SpawnTimer2" type="Timer" parent="."]
-wait_time = 2.0
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="CharacterBase" parent="." instance=ExtResource("3_s2vhx")]
@@ -54,13 +53,16 @@ position = Vector2(206, 261)
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(1194, 500)
+position = Vector2(1194, 525)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(1427, 500)
+position = Vector2(1427, 525)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(1305, 500)
+position = Vector2(1305, 525)
+
+[node name="SpawnLocation1" type="Node2D" parent="."]
+position = Vector2(1305, 525)
 
 [node name="SpawnPointsPlanes" type="Node2D" parent="."]
 position = Vector2(0, -200)
@@ -69,10 +71,10 @@ position = Vector2(0, -200)
 position = Vector2(1194, 500)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPointsPlanes"]
-position = Vector2(1427, 500)
+position = Vector2(1427, 450)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPointsPlanes"]
-position = Vector2(1305, 500)
+position = Vector2(1305, 475)
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(206, 264)
@@ -97,10 +99,7 @@ offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("4_vvxes")
 
-[node name="Tank" parent="." instance=ExtResource("5_ahnxw")]
-position = Vector2(1226, 527)
-
-[connection signal="timeout" from="SpawnTimer1" to="." method="_on_spawn_timer_1_timeout"]
-[connection signal="timeout" from="SpawnTimer2" to="." method="_on_spawn_timer_2_timeout"]
+[connection signal="timeout" from="WaveTotalTimer" to="." method="_on_wave_total_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="character_died" from="CharacterBase" to="." method="_on_character_base_character_died"]
 [connection signal="health_changed" from="CharacterBase" to="UI/Health" method="_on_character_base_health_changed"]
