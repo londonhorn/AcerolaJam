@@ -33,7 +33,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"floor",
-"speed": 8.0
+"speed": 2.7
 }, {
 "frames": [{
 "duration": 1.0,

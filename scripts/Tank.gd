@@ -7,6 +7,7 @@ extends Enemy
 @onready var animations = $AnimatedSprite2D
 @onready var shoot_timer = $ShootTimer
 @onready var move_timer = $MoveTimer
+@onready var shoot_sound = $ShootSound
 
 var has_shot: bool = false
 var waiting: bool = false
@@ -42,6 +43,7 @@ func _on_move_timer_timeout():
 
 func shoot():
 	has_shot = true
+	shoot_sound.play()
 	shoot_timer.start()
 	var bullet = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)

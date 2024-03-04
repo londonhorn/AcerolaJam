@@ -12,6 +12,9 @@ signal health_changed
 @onready var hit_detection_collision = $HitDetection/CollisionShape2D
 @onready var fireball_spawn_marker = $FireballMarker
 
+@onready var walking_sound = $WalkingSound
+@onready var flying_sound = $FlyingSound
+
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
 
 @export var max_health = 100
@@ -57,6 +60,7 @@ func _physics_process(delta):
 func jump(delta):
 	velocity.y += GRAVITY * delta
 	if Input.is_action_just_pressed('jump'):
+		fly_sound()
 		if is_on_floor:
 			velocity.y = max(velocity.y + jump_force_floor, max_velocity_y_floor)
 		else:
@@ -65,7 +69,10 @@ func jump(delta):
 func animations_player():
 	if is_on_floor():
 		animations.play('floor')
+		if !walking_sound.is_playing():
+			walk_sound()
 	elif not is_on_floor():
+		walking_sound.stop()
 		if velocity.y < 0:
 			animations.play('flying_up')
 		elif velocity.y > 150:
@@ -112,7 +119,7 @@ func scale_change():
 	
 
 func fireball_shoot():
-	if Globals.evolution >= 2 and has_shot == false:
+	if Globals.evolution >= 2 and has_shot == false and Globals.can_fireball:
 		has_shot = true
 		shoot_timer.start()
 		var fireball = fireball_scene.instantiate()
@@ -122,3 +129,11 @@ func fireball_shoot():
 
 func _on_shoot_timer_timeout():
 	has_shot = false
+
+func walk_sound():
+	walking_sound.pitch_scale = randf_range(1, 1.2)
+	walking_sound.play()
+
+func fly_sound():
+	flying_sound.pitch_scale = randf_range(0.95, 1.1)
+	flying_sound.play()

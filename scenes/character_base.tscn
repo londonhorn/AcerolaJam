@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=7 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
 [ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
+[ext_resource type="AudioStream" uid="uid://d4co1w2krbrx7" path="res://assets/sounds/8BitWalking.mp3" id="3_s748w"]
+[ext_resource type="AudioStream" uid="uid://dj7usn0n2mcuc" path="res://assets/sounds/WingFlap1.mp3" id="4_vik3g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbxb1"]
 size = Vector2(18, 18)
@@ -12,12 +14,13 @@ size = Vector2(22, 22)
 [node name="CharacterBase" type="CharacterBody2D"]
 collision_mask = 14
 script = ExtResource("1_2vxij")
-points = 5000
+points = 30000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_rn6vv")
 animation = &"floor"
+frame_progress = 0.658913
 
 [node name="CollisionShape1" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cbxb1")
@@ -36,6 +39,13 @@ wait_time = 0.5
 
 [node name="FireballMarker" type="Marker2D" parent="."]
 position = Vector2(23, 0)
+
+[node name="WalkingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_s748w")
+volume_db = -7.0
+
+[node name="FlyingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vik3g")
 
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
 [connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]

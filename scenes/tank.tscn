@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://4551v5aerbvd"]
+[gd_scene load_steps=12 format=3 uid="uid://4551v5aerbvd"]
 
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_75ftt"]
 [ext_resource type="Texture2D" uid="uid://coimjmibjet3j" path="res://assets/characters/tank_spritesheet.png" id="2_aubsc"]
+[ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="3_0hg7f"]
+[ext_resource type="AudioStream" uid="uid://cldia7v060lcw" path="res://assets/sounds/TankMoving.mp3" id="3_48dso"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bb0l"]
 atlas = ExtResource("2_aubsc")
@@ -82,6 +84,16 @@ wait_time = 5.0
 
 [node name="BulletSpawn" type="Marker2D" parent="."]
 position = Vector2(-58, 0)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0hg7f")
+volume_db = -10.0
+
+[node name="DrivingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_48dso")
+volume_db = -30.0
+autoplay = true
+max_distance = 500.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

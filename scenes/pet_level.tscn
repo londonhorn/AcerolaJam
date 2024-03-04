@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=10 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://bwfv3rhg7b5oo" path="res://assets/worlds_objects/background_layer2.png" id="1_rbs6g"]
 [ext_resource type="Texture2D" uid="uid://80wva46bhs80" path="res://assets/worlds_objects/background_layer1.png" id="2_ckh2w"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="4_edk6u"]
 [ext_resource type="Script" path="res://scripts/Evolution1Bar.gd" id="5_iia7i"]
+[ext_resource type="Script" path="res://scripts/Evolution2.gd" id="6_qctny"]
+[ext_resource type="AudioStream" uid="uid://c02tq3ecvxon5" path="res://assets/sounds/MoneySpentSound.mp3" id="7_r2dbu"]
+[ext_resource type="AudioStream" uid="uid://cmv1rt1fes7at" path="res://assets/sounds/EvolveMenuSound.mp3" id="7_vwov3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mqme"]
 size = Vector2(1559, 106)
@@ -87,6 +90,17 @@ offset_bottom = 8.0
 text = "Increase Health
 150 Points"
 
+[node name="FireballButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.15
+anchor_right = 0.2
+anchor_bottom = 0.15
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Unlock Fireball
+200 Points"
+
 [node name="Evolution1Vbox" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.05
@@ -109,6 +123,39 @@ max_value = 4.59
 value = 3.0
 script = ExtResource("5_iia7i")
 
+[node name="Evolution1Vbox2" type="VBoxContainer" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.3
+anchor_right = 0.05
+anchor_bottom = 0.3
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Progress" type="Label" parent="UI/Evolution1Vbox2"]
+layout_mode = 2
+text = "Progress to 
+Second Evolution"
+horizontal_alignment = 1
+
+[node name="Evolution2" type="ProgressBar" parent="UI/Evolution1Vbox2"]
+layout_mode = 2
+min_value = 4.59
+max_value = 7.49
+value = 4.59
+allow_lesser = true
+script = ExtResource("6_qctny")
+
+[node name="EvolveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_vwov3")
+volume_db = -10.0
+
+[node name="MoneySpent" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_r2dbu")
+volume_db = -10.0
+
 [connection signal="pressed" from="UI/RestartButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/SizeButton" to="." method="_on_size_button_pressed"]
 [connection signal="pressed" from="UI/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="pressed" from="UI/FireballButton" to="." method="_on_fireball_button_pressed"]
