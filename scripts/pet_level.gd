@@ -31,16 +31,16 @@ func _on_button_pressed():
 	get_tree().change_scene_to_packed(gameplay_level)
 
 func _on_size_button_pressed():
-	if Globals.total_points >= 100:
+	if Globals.total_points >= 15:
 		money_spent_sound.play()
-		Globals.total_points -= 100
+		Globals.total_points -= 15
 		Globals.character_size += Vector2(0.05, 0.05)
 		print(Globals.character_size)
 
 func _on_health_button_pressed():
-	if Globals.total_points >= 150:
+	if Globals.total_points >= 40:
 		money_spent_sound.play()
-		Globals.total_points -= 150
+		Globals.total_points -= 40
 		Globals.character_health += 25
 		print(Globals.character_health)
 
@@ -59,17 +59,17 @@ func evolution_checks():
 		evolve_sound.play()
 
 func size_button_lock():
-	if Globals.character_size >= Vector2(1.29, 1.29) and Globals.evolution <= 0 or Globals.total_points < 100:
+	if Globals.character_size >= Vector2(1.29, 1.29) and Globals.evolution <= 0 or Globals.total_points < 15:
 		size_button.disabled = true
-	elif Globals.character_size >= Vector2(1.99, 1.99) and Globals.evolution <= 1 or Globals.total_points < 100:
+	elif Globals.character_size >= Vector2(1.99, 1.99) and Globals.evolution <= 1 or Globals.total_points < 15:
 		size_button.disabled = true
 	else:
 		size_button.disabled = false
 
 func health_button_lock():
-	if Globals.character_health >= 200 and Globals.evolution <= 0 or Globals.total_points < 150:
+	if Globals.character_health >= 200 and Globals.evolution <= 0 or Globals.total_points < 40:
 		health_button.disabled = true
-	elif Globals.character_health >= 350 and Globals.evolution <= 1 or Globals.total_points < 150:
+	elif Globals.character_health >= 350 and Globals.evolution <= 1 or Globals.total_points < 40:
 		health_button.disabled = true
 	else:
 		health_button.disabled = false

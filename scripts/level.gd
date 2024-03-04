@@ -34,18 +34,17 @@ func _ready():
 func _process(_delta):
 	score_keep()
 
+
 func _on_wave_total_timer_timeout():
 	current_wave += 1
-	print('wave done')
-
 
 func _on_spawn_timer_timeout():
 	wave_generation()
 
-
 func wave_generation():
 	if current_wave == 0:
 		civilian_spawn()
+		plane_spawn()
 		spawn_increment_timer.wait_time = .45
 		spawn_total_timer.wait_time = 30
 	if current_wave == 1:
@@ -56,6 +55,7 @@ func wave_generation():
 	if current_wave == 2:
 		civilian_spawn()
 		plane_spawn()
+
 
 func score_keep():
 	score.text = str(player.points)

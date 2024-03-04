@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://vs1tgtilq17t"]
+[gd_scene load_steps=8 format=3 uid="uid://vs1tgtilq17t"]
 
 [ext_resource type="Texture2D" uid="uid://bmn2n7wy1uywg" path="res://assets/characters/plane_spritesheet.png" id="1_8wxm4"]
 [ext_resource type="Script" path="res://scenes/civilian_plane.gd" id="1_qujld"]
+[ext_resource type="AudioStream" uid="uid://b73q71ls4cgj7" path="res://assets/sounds/CivilianPlaneSound.mp3" id="3_bqq3y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5arm"]
 atlas = ExtResource("1_8wxm4")
@@ -43,5 +44,11 @@ frame_progress = 0.614164
 shape = SubResource("RectangleShape2D_xudbt")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="FlyingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bqq3y")
+volume_db = -30.0
+autoplay = true
+max_distance = 500.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

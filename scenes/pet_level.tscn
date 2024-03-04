@@ -76,7 +76,7 @@ anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Increase Size
-100 Points
+15 Points
 "
 
 [node name="HealthButton" type="Button" parent="UI"]
@@ -88,7 +88,7 @@ anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Increase Health
-150 Points"
+40 Points"
 
 [node name="FireballButton" type="Button" parent="UI"]
 anchors_preset = -1

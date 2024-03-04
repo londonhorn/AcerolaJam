@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://con1qacn2v0ro"]
+
+[ext_resource type="Texture2D" uid="uid://dhlca2v0865bj" path="res://assets/UI/ButtonBackground_Hover.png" id="1_7silc"]
+
+[resource]
+texture = ExtResource("1_7silc")
+texture_margin_left = 40.0
+texture_margin_top = 10.0
+texture_margin_right = 40.0
+texture_margin_bottom = 10.0
