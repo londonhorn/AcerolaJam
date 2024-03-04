@@ -1,3 +1,4 @@
+class_name Plane1
 extends Enemy
 
 func _ready():

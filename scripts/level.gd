@@ -47,7 +47,7 @@ func wave_generation():
 	if current_wave == 0:
 		civilian_spawn()
 		spawn_increment_timer.wait_time = .45
-		spawn_total_timer.wait_time = 5
+		spawn_total_timer.wait_time = 30
 	if current_wave == 1:
 		civilian_spawn()
 		tank_spawn()
@@ -72,12 +72,18 @@ func civilian_spawn():
 	civilian_instance.position = pos
 
 func plane_spawn():
-	var plane_instance = plane.instantiate()
-	add_child(plane_instance)
-	var spawn_points = plane_spawn_markers.get_children()
-	var spawn_point = spawn_points[randi() % spawn_points.size()]
-	var pos = spawn_point.global_position
-	plane_instance.position = pos
+	var plane_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is Plane1:
+			plane_found += 1
+	
+	if plane_found < 2:
+		var plane_instance = plane.instantiate()
+		add_child(plane_instance)
+		var spawn_points = plane_spawn_markers.get_children()
+		var spawn_point = spawn_points[randi() % spawn_points.size()]
+		var pos = spawn_point.global_position
+		plane_instance.position = pos
 
 func tank_spawn():
 	var tank_found: int = 0
@@ -85,7 +91,7 @@ func tank_spawn():
 		if child is Tank:
 			tank_found += 1
 		
-	if tank_found < 2:
+	if tank_found < 1:
 		var tank_instance = tank.instantiate()
 		add_child(tank_instance)
 		var spawn_points = ground_spawn_markers.get_children()

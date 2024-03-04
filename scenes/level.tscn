@@ -44,7 +44,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.45
 autostart = true
 
 [node name="CharacterBase" parent="." instance=ExtResource("3_s2vhx")]
@@ -71,10 +71,10 @@ position = Vector2(0, -200)
 position = Vector2(1194, 500)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPointsPlanes"]
-position = Vector2(1427, 450)
+position = Vector2(1427, 400)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPointsPlanes"]
-position = Vector2(1305, 475)
+position = Vector2(1305, 450)
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(206, 264)

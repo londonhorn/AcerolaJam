@@ -59,10 +59,10 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_75ftt")
 points = 8
-level = 3
+level = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-6, -11)
+position = Vector2(-5, -14)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_3aqy1")
 animation = &"idle"
@@ -72,9 +72,17 @@ frame_progress = 0.509473
 shape = SubResource("RectangleShape2D_ai4jk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(78, -1)
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 3.5
+wait_time = 3.0
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 5.0
 
 [node name="BulletSpawn" type="Marker2D" parent="."]
 position = Vector2(-58, 0)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
