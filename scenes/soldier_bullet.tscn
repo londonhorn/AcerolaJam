@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://drwfu62iu7som"]
+
+[ext_resource type="Texture2D" uid="uid://b0s4vamkbvano" path="res://assets/projectiles/soldier_bullet.png" id="1_7yyvx"]
+[ext_resource type="Script" path="res://scripts/soldier_bullet.gd" id="1_g3baw"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_jekw8"]
+
+[sub_resource type="Gradient" id="Gradient_7wd3i"]
+offsets = PackedFloat32Array(0, 0.744526, 1)
+colors = PackedColorArray(0.529067, 0.529067, 0.529067, 1, 0.140447, 0.140447, 0.140447, 1, 0.099986, 0.099986, 0.099986, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejwdx"]
+gradient = SubResource("Gradient_7wd3i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_embip"]
+particle_flag_disable_z = true
+gravity = Vector3(100, 0, 0)
+scale_min = 0.7
+scale_max = 0.85
+color_ramp = SubResource("GradientTexture1D_ejwdx")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewg8d"]
+size = Vector2(4, 4)
+
+[node name="SoldierBullet" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 8
+script = ExtResource("1_g3baw")
+level = 1
+health = 5
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(3, 0)
+process_material = SubResource("ParticleProcessMaterial_embip")
+texture = ExtResource("2_jekw8")
+lifetime = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ewg8d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_7yyvx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(13, 0)
+metadata/_edit_lock_ = true

@@ -13,24 +13,26 @@ extends Node2D
 
 var pet_level = preload("res://scenes/pet_level.tscn")
 
+var soldier = preload("res://scenes/soldier.tscn")
 var plane = preload("res://scenes/civilian_plane.tscn")
 var civilian = preload("res://scenes/civilian.tscn")
 var tank = preload("res://scenes/tank.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
 
+
 var current_wave: int = 0
 
 var wave_options = [
 	{
 		"duration":10,
-		"types":{"civilian":0.45}
+		"types":{"soldier":2.0}
 	},
 	{
 		"duration":15,
 		"types":{
-			"civilian":0.15, 
-			"plane":.3}
+			"civilian":10.0, 
+			"plane":10.0}
 	}
 ]
 
@@ -122,6 +124,15 @@ func missile_spawn():
 		missile_warning_instance.position = Vector2(1050, pos.y)
 		await get_tree().create_timer(1).timeout
 		missile_warning_instance.queue_free()
+	return 2.0
+
+func soldier_spawn():
+	var soldier_instance = soldier.instantiate()
+	add_child(soldier_instance)
+	var spawn_points = ground_spawn_markers.get_children()
+	var spawn_point = spawn_points[randi() % spawn_points.size()]
+	var pos = spawn_point.global_position
+	soldier_instance.position = pos
 	return 2.0
 
 

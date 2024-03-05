@@ -11,9 +11,10 @@ size = Vector2(18, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptf3i"]
 size = Vector2(26, 26)
 
-[node name="CharacterBase" type="CharacterBody2D"]
+[node name="CharacterBase" type="CharacterBody2D" groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_2vxij")
+points = 50000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)

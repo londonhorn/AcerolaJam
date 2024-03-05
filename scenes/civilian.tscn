@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ndswl0cdv30o"]
+[gd_scene load_steps=9 format=3 uid="uid://ndswl0cdv30o"]
 
 [ext_resource type="Texture2D" uid="uid://bbp75pj4idv4j" path="res://assets/characters/civilian_spritesheet.png" id="1_mwiiq"]
 [ext_resource type="Script" path="res://scripts/civilian.gd" id="1_nnbu0"]
@@ -11,7 +11,11 @@ size = Vector2(16, 38)
 atlas = ExtResource("1_mwiiq")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rx6y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_psakv"]
+atlas = ExtResource("1_mwiiq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e5ye"]
 atlas = ExtResource("1_mwiiq")
 region = Rect2(16, 0, 16, 16)
 
@@ -27,11 +31,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0rx6y")
+"texture": SubResource("AtlasTexture_psakv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e5ye")
 }],
 "loop": true,
 "name": &"running",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="Civilian" type="CharacterBody2D"]
@@ -47,6 +54,7 @@ shape = SubResource("RectangleShape2D_1fyaw")
 position = Vector2(2, -11)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_a76sj")
+animation = &"running"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-0.5, -1)
