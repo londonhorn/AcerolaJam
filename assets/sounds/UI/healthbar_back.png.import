@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhlca2v0865bj"
-path="res://.godot/imported/ButtonBackground_Hover.png-133332cdb19f42d2260c368cd4ad869d.ctex"
+uid="uid://c0vwno60s1gle"
+path="res://.godot/imported/healthbar_back.png-3013de7625e19bfb5318dbf18db02b9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonBackground_Hover.png"
-dest_files=["res://.godot/imported/ButtonBackground_Hover.png-133332cdb19f42d2260c368cd4ad869d.ctex"]
+source_file="res://assets/sounds/UI/healthbar_back.png"
+dest_files=["res://.godot/imported/healthbar_back.png-3013de7625e19bfb5318dbf18db02b9c.ctex"]
 
 [params]
 

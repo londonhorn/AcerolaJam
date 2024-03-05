@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt3fg0myp01ni"]
+
+[ext_resource type="Texture2D" uid="uid://b2te8yys55f6" path="res://assets/sounds/UI/MissileWarning.png" id="1_cdmgs"]
+[ext_resource type="AudioStream" uid="uid://btc6eypfk36sb" path="res://assets/sounds/WarningSound.mp3" id="2_ikin6"]
+
+[node name="MissileWarning" type="Sprite2D"]
+texture = ExtResource("1_cdmgs")
+
+[node name="WarningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ikin6")
+volume_db = -10.0
+autoplay = true

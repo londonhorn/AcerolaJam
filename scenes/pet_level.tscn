@@ -1,16 +1,25 @@
-[gd_scene load_steps=10 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=16 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://bwfv3rhg7b5oo" path="res://assets/worlds_objects/background_layer2.png" id="1_rbs6g"]
 [ext_resource type="Texture2D" uid="uid://80wva46bhs80" path="res://assets/worlds_objects/background_layer1.png" id="2_ckh2w"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="4_edk6u"]
+[ext_resource type="Texture2D" uid="uid://c0vwno60s1gle" path="res://assets/sounds/UI/healthbar_back.png" id="5_2nylg"]
 [ext_resource type="Script" path="res://scripts/Evolution1Bar.gd" id="5_iia7i"]
+[ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="6_c4f3s"]
 [ext_resource type="Script" path="res://scripts/Evolution2.gd" id="6_qctny"]
+[ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="7_lkwpl"]
 [ext_resource type="AudioStream" uid="uid://c02tq3ecvxon5" path="res://assets/sounds/MoneySpentSound.mp3" id="7_r2dbu"]
 [ext_resource type="AudioStream" uid="uid://cmv1rt1fes7at" path="res://assets/sounds/EvolveMenuSound.mp3" id="7_vwov3"]
+[ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_rcy1e"]
+[ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mqme"]
 size = Vector2(1559, 106)
+
+[sub_resource type="Theme" id="Theme_vhcm4"]
+default_font = ExtResource("6_c4f3s")
+default_font_size = 30
 
 [node name="PetLevel" type="Control"]
 layout_mode = 3
@@ -48,14 +57,23 @@ position = Vector2(597, 366)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="HealthbarBack" type="Sprite2D" parent="UI"]
+position = Vector2(141, 246.5)
+scale = Vector2(1.94792, 3.46875)
+texture = ExtResource("5_2nylg")
+
 [node name="Money" type="Label" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.12
+anchor_top = 0.15
 anchor_right = 0.05
-anchor_bottom = 0.12
+anchor_bottom = 0.15
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -65,39 +83,58 @@ anchor_right = 0.05
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
 text = "Play Again"
 
 [node name="SizeButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.2
+anchor_left = 0.25
 anchor_top = 0.05
-anchor_right = 0.2
+anchor_right = 0.25
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Increase Size
 15 Points
 "
 
 [node name="HealthButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.3
+anchor_left = 0.45
 anchor_top = 0.05
-anchor_right = 0.3
+anchor_right = 0.45
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Increase Health
 40 Points"
 
 [node name="FireballButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.2
-anchor_top = 0.15
-anchor_right = 0.2
-anchor_bottom = 0.15
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.25
+anchor_bottom = 0.2
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Unlock Fireball
 200 Points"
 
@@ -109,6 +146,7 @@ anchor_right = 0.05
 anchor_bottom = 0.3
 offset_right = 40.0
 offset_bottom = 40.0
+theme = SubResource("Theme_vhcm4")
 
 [node name="Progress" type="Label" parent="UI/Evolution1Vbox"]
 layout_mode = 2

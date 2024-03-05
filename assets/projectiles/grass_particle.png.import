@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk56somavjpqd"
-path="res://.godot/imported/ButtonBackground.png-e8379295f53909af5be12ddd4dabe67a.ctex"
+uid="uid://b3bcreqkxkh2q"
+path="res://.godot/imported/grass_particle.png-567d955bfcbe3fc85d66bb72321b11da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonBackground.png"
-dest_files=["res://.godot/imported/ButtonBackground.png-e8379295f53909af5be12ddd4dabe67a.ctex"]
+source_file="res://assets/projectiles/grass_particle.png"
+dest_files=["res://.godot/imported/grass_particle.png-567d955bfcbe3fc85d66bb72321b11da.ctex"]
 
 [params]
 

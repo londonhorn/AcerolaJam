@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://teeii6th1sff"
-path="res://.godot/imported/title_splash.png-228407d4710df52ab2e595a2042fce57.ctex"
+uid="uid://ckapyk6tp0np0"
+path="res://.godot/imported/Cruise_missile.png-6e9e3197f824bcd268532e6beb0d1d21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/title_splash.png"
-dest_files=["res://.godot/imported/title_splash.png-228407d4710df52ab2e595a2042fce57.ctex"]
+source_file="res://assets/projectiles/Cruise_missile.png"
+dest_files=["res://.godot/imported/Cruise_missile.png-6e9e3197f824bcd268532e6beb0d1d21.ctex"]
 
 [params]
 
