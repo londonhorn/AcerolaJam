@@ -2,10 +2,13 @@ extends Control
 
 @onready var player = $CharacterBase
 @onready var money_display = $UI/Money
+@onready var current_wave_display = $UI/CurrentWave
 
 @onready var size_button = $UI/SizeButton
 @onready var health_button = $UI/HealthButton
+@onready var wave_skip_button = $UI/WaveSkipButton
 @onready var fireball_button = $UI/FireballButton
+@onready var shield_button = $UI/ShieldButton
 
 @onready var money_spent_sound = $MoneySpent
 @onready var evolve_sound = $EvolveSound
@@ -18,14 +21,20 @@ func _ready():
 
 func _process(_delta):
 	money_display_change()
+	current_wave_display_change()
 	evolution_checks()
 	
 	size_button_lock()
 	health_button_lock()
+	wave_skip_button_lock()
 	fireball_button_lock()
+	shield_button_lock()
 
 func money_display_change():
 	money_display.text = ('Points: ' + str(Globals.total_points))
+
+func current_wave_display_change():
+	current_wave_display.text = ('Current Wave: ' + str(Globals.current_wave))
 
 func _on_button_pressed():
 	get_tree().change_scene_to_packed(gameplay_level)
@@ -35,19 +44,29 @@ func _on_size_button_pressed():
 		money_spent_sound.play()
 		Globals.total_points -= 15
 		Globals.character_size += Vector2(0.05, 0.05)
-		print(Globals.character_size)
 
 func _on_health_button_pressed():
 	if Globals.total_points >= 40:
 		money_spent_sound.play()
 		Globals.total_points -= 40
 		Globals.character_health += 25
-		print(Globals.character_health)
+
+func _on_wave_skip_button_pressed():
+	if Globals.total_points >= 150:
+		money_spent_sound.play()
+		Globals.total_points -= 150
+		Globals.current_wave_increment += 1
 
 func _on_fireball_button_pressed():
 	if Globals.total_points >= 200:
 		money_spent_sound.play()
 		Globals.total_points -= 200
+		Globals.can_fireball = true
+
+func _on_shield_button_pressed():
+	if Globals.total_points >= 300:
+		money_spent_sound.play()
+		Globals.total_points -= 300
 		Globals.can_fireball = true
 
 func evolution_checks():
@@ -74,6 +93,12 @@ func health_button_lock():
 	else:
 		health_button.disabled = false
 
+func wave_skip_button_lock():
+	if Globals.total_points < 150:
+		wave_skip_button.disabled = true
+	else:
+		wave_skip_button.disabled = false
+
 func fireball_button_lock():
 	if Globals.evolution < 2:
 		fireball_button.visible = false
@@ -85,4 +110,20 @@ func fireball_button_lock():
 		fireball_button.disabled = false
 	if Globals.can_fireball:
 		fireball_button.visible = false
+
+func shield_button_lock():
+	if Globals.evolution < 3:
+		shield_button.visible = false
+	else:
+		shield_button.visible = true
+	if Globals.total_points < 300:
+		shield_button.disabled = true
+	else:
+		shield_button.disabled = false
+	if Globals.can_shield:
+		shield_button.visible = false
+
+
+
+
 

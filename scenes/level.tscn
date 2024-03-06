@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ptycpwagstn" path="res://assets/sounds/UI/Heart.png" id="9_7r2rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
-size = Vector2(1559, 106)
+size = Vector2(2687, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7u5b"]
 size = Vector2(851, 12)
@@ -42,7 +42,7 @@ offset_bottom = 106.0
 color = Color(0.211765, 0.207843, 0.215686, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceholderFloor"]
-position = Vector2(779.5, 53)
+position = Vector2(1325.5, 53)
 shape = SubResource("RectangleShape2D_i0i7f")
 
 [node name="World Border" type="StaticBody2D" parent="."]
@@ -150,6 +150,8 @@ script = ExtResource("4_vvxes")
 position = Vector2(46.22, 14.78)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("9_7r2rv")
+
+[node name="Marker2D" type="Marker2D" parent="."]
 
 [connection signal="timeout" from="WaveTotalTimer" to="." method="_on_wave_total_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

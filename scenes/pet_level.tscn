@@ -58,7 +58,7 @@ position = Vector2(597, 366)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HealthbarBack" type="Sprite2D" parent="UI"]
-position = Vector2(141, 246.5)
+position = Vector2(139, 315)
 scale = Vector2(1.94792, 3.46875)
 texture = ExtResource("5_2nylg")
 
@@ -68,6 +68,19 @@ anchor_left = 0.05
 anchor_top = 0.15
 anchor_right = 0.05
 anchor_bottom = 0.15
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+horizontal_alignment = 1
+
+[node name="CurrentWave" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.25
+anchor_right = 0.05
+anchor_bottom = 0.25
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("6_c4f3s")
@@ -122,6 +135,22 @@ theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Increase Health
 40 Points"
 
+[node name="WaveSkipButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.67
+anchor_top = 0.05
+anchor_right = 0.67
+anchor_bottom = 0.05
+offset_right = 288.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/disabled = ExtResource("9_d16w1")
+text = "Skip Ahead a Wave
+150 Points"
+
 [node name="FireballButton" type="Button" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.25
@@ -138,12 +167,28 @@ theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Unlock Fireball
 200 Points"
 
+[node name="ShieldButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.47
+anchor_top = 0.2
+anchor_right = 0.47
+anchor_bottom = 0.2
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/disabled = ExtResource("9_d16w1")
+text = "Unlock Shield
+300 Points"
+
 [node name="Evolution1Vbox" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.3
+anchor_top = 0.4
 anchor_right = 0.05
-anchor_bottom = 0.3
+anchor_bottom = 0.4
 offset_right = 40.0
 offset_bottom = 40.0
 theme = SubResource("Theme_vhcm4")
@@ -165,9 +210,9 @@ script = ExtResource("5_iia7i")
 visible = false
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.3
+anchor_top = 0.4
 anchor_right = 0.05
-anchor_bottom = 0.3
+anchor_bottom = 0.4
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -196,4 +241,6 @@ volume_db = -10.0
 [connection signal="pressed" from="UI/RestartButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/SizeButton" to="." method="_on_size_button_pressed"]
 [connection signal="pressed" from="UI/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="pressed" from="UI/WaveSkipButton" to="." method="_on_wave_skip_button_pressed"]
 [connection signal="pressed" from="UI/FireballButton" to="." method="_on_fireball_button_pressed"]
+[connection signal="pressed" from="UI/ShieldButton" to="." method="_on_shield_button_pressed"]

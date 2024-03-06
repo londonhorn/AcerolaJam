@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://cx4sthdol7d8w"]
+
+[ext_resource type="Script" path="res://scripts/cop_car.gd" id="1_27ny6"]
+[ext_resource type="Texture2D" uid="uid://dtqnhhioa2lhp" path="res://assets/characters/copcar_spritesheet.png" id="1_u1sy6"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_5kxha"]
+[ext_resource type="AudioStream" uid="uid://dumc4hbpprfmu" path="res://assets/sounds/CopCarSound.mp3" id="3_y1n2x"]
+
+[sub_resource type="Gradient" id="Gradient_635f3"]
+offsets = PackedFloat32Array(0, 0.751825, 1)
+colors = PackedColorArray(0.351563, 0.351563, 0.351563, 1, 0.147672, 0.147672, 0.147672, 0.823529, 0.129558, 0.129558, 0.129558, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2xkl5"]
+gradient = SubResource("Gradient_635f3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7pq1o"]
+particle_flag_disable_z = true
+radial_velocity_min = 10.0
+radial_velocity_max = 10.0
+gravity = Vector3(100, -10, 0)
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_2xkl5")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k58cm"]
+size = Vector2(74, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju5fe"]
+atlas = ExtResource("1_u1sy6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08j3y"]
+atlas = ExtResource("1_u1sy6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s66nj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju5fe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08j3y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="CopCar" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_27ny6")
+points = 6
+level = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+position = Vector2(45, 12)
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_7pq1o")
+texture = ExtResource("2_5kxha")
+lifetime = 0.5
+local_coords = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k58cm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -24)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_s66nj")
+frame_progress = 0.062988
+
+[node name="DrivingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_y1n2x")
+autoplay = true
+max_distance = 1000.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(229, 0)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

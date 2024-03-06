@@ -16,16 +16,15 @@ var pet_level = preload("res://scenes/pet_level.tscn")
 var civilian = preload("res://scenes/civilian.tscn")
 var plane = preload("res://scenes/civilian_plane.tscn")
 var cop = preload("res://scenes/cop.tscn")
+var cop_car = preload("res://scenes/cop_car.tscn")
 var soldier = preload("res://scenes/soldier.tscn")
 var tank = preload("res://scenes/tank.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
 
-var current_wave: int = 0
-
 var wave_options = [
 	{
-		"duration":10,
+		"duration":5,
 		"types":{
 			"civilian":0.45
 			}
@@ -33,8 +32,7 @@ var wave_options = [
 	{
 		"duration":15,
 		"types":{
-			"cop":1.0,
-			"soldier":1.0
+			"cop_car":1.0,
 			}
 	}
 ]
@@ -43,32 +41,34 @@ var wave_options = [
 
 
 func _ready():
+	Globals.current_wave = 0 + Globals.current_wave_increment
 	player.player_death()
-	spawn_total_timer.wait_time = wave_options[current_wave]["duration"]
+	spawn_total_timer.wait_time = wave_options[Globals.current_wave]["duration"]
 	spawn_total_timer.start()
 	spawn_increment_timer.start()
+	
 
 func _process(_delta):
 	score_keep()
 
 
 func _on_wave_total_timer_timeout():
-	current_wave += 1
-	if current_wave >= wave_options.size():
-		current_wave = wave_options.size() - 1
+	Globals.current_wave += 1
+	if Globals.current_wave >= wave_options.size():
+		Globals.current_wave = wave_options.size() - 1
 		spawn_total_timer.stop()
 		spawn_increment_timer.stop()
 		return
-	spawn_total_timer.wait_time = wave_options[current_wave]["duration"]
+	spawn_total_timer.wait_time = wave_options[Globals.current_wave]["duration"]
 	print(spawn_total_timer.wait_time)
 
 func _on_spawn_timer_timeout():
 	wave_generation()
 
 func wave_generation():
-	var current_spawn_type = wave_options[current_wave]["types"].keys().pick_random()
+	var current_spawn_type = wave_options[Globals.current_wave]["types"].keys().pick_random()
 	call(current_spawn_type + "_spawn")
-	spawn_increment_timer.wait_time = wave_options[current_wave]["types"][current_spawn_type]
+	spawn_increment_timer.wait_time = wave_options[Globals.current_wave]["types"][current_spawn_type]
 
 func civilian_spawn():
 	var civilian_instance = civilian.instantiate()
@@ -145,6 +145,25 @@ func cop_spawn():
 	var spawn_point = spawn_points[randi() % spawn_points.size()]
 	var pos = spawn_point.global_position
 	cop_instance.position = pos
+	return 2.0
+
+func cop_car_spawn():
+	var cop_car_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is CopCar:
+			cop_car_found += 1
+	
+	if cop_car_found < 1:
+		var cop_car_instance = cop_car.instantiate()
+		var missile_warning_instance = missile_warning.instantiate()
+		add_child(cop_car_instance)
+		add_child(missile_warning_instance)
+		var spawn_point = $SpawnPointsMissiles/EnemySpawn4
+		var pos = spawn_point.global_position
+		cop_car_instance.position = pos
+		missile_warning_instance.position = Vector2(1050, pos.y)
+		await get_tree().create_timer(1).timeout
+		missile_warning_instance.queue_free()
 	return 2.0
 
 

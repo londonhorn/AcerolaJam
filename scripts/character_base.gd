@@ -54,7 +54,7 @@ func _physics_process(delta):
 	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
 	 
 	if input_dir != Vector2.ZERO and can_move:
-		accelerate(input_dir, delta)
+		accelerate(input_dir)
 		move_and_slide()
 	else:
 		add_friction()
@@ -68,7 +68,7 @@ func _physics_process(delta):
 		#else:
 			#velocity.y = max(velocity.y + jump_force, max_velocity_y)
 
-func accelerate(direction, delta):
+func accelerate(direction):
 	velocity = SPEED * direction
 
 func add_friction():
