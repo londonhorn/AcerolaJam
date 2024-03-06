@@ -5,21 +5,27 @@ signal health_changed
 
 @onready var animations = $CharacterSprite1
 @onready var health_timer = $HealthDecrease
-@onready var current_health: int = max_health
+
 @onready var evolution_sprite_1 = $CharacterSprite1
 @onready var shoot_timer = $ShootTimer
 @onready var collision1 = $CollisionShape1
 @onready var hit_detection_collision = $HitDetection/CollisionShape2D
 @onready var fireball_spawn_marker = $FireballMarker
-
 @onready var walking_sound = $WalkingSound
 @onready var flying_sound = $FlyingSound
 
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
 
+@onready var current_health: int = max_health
 @export var max_health = 100
 
 const GRAVITY = 1000
+const SPEED = 425
+const FRICTION = 500
+
+var health_points_tracker = 0
+var can_move: bool = true
+var has_shot: bool = false
 
 var animations_evolution_sprites: Array = [
 	"res://sprite_frames_spot/evolution_0.tres", 
@@ -27,13 +33,7 @@ var animations_evolution_sprites: Array = [
 	"res://sprite_frames_spot/evolution_2.tres"
 	]
 
-var max_velocity_y_floor = -600
-var max_velocity_y = -850
-var jump_force_floor = -500
-var jump_force = -800
-var health_points_tracker = 0
-var can_move: bool = true
-var has_shot: bool = false
+
 
 func _ready():
 	health_changed.emit(max_health, current_health)
@@ -51,20 +51,30 @@ func _process(_delta):
 	
 
 func _physics_process(delta):
-	velocity.x = 0
-	
-	if can_move:
-		jump(delta)
+	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+	 
+	if input_dir != Vector2.ZERO and can_move:
+		accelerate(input_dir, delta)
 		move_and_slide()
+	else:
+		add_friction()
 
-func jump(delta):
-	velocity.y += GRAVITY * delta
-	if Input.is_action_just_pressed('jump'):
-		fly_sound()
-		if is_on_floor:
-			velocity.y = max(velocity.y + jump_force_floor, max_velocity_y_floor)
-		else:
-			velocity.y = max(velocity.y + jump_force, max_velocity_y)
+#func jump(delta):
+	#velocity.y += GRAVITY * delta
+	#if Input.is_action_just_pressed('jump'):
+		#fly_sound()
+		#if is_on_floor:
+			#velocity.y = max(velocity.y + jump_force_floor, max_velocity_y_floor)
+		#else:
+			#velocity.y = max(velocity.y + jump_force, max_velocity_y)
+
+func accelerate(direction, delta):
+	velocity = SPEED * direction
+
+func add_friction():
+	velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
+
+
 
 func animations_player():
 	if is_on_floor():
@@ -73,10 +83,7 @@ func animations_player():
 			walk_sound()
 	elif not is_on_floor():
 		walking_sound.stop()
-		if velocity.y < 0:
-			animations.play('flying_up')
-		elif velocity.y > 150:
-			animations.play('flying_falling')
+		animations.play('flying_up')
 
 func _on_hit_detection_body_entered(body):
 	if body is Enemy and level >= body.level:

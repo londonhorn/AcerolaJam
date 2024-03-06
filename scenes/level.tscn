@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=14 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
@@ -14,7 +14,10 @@
 size = Vector2(1559, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7u5b"]
-size = Vector2(236, 12)
+size = Vector2(851, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gttk0"]
+size = Vector2(20, 708)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_16too"]
 texture = ExtResource("5_qkhst")
@@ -43,16 +46,25 @@ position = Vector2(779.5, 53)
 shape = SubResource("RectangleShape2D_i0i7f")
 
 [node name="World Border" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 5
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Border"]
-position = Vector2(259, -7)
+position = Vector2(151.5, -7)
 shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World Border"]
+position = Vector2(561, 318)
+shape = SubResource("RectangleShape2D_gttk0")
+one_way_collision_margin = 74.8
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World Border"]
+position = Vector2(-10, 310)
+shape = SubResource("RectangleShape2D_gttk0")
+one_way_collision_margin = 74.8
+
 [node name="WaveTotalTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 10.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -108,10 +120,10 @@ position = Vector2(206, 264)
 
 [node name="Score" type="Label" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.03
-anchor_right = 0.5
-anchor_bottom = 0.03
+anchor_left = 0.75
+anchor_top = 0.035
+anchor_right = 0.75
+anchor_bottom = 0.035
 offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
@@ -123,9 +135,9 @@ horizontal_alignment = 1
 
 [node name="Health" type="TextureProgressBar" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.03
+anchor_left = 0.815
 anchor_top = 0.03
-anchor_right = 0.03
+anchor_right = 0.815
 anchor_bottom = 0.03
 offset_right = 4.0
 offset_bottom = 27.0

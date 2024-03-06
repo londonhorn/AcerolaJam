@@ -1,5 +1,4 @@
 extends Enemy
-class_name Soldier
 
 @onready var bullet_scene = preload("res://scenes/soldier_bullet.tscn")
 
@@ -7,7 +6,7 @@ class_name Soldier
 @onready var move_timer = $MoveTimer
 @onready var shoot_timer = $ShootTimer
 @onready var bullet_spawn_marker = $BulletSpawn
-@onready var animations = $Sprite2D
+@onready var animations = $AnimatedSprite2D
 
 var has_shot: bool = false
 var waiting: bool = false
@@ -57,6 +56,3 @@ func _on_shoot_timer_timeout():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
-
-
-

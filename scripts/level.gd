@@ -13,26 +13,29 @@ extends Node2D
 
 var pet_level = preload("res://scenes/pet_level.tscn")
 
-var soldier = preload("res://scenes/soldier.tscn")
-var plane = preload("res://scenes/civilian_plane.tscn")
 var civilian = preload("res://scenes/civilian.tscn")
+var plane = preload("res://scenes/civilian_plane.tscn")
+var cop = preload("res://scenes/cop.tscn")
+var soldier = preload("res://scenes/soldier.tscn")
 var tank = preload("res://scenes/tank.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
-
 
 var current_wave: int = 0
 
 var wave_options = [
 	{
 		"duration":10,
-		"types":{"soldier":2.0}
+		"types":{
+			"civilian":0.45
+			}
 	},
 	{
 		"duration":15,
 		"types":{
-			"civilian":10.0, 
-			"plane":10.0}
+			"cop":1.0,
+			"soldier":1.0
+			}
 	}
 ]
 
@@ -57,6 +60,7 @@ func _on_wave_total_timer_timeout():
 		spawn_increment_timer.stop()
 		return
 	spawn_total_timer.wait_time = wave_options[current_wave]["duration"]
+	print(spawn_total_timer.wait_time)
 
 func _on_spawn_timer_timeout():
 	wave_generation()
@@ -65,7 +69,6 @@ func wave_generation():
 	var current_spawn_type = wave_options[current_wave]["types"].keys().pick_random()
 	call(current_spawn_type + "_spawn")
 	spawn_increment_timer.wait_time = wave_options[current_wave]["types"][current_spawn_type]
-	print(spawn_increment_timer.wait_time)
 
 func civilian_spawn():
 	var civilian_instance = civilian.instantiate()
@@ -133,6 +136,15 @@ func soldier_spawn():
 	var spawn_point = spawn_points[randi() % spawn_points.size()]
 	var pos = spawn_point.global_position
 	soldier_instance.position = pos
+	return 2.0
+
+func cop_spawn():
+	var cop_instance = cop.instantiate()
+	add_child(cop_instance)
+	var spawn_points = ground_spawn_markers.get_children()
+	var spawn_point = spawn_points[randi() % spawn_points.size()]
+	var pos = spawn_point.global_position
+	cop_instance.position = pos
 	return 2.0
 
 

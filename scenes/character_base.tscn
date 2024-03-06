@@ -12,9 +12,8 @@ size = Vector2(18, 18)
 size = Vector2(26, 26)
 
 [node name="CharacterBase" type="CharacterBody2D" groups=["player"]]
-collision_mask = 14
+collision_mask = 30
 script = ExtResource("1_2vxij")
-points = 50000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -26,6 +25,7 @@ frame_progress = 0.658913
 shape = SubResource("RectangleShape2D_cbxb1")
 
 [node name="HitDetection" type="Area2D" parent="."]
+collision_layer = 4
 collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]

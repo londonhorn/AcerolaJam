@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://cms0fowowe5kl"]
+
+[ext_resource type="Script" path="res://scripts/Cop.gd" id="1_dfkoj"]
+[ext_resource type="Texture2D" uid="uid://iuts5ph73bjh" path="res://assets/characters/cop_spritesheet.png" id="2_h6mrx"]
+[ext_resource type="AudioStream" uid="uid://ch11mw2wptys7" path="res://assets/sounds/SmallGunshot.mp3" id="3_nr8dc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n8at"]
+atlas = ExtResource("2_h6mrx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_be1ya"]
+atlas = ExtResource("2_h6mrx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_todd0"]
+atlas = ExtResource("2_h6mrx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n72qi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n8at")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_be1ya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_todd0")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3bxy"]
+size = Vector2(16, 42)
+
+[node name="Cop" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_dfkoj")
+points = 4
+level = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -9)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_n72qi")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q3bxy")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.8, 2.1)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nr8dc")
+volume_db = -18.0
+max_distance = 500.0
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.2
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
