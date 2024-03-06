@@ -1,15 +1,83 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=15 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
 [ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
 [ext_resource type="AudioStream" uid="uid://d4co1w2krbrx7" path="res://assets/sounds/8BitWalking.mp3" id="3_s748w"]
+[ext_resource type="AudioStream" uid="uid://difhc2njf4hq4" path="res://assets/sounds/DeathSound.mp3" id="4_hw3sn"]
 [ext_resource type="AudioStream" uid="uid://dj7usn0n2mcuc" path="res://assets/sounds/WingFlap1.mp3" id="4_vik3g"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_skhvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbxb1"]
 size = Vector2(18, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptf3i"]
 size = Vector2(26, 26)
+
+[sub_resource type="Gradient" id="Gradient_f3a4u"]
+offsets = PackedFloat32Array(0, 0.759124, 1)
+colors = PackedColorArray(0.14902, 0.168627, 0.266667, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5amyx"]
+gradient = SubResource("Gradient_f3a4u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_doia1"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_5amyx")
+
+[sub_resource type="Animation" id="Animation_fyhnl"]
+resource_name = "death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.1001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+
+[sub_resource type="Animation" id="Animation_5pd7t"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_amain"]
+_data = {
+"RESET": SubResource("Animation_5pd7t"),
+"death": SubResource("Animation_fyhnl")
+}
 
 [node name="CharacterBase" type="CharacterBody2D" groups=["player"]]
 collision_mask = 30
@@ -32,6 +100,7 @@ collision_mask = 12
 shape = SubResource("RectangleShape2D_ptf3i")
 
 [node name="HealthDecrease" type="Timer" parent="."]
+wait_time = 0.6
 autostart = true
 
 [node name="ShootTimer" type="Timer" parent="."]
@@ -44,9 +113,29 @@ position = Vector2(23, 0)
 stream = ExtResource("3_s748w")
 volume_db = -7.0
 
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hw3sn")
+volume_db = -10.0
+
 [node name="FlyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_vik3g")
 max_polyphony = 5
+
+[node name="DeathParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_doia1")
+texture = ExtResource("5_skhvn")
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+local_coords = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_amain")
+}
 
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
 [connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]

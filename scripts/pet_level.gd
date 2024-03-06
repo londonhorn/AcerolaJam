@@ -20,6 +20,8 @@ func _ready():
 	player.animations.play('floor')
 
 func _process(_delta):
+	player.health += 100
+	
 	money_display_change()
 	current_wave_display_change()
 	evolution_checks()
@@ -37,7 +39,7 @@ func current_wave_display_change():
 	current_wave_display.text = ('Current Wave: ' + str(Globals.current_wave))
 
 func _on_button_pressed():
-	get_tree().change_scene_to_packed(gameplay_level)
+	LevelTransition.change_scene(gameplay_level)
 
 func _on_size_button_pressed():
 	if Globals.total_points >= 15:

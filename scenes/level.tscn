@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=13 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="3_s2vhx"]
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="4_f4dew"]
 [ext_resource type="Script" path="res://scripts/Health.gd" id="4_vvxes"]
-[ext_resource type="Texture2D" uid="uid://bk56somavjpqd" path="res://assets/sounds/UI/ButtonBackground.png" id="5_qkhst"]
+[ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="5_ugkgk"]
 [ext_resource type="Texture2D" uid="uid://c0vwno60s1gle" path="res://assets/sounds/UI/healthbar_back.png" id="6_abmh2"]
 [ext_resource type="Texture2D" uid="uid://c2uufmfh5q1ss" path="res://assets/sounds/UI/healthbar.png" id="7_ffgls"]
 [ext_resource type="Texture2D" uid="uid://b2ptycpwagstn" path="res://assets/sounds/UI/Heart.png" id="9_7r2rv"]
@@ -18,13 +18,6 @@ size = Vector2(851, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gttk0"]
 size = Vector2(20, 708)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_16too"]
-texture = ExtResource("5_qkhst")
-texture_margin_left = 30.0
-texture_margin_top = 10.0
-texture_margin_right = 30.0
-texture_margin_bottom = 10.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_pdkn5")
@@ -118,20 +111,27 @@ position = Vector2(206, 264)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Score" type="Label" parent="UI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.75
+anchor_left = 0.65
 anchor_top = 0.035
-anchor_right = 0.75
+anchor_right = 0.65
 anchor_bottom = 0.035
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("4_f4dew")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxTexture_16too")
+theme_override_styles/normal = ExtResource("5_ugkgk")
 horizontal_alignment = 1
+
+[node name="Wave" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_f4dew")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_ugkgk")
 
 [node name="Health" type="TextureProgressBar" parent="UI"]
 anchors_preset = -1

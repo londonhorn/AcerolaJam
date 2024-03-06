@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://vs1tgtilq17t"]
+[gd_scene load_steps=16 format=3 uid="uid://vs1tgtilq17t"]
 
 [ext_resource type="Texture2D" uid="uid://bmn2n7wy1uywg" path="res://assets/characters/plane_spritesheet.png" id="1_8wxm4"]
 [ext_resource type="Script" path="res://scenes/civilian_plane.gd" id="1_qujld"]
 [ext_resource type="AudioStream" uid="uid://b73q71ls4cgj7" path="res://assets/sounds/CivilianPlaneSound.mp3" id="3_bqq3y"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="4_3kmcq"]
+[ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="5_fbrxh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5arm"]
 atlas = ExtResource("1_8wxm4")
@@ -29,11 +31,79 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xudbt"]
 size = Vector2(58, 18)
 
+[sub_resource type="Gradient" id="Gradient_750vw"]
+offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
+colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b2t3j"]
+gradient = SubResource("Gradient_750vw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7kyh7"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_b2t3j")
+
+[sub_resource type="Animation" id="Animation_rrmij"]
+resource_name = "vehicle_death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BloodParticle:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mg0hh"]
+resource_name = "RESET"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4o7gf"]
+_data = {
+"RESET": SubResource("Animation_mg0hh"),
+"vehicle_death": SubResource("Animation_rrmij")
+}
+
 [node name="CivilianPlane" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_qujld")
 points = 3
 level = 1
+health = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.7, 2.7)
@@ -50,5 +120,24 @@ stream = ExtResource("3_bqq3y")
 volume_db = -30.0
 autoplay = true
 max_distance = 500.0
+
+[node name="BloodParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_7kyh7")
+texture = ExtResource("4_3kmcq")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_fbrxh")
+volume_db = -10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4o7gf")
+}
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

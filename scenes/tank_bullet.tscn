@@ -1,7 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bienkvxpgsvpm"]
+[gd_scene load_steps=8 format=3 uid="uid://bienkvxpgsvpm"]
 
 [ext_resource type="Script" path="res://scripts/tank_bullet.gd" id="1_oehv0"]
 [ext_resource type="Texture2D" uid="uid://btqmmuiqg7wtk" path="res://assets/projectiles/tank_shell.png" id="2_1ppqu"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="3_5wyk4"]
+
+[sub_resource type="Gradient" id="Gradient_rgtob"]
+offsets = PackedFloat32Array(0, 0.744526, 1)
+colors = PackedColorArray(0.65755, 0.0990979, 0.0571563, 1, 0.670257, 0.511632, 5.77569e-07, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejwdx"]
+gradient = SubResource("Gradient_rgtob")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4w5u0"]
+particle_flag_disable_z = true
+gravity = Vector3(-100, 0, 0)
+scale_min = 0.7
+scale_max = 0.85
+color_ramp = SubResource("GradientTexture1D_ejwdx")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ild84"]
 size = Vector2(26, 6)
@@ -12,7 +27,16 @@ script = ExtResource("1_oehv0")
 level = 2
 health = 5
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-14, 0)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_4w5u0")
+texture = ExtResource("3_5wyk4")
+speed_scale = 2.0
+local_coords = true
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
 scale = Vector2(2, 2)
 texture = ExtResource("2_1ppqu")
 
@@ -20,5 +44,6 @@ texture = ExtResource("2_1ppqu")
 shape = SubResource("RectangleShape2D_ild84")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(31, 0)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

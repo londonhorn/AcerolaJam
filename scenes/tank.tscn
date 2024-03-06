@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://4551v5aerbvd"]
+[gd_scene load_steps=20 format=3 uid="uid://4551v5aerbvd"]
 
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_75ftt"]
 [ext_resource type="Texture2D" uid="uid://coimjmibjet3j" path="res://assets/characters/tank_spritesheet.png" id="2_aubsc"]
 [ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="3_0hg7f"]
 [ext_resource type="AudioStream" uid="uid://cldia7v060lcw" path="res://assets/sounds/TankMoving.mp3" id="3_48dso"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_v3gt7"]
+[ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="6_rnh1i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bb0l"]
 atlas = ExtResource("2_aubsc")
@@ -56,12 +58,80 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai4jk"]
 size = Vector2(62, 42)
 
+[sub_resource type="Gradient" id="Gradient_1fslf"]
+offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
+colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqclg"]
+gradient = SubResource("Gradient_1fslf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vam1v"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_jqclg")
+
+[sub_resource type="Animation" id="Animation_rrmij"]
+resource_name = "vehicle_death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BloodParticle:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mg0hh"]
+resource_name = "RESET"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4o7gf"]
+_data = {
+"RESET": SubResource("Animation_mg0hh"),
+"vehicle_death": SubResource("Animation_rrmij")
+}
+
 [node name="Tank" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_75ftt")
 points = 8
 level = 3
+health = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, -14)
@@ -77,7 +147,7 @@ shape = SubResource("RectangleShape2D_ai4jk")
 position = Vector2(78, -1)
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -94,6 +164,25 @@ stream = ExtResource("3_48dso")
 volume_db = -20.0
 autoplay = true
 max_distance = 500.0
+
+[node name="BloodParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_vam1v")
+texture = ExtResource("5_v3gt7")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rnh1i")
+volume_db = -10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4o7gf")
+}
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

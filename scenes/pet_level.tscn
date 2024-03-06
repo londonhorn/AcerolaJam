@@ -148,7 +148,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-text = "Skip Ahead a Wave
+text = "Permanently Skip a Wave
 150 Points"
 
 [node name="FireballButton" type="Button" parent="UI"]

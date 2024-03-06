@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqvxwwwvasdhw"]
+[gd_scene load_steps=14 format=3 uid="uid://cqvxwwwvasdhw"]
 
 [ext_resource type="Script" path="res://scripts/Soldier.gd" id="1_now6g"]
 [ext_resource type="Texture2D" uid="uid://b4qnw6sgyafjb" path="res://assets/characters/soldier_spritesheet.png" id="2_ca0vw"]
 [ext_resource type="AudioStream" uid="uid://c3c2jj8udswc" path="res://assets/sounds/Gunshot.mp3" id="3_dmokt"]
+[ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_o6few"]
+[ext_resource type="AudioStream" uid="uid://bla7wxh4qwtj1" path="res://assets/sounds/PersonDeath.mp3" id="5_v2qj6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q70si"]
 atlas = ExtResource("2_ca0vw")
@@ -41,14 +43,70 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ek6l"]
 size = Vector2(18, 40)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cr26i"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+
+[sub_resource type="Animation" id="Animation_hooo7"]
+resource_name = "death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodParticle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_do3rh"]
+_data = {
+"death": SubResource("Animation_hooo7")
+}
+
 [node name="Soldier" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_now6g")
 points = 5
 level = 2
+health = 1
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-6, -9)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_7geba")
@@ -75,6 +133,25 @@ stream = ExtResource("3_dmokt")
 volume_db = -15.0
 max_distance = 500.0
 max_polyphony = 4
+
+[node name="BloodParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_cr26i")
+texture = ExtResource("4_o6few")
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_do3rh")
+}
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_v2qj6")
+volume_db = -10.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -6,7 +6,8 @@ extends Node2D
 @onready var player_spawn_marker = $PlayerSpawn
 @onready var spawn_location = $SpawnLocation1
 @onready var player = $CharacterBase
-@onready var score = $UI/Score
+@onready var score = $UI/VBoxContainer/Score
+@onready var wave_counter = $UI/VBoxContainer/Wave
 @onready var health_bar = $UI/Health
 @onready var spawn_increment_timer = $SpawnTimer
 @onready var spawn_total_timer = $WaveTotalTimer
@@ -24,16 +25,29 @@ var missile_warning = preload("res://scenes/missile_warning.tscn")
 
 var wave_options = [
 	{
-		"duration":5,
+		"duration":15,
 		"types":{
-			"civilian":0.45
-			}
+			"civilian":0.45}
 	},
 	{
 		"duration":15,
 		"types":{
-			"cop_car":1.0,
-			}
+			"civilian":0.1,
+			"plane":0.2}
+	},
+	{
+		"duration":10,
+		"types":{
+			"civilian":0.1,
+			"plane":0.2,
+			"cop":0.5}
+	},
+	{
+		"duration":20,
+		"types":{
+			"civilian":0.1,
+			"cop":0.5,
+			"cop_car":2.0}
 	}
 ]
 
@@ -50,7 +64,7 @@ func _ready():
 
 func _process(_delta):
 	score_keep()
-
+	wave_keep()
 
 func _on_wave_total_timer_timeout():
 	Globals.current_wave += 1
@@ -85,7 +99,7 @@ func plane_spawn():
 		if child is Plane1:
 			plane_found += 1
 	
-	if plane_found < 2:
+	if plane_found < 3:
 		var plane_instance = plane.instantiate()
 		add_child(plane_instance)
 		var spawn_points = plane_spawn_markers.get_children()
@@ -100,7 +114,7 @@ func tank_spawn():
 		if child is Tank:
 			tank_found += 1
 		
-	if tank_found < 2:
+	if tank_found < 4:
 		var tank_instance = tank.instantiate()
 		add_child(tank_instance)
 		var spawn_points = ground_spawn_markers.get_children()
@@ -115,7 +129,7 @@ func missile_spawn():
 		if child is Missile:
 			missile_found += 1
 	
-	if missile_found < 2:
+	if missile_found < 4:
 		var missile_instance = missile.instantiate()
 		var missile_warning_instance = missile_warning.instantiate()
 		add_child(missile_instance)
@@ -168,7 +182,11 @@ func cop_car_spawn():
 
 
 func score_keep():
-	score.text = str(player.points)
+	score.text = 'Score: ' + str(player.points)
+
+func wave_keep():
+	wave_counter.text = 'Wave: ' + str(Globals.current_wave + 1)
 
 func _on_character_base_character_died():
-	get_tree().change_scene_to_packed(pet_level)
+	LevelTransition.change_scene(pet_level)
+

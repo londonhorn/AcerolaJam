@@ -7,7 +7,7 @@ extends Control
 func _on_play_pressed():
 	click_sound.play()
 	await click_sound.finished
-	get_tree().change_scene_to_packed(level)
+	LevelTransition.change_scene(level)
 
 func _on_quit_pressed():
 	click_sound.play()

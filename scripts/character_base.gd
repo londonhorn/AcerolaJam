@@ -13,6 +13,9 @@ signal health_changed
 @onready var fireball_spawn_marker = $FireballMarker
 @onready var walking_sound = $WalkingSound
 @onready var flying_sound = $FlyingSound
+@onready var death_sound = $DeathSound
+@onready var death_particles = $DeathParticles
+@onready var animation_player = $AnimationPlayer
 
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
 
@@ -50,7 +53,7 @@ func _process(_delta):
 	player_death()
 	
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
 	 
 	if input_dir != Vector2.ZERO and can_move:
@@ -89,7 +92,7 @@ func _on_hit_detection_body_entered(body):
 	if body is Enemy and level >= body.level:
 		points += body.points
 		health_points_tracker += body.points
-		body.queue_free()
+		body.health -= 1
 	elif body is Projectile and level >= body.level:
 		points += body.points
 		health_points_tracker += body.points
@@ -112,6 +115,10 @@ func player_death():
 	if current_health <= 0:
 		Globals.total_points = Globals.total_points + points
 		points = 0
+		animation_player.play('death')
+		if !death_sound.is_playing():
+			death_sound.play()
+		await animation_player.animation_finished
 		character_died.emit()
 
 func evolve():
