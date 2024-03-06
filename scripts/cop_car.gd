@@ -5,7 +5,7 @@ func process(_delta):
 	$AnimatedSprite2D.play('default')
 
 func _physics_process(_delta):
-	velocity.x = -1000
+	velocity.x = -1200
 	velocity.y = 100
 	
 	move_and_slide()

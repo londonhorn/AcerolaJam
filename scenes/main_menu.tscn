@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccj1r21bxwwam"]
+[gd_scene load_steps=11 format=3 uid="uid://ccj1r21bxwwam"]
 
 [ext_resource type="Texture2D" uid="uid://teeii6th1sff" path="res://assets/sounds/UI/title_splash.png" id="1_0b5cj"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_wf6mg"]
@@ -6,8 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="3_67cl2"]
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="4_wahiw"]
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="5_cl4m6"]
-[ext_resource type="Texture2D" uid="uid://028v42ah2kp5" path="res://assets/sounds/UI/BasicTutorialSplash.png" id="5_hqjeg"]
-[ext_resource type="Script" path="res://scripts/Tutorial.gd" id="5_m0qmx"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="5_pjouk"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="6_cba6m"]
 
@@ -33,28 +31,6 @@ _data = {
 "wiggle": SubResource("Animation_dnm26")
 }
 
-[sub_resource type="Animation" id="Animation_fgxa7"]
-resource_name = "wiggle"
-length = 4.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 2.5, 3, 4, 4.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, -7), Vector2(0, 5), Vector2(0, 7), Vector2(0, 2), Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvaws"]
-_data = {
-"wiggle": SubResource("Animation_fgxa7")
-}
-
 [node name="MainMenu" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
@@ -76,7 +52,7 @@ grow_vertical = 2
 color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [node name="Title" type="Sprite2D" parent="Control"]
-position = Vector2(400, 297)
+position = Vector2(592, 220)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1_0b5cj")
 script = ExtResource("2_x3de5")
@@ -90,21 +66,6 @@ libraries = {
 "": SubResource("AnimationLibrary_07bem")
 }
 
-[node name="Tutorial" type="Sprite2D" parent="Control"]
-position = Vector2(898, 415)
-scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("5_hqjeg")
-offset = Vector2(0, 2)
-script = ExtResource("5_m0qmx")
-
-[node name="PopSound" type="AudioStreamPlayer" parent="Control/Tutorial"]
-stream = ExtResource("3_67cl2")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Tutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_tvaws")
-}
-
 [node name="ButtonHover" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource("5_cl4m6")
 volume_db = -10.0
@@ -116,12 +77,15 @@ volume_db = -10.0
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.7
-anchor_top = 0.2
-anchor_right = 0.7
-anchor_bottom = 0.2
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -65.0
+offset_top = -104.0
+offset_right = 65.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Play" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2

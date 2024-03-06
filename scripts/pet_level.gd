@@ -48,9 +48,9 @@ func _on_size_button_pressed():
 		Globals.character_size += Vector2(0.05, 0.05)
 
 func _on_health_button_pressed():
-	if Globals.total_points >= 40:
+	if Globals.total_points >= 35:
 		money_spent_sound.play()
-		Globals.total_points -= 40
+		Globals.total_points -= 35
 		Globals.character_health += 25
 
 func _on_wave_skip_button_pressed():
@@ -88,9 +88,9 @@ func size_button_lock():
 		size_button.disabled = false
 
 func health_button_lock():
-	if Globals.character_health >= 200 and Globals.evolution <= 0 or Globals.total_points < 40:
+	if Globals.character_health >= 200 and Globals.evolution <= 0 or Globals.total_points < 35:
 		health_button.disabled = true
-	elif Globals.character_health >= 350 and Globals.evolution <= 1 or Globals.total_points < 40:
+	elif Globals.character_health >= 350 and Globals.evolution <= 1 or Globals.total_points < 35:
 		health_button.disabled = true
 	else:
 		health_button.disabled = false

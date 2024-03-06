@@ -133,7 +133,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/disabled = ExtResource("9_d16w1")
 text = "Increase Health
-40 Points"
+35 Points"
 
 [node name="WaveSkipButton" type="Button" parent="UI"]
 anchors_preset = -1

@@ -63,7 +63,7 @@ wait_time = 10.0
 wait_time = 0.1
 
 [node name="CharacterBase" parent="." instance=ExtResource("3_s2vhx")]
-position = Vector2(206, 261)
+position = Vector2(219, 552)
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -107,7 +107,7 @@ position = Vector2(2500, 450)
 position = Vector2(2500, 700)
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(206, 264)
+position = Vector2(219, 550)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

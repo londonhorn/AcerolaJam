@@ -23,7 +23,7 @@ signal health_changed
 @export var max_health = 100
 
 const GRAVITY = 1000
-const SPEED = 425
+const SPEED = 450
 const FRICTION = 500
 
 var health_points_tracker = 0
@@ -55,9 +55,10 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
-	 
+	
 	if input_dir != Vector2.ZERO and can_move:
 		accelerate(input_dir)
+		velocity.y += 10
 		move_and_slide()
 	else:
 		add_friction()

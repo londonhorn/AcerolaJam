@@ -1,5 +1,5 @@
 extends Projectile
 
 func _physics_process(_delta):
-	velocity = Vector2.RIGHT.rotated(rotation) * 550
+	velocity = Vector2.RIGHT.rotated(rotation) * 800
 	move_and_slide()

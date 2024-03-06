@@ -2,7 +2,7 @@ extends Projectile
 class_name Missile
 
 func _physics_process(_delta):
-	velocity.x = -850
+	velocity.x = -1200
 	
 	
 	move_and_slide()

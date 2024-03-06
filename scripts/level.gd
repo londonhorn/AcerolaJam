@@ -25,18 +25,18 @@ var missile_warning = preload("res://scenes/missile_warning.tscn")
 
 var wave_options = [
 	{
-		"duration":15,
+		"duration":10,
 		"types":{
 			"civilian":0.45}
 	},
 	{
-		"duration":15,
+		"duration":10,
 		"types":{
 			"civilian":0.1,
 			"plane":0.2}
 	},
 	{
-		"duration":10,
+		"duration":15,
 		"types":{
 			"civilian":0.1,
 			"plane":0.2,
@@ -48,6 +48,25 @@ var wave_options = [
 			"civilian":0.1,
 			"cop":0.5,
 			"cop_car":2.0}
+	},
+	{
+		"duration":15,
+		"types":{
+			"cop":0.4,
+			"cop_car":1.5}
+	},
+	{
+		"duration":10,
+		"types":{
+			"cop":0.4,
+			"soldier":0.8}
+	},
+	{
+		"duration":15,
+		"types":{
+			"cop":0.35,
+			"soldier":0.7,
+			"cop_car":1.0}
 	}
 ]
 

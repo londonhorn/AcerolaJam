@@ -1,13 +1,14 @@
 extends Control
 
 @onready var level = preload("res://scenes/level.tscn")
+@onready var tutorial_scene = preload("res://scenes/tutorial_scene.tscn")
 @onready var hover_sound = $ButtonHover
 @onready var click_sound = $ButtonClick
 
 func _on_play_pressed():
 	click_sound.play()
 	await click_sound.finished
-	LevelTransition.change_scene(level)
+	LevelTransition.change_scene(tutorial_scene)
 
 func _on_quit_pressed():
 	click_sound.play()

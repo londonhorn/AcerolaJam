@@ -76,6 +76,9 @@ scale_min = 2.0
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_jqclg")
 
+[sub_resource type="Animation" id="Animation_mg0hh"]
+resource_name = "RESET"
+
 [sub_resource type="Animation" id="Animation_rrmij"]
 resource_name = "vehicle_death"
 length = 0.7
@@ -115,9 +118,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_mg0hh"]
-resource_name = "RESET"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4o7gf"]
 _data = {

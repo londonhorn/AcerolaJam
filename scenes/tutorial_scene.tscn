@@ -1,0 +1,154 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxk2qllmv0xb0"]
+
+[ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="1_k2gtx"]
+[ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="2_hocw3"]
+[ext_resource type="Script" path="res://scripts/TextBox.gd" id="3_emesl"]
+[ext_resource type="Texture2D" uid="uid://028v42ah2kp5" path="res://assets/sounds/UI/BasicTutorialSplash.png" id="3_fsgyx"]
+[ext_resource type="Script" path="res://scripts/Tutorial.gd" id="4_o71dn"]
+[ext_resource type="Script" path="res://scripts/Text2.gd" id="5_pewal"]
+[ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="5_xj3si"]
+[ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_hilka"]
+[ext_resource type="Script" path="res://scripts/TutorialSceneButton.gd" id="9_rik84"]
+
+[sub_resource type="Animation" id="Animation_fgxa7"]
+resource_name = "wiggle"
+length = 4.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2.5, 3, 4, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, -7), Vector2(0, 5), Vector2(0, 7), Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvaws"]
+_data = {
+"wiggle": SubResource("Animation_fgxa7")
+}
+
+[node name="TutorialScene" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0784314, 0.145098, 1)
+
+[node name="Text1" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.1
+offset_left = -441.0
+offset_top = -50.5
+offset_right = 441.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+theme_override_fonts/font = ExtResource("1_k2gtx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = ExtResource("2_hocw3")
+text = "You have come into possession of the means to control an otherworldly monstrosity.
+The beasts power has diminished greatly, as they have ran out of prey in their own realm.
+It is your task to guide them to devour anything in their path in our world."
+horizontal_alignment = 1
+script = ExtResource("3_emesl")
+
+[node name="PopSound" type="AudioStreamPlayer" parent="Control/Text1"]
+stream = ExtResource("5_xj3si")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Text1"]
+libraries = {
+"": SubResource("AnimationLibrary_tvaws")
+}
+
+[node name="Text2" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -40.5
+offset_top = -22.5
+offset_right = 40.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+theme_override_fonts/font = ExtResource("1_k2gtx")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = ExtResource("2_hocw3")
+text = "Feed, grow, and feed again.
+Evolve your monster until their hunger is satisfied."
+horizontal_alignment = 1
+script = ExtResource("5_pewal")
+
+[node name="PopSound" type="AudioStreamPlayer" parent="Control/Text2"]
+stream = ExtResource("5_xj3si")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Text2"]
+libraries = {
+"": SubResource("AnimationLibrary_tvaws")
+}
+
+[node name="Tutorial" type="Sprite2D" parent="Control"]
+position = Vector2(470, 392)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("3_fsgyx")
+script = ExtResource("4_o71dn")
+
+[node name="PopSound" type="AudioStreamPlayer" parent="Control/Tutorial"]
+stream = ExtResource("5_xj3si")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Tutorial"]
+libraries = {
+"": SubResource("AnimationLibrary_tvaws")
+}
+
+[node name="Button" type="Button" parent="."]
+offset_left = 711.0
+offset_top = 359.0
+offset_right = 905.0
+offset_bottom = 429.0
+scale = Vector2(1e-05, 1e-05)
+theme_override_fonts/font = ExtResource("1_k2gtx")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = ExtResource("2_hocw3")
+theme_override_styles/hover = ExtResource("8_hilka")
+text = "OKAY"
+script = ExtResource("9_rik84")
+
+[node name="PopSound" type="AudioStreamPlayer" parent="Button"]
+stream = ExtResource("5_xj3si")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button"]
+libraries = {
+"": SubResource("AnimationLibrary_tvaws")
+}
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="Button"]
+stream = ExtResource("5_xj3si")
+volume_db = -10.0
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
