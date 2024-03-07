@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=15 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
@@ -11,6 +11,18 @@
 [ext_resource type="Texture2D" uid="uid://c2uufmfh5q1ss" path="res://assets/sounds/UI/healthbar.png" id="7_ffgls"]
 [ext_resource type="Texture2D" uid="uid://b2ptycpwagstn" path="res://assets/sounds/UI/Heart.png" id="9_7r2rv"]
 
+[sub_resource type="Environment" id="Environment_0qr62"]
+background_mode = 3
+tonemap_mode = 3
+tonemap_exposure = 1.2
+tonemap_white = 5.0
+glow_enabled = true
+glow_normalized = true
+glow_blend_mode = 1
+glow_hdr_threshold = 4.0
+adjustment_enabled = true
+adjustment_contrast = 1.1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(2687, 106)
 
@@ -22,6 +34,9 @@ size = Vector2(20, 708)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_pdkn5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0qr62")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_xmupy")]
 

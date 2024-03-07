@@ -39,7 +39,7 @@ expand_mode = 2
 stretch_mode = 1
 
 [node name="ButtonBackgroundHover" type="Sprite2D" parent="."]
-position = Vector2(601, 365)
+position = Vector2(596, 368)
 scale = Vector2(2, 3)
 texture = ExtResource("3_oijba")
 
