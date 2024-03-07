@@ -5,6 +5,7 @@ signal health_changed
 
 @onready var animations = $CharacterSprite1
 @onready var health_timer = $HealthDecrease
+@onready var point_markers = $PointMarkers
 
 @onready var evolution_sprite_1 = $CharacterSprite1
 @onready var shoot_timer = $ShootTimer
@@ -14,10 +15,12 @@ signal health_changed
 @onready var walking_sound = $WalkingSound
 @onready var flying_sound = $FlyingSound
 @onready var death_sound = $DeathSound
+@onready var eating_sound = $EatingSound
 @onready var death_particles = $DeathParticles
 @onready var animation_player = $AnimationPlayer
 
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
+@onready var point_popup = preload("res://scenes/score_popup.tscn")
 
 @onready var current_health: int = max_health
 @export var max_health = 100
@@ -92,11 +95,20 @@ func _on_hit_detection_body_entered(body):
 	if body is Enemy and level >= body.level:
 		points += body.points
 		health_points_tracker += body.points
+		eat_sound()
 		body.health -= 1
+		var label = point_popup.instantiate()
+		get_tree().current_scene.add_child(label)
+		var spawn_points = point_markers.get_children()
+		var spawn_point = spawn_points[randi() % spawn_points.size()]
+		var pos = spawn_point.global_position
+		label.text = "+" + str(body.points)
+		label.global_position = pos
 	elif body is Projectile and level >= body.level:
 		points += body.points
 		health_points_tracker += body.points
 		current_health -= body.health
+		eat_sound()
 		body.health -= 50
 	else:
 		current_health = 0
@@ -118,6 +130,7 @@ func player_death():
 		animation_player.play('death')
 		if !death_sound.is_playing():
 			death_sound.play()
+		get_tree().paused = true
 		await animation_player.animation_finished
 		character_died.emit()
 
@@ -148,3 +161,7 @@ func walk_sound():
 func fly_sound():
 	flying_sound.pitch_scale = randf_range(0.95, 1.1)
 	flying_sound.play()
+
+func eat_sound():
+	eating_sound.pitch_scale = randf_range(0.9, 1.1)
+	eating_sound.play()

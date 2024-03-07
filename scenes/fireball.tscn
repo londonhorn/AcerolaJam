@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw8oo2y2fahqj"]
+[gd_scene load_steps=12 format=3 uid="uid://bw8oo2y2fahqj"]
 
 [ext_resource type="Script" path="res://scripts/Fireball.gd" id="1_8ch5o"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_lxf2n"]
+[ext_resource type="AudioStream" uid="uid://e6ic2q855ij1" path="res://assets/sounds/FireballIdle.mp3" id="3_eb55m"]
+[ext_resource type="AudioStream" uid="uid://dmop7db3kp3bn" path="res://assets/sounds/FireballHit.mp3" id="4_5mqk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kok7g"]
 size = Vector2(22, 14)
@@ -49,7 +51,7 @@ position = Vector2(-37, 0)
 
 [node name="HitDetection" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 12
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
 shape = SubResource("RectangleShape2D_wtqcp")
@@ -61,6 +63,13 @@ process_material = SubResource("ParticleProcessMaterial_ife6t")
 texture = ExtResource("2_lxf2n")
 lifetime = 0.5
 local_coords = true
+
+[node name="IdleSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_eb55m")
+autoplay = true
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_5mqk0")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=16 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
 [ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://difhc2njf4hq4" path="res://assets/sounds/DeathSound.mp3" id="4_hw3sn"]
 [ext_resource type="AudioStream" uid="uid://dj7usn0n2mcuc" path="res://assets/sounds/WingFlap1.mp3" id="4_vik3g"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_skhvn"]
+[ext_resource type="AudioStream" uid="uid://cwp4a8hq2gk7n" path="res://assets/sounds/EatingSound.mp3" id="6_rdsxc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbxb1"]
 size = Vector2(18, 18)
@@ -80,8 +81,10 @@ _data = {
 }
 
 [node name="CharacterBase" type="CharacterBody2D" groups=["player"]]
+process_mode = 3
 collision_mask = 30
 script = ExtResource("1_2vxij")
+points = 5000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -121,6 +124,11 @@ volume_db = -10.0
 stream = ExtResource("4_vik3g")
 max_polyphony = 5
 
+[node name="EatingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_rdsxc")
+volume_db = -4.0
+max_polyphony = 5
+
 [node name="DeathParticles" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 100
@@ -136,6 +144,29 @@ local_coords = true
 libraries = {
 "": SubResource("AnimationLibrary_amain")
 }
+
+[node name="PointMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="PointMarkers"]
+position = Vector2(27, -24)
+
+[node name="Marker2D4" type="Marker2D" parent="PointMarkers"]
+position = Vector2(25, -40)
+
+[node name="Marker2D5" type="Marker2D" parent="PointMarkers"]
+position = Vector2(-11, -25)
+
+[node name="Marker2D6" type="Marker2D" parent="PointMarkers"]
+position = Vector2(-23, -39)
+
+[node name="Marker2D7" type="Marker2D" parent="PointMarkers"]
+position = Vector2(14, -31)
+
+[node name="Marker2D2" type="Marker2D" parent="PointMarkers"]
+position = Vector2(0, -38)
+
+[node name="Marker2D3" type="Marker2D" parent="PointMarkers"]
+position = Vector2(-28, -20)
 
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
 [connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]

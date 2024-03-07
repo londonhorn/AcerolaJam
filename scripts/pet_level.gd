@@ -3,6 +3,8 @@ extends Control
 @onready var player = $CharacterBase
 @onready var money_display = $UI/Money
 @onready var current_wave_display = $UI/CurrentWave
+@onready var fireball_controls = $UI/FireballControls
+@onready var shield_controls = $UI/ShieldControls
 
 @onready var size_button = $UI/SizeButton
 @onready var health_button = $UI/HealthButton
@@ -21,6 +23,16 @@ func _ready():
 
 func _process(_delta):
 	player.current_health += 100
+	
+	if Globals.can_fireball:
+		fireball_controls.visible = true
+	else:
+		fireball_controls.visible = false
+		
+	if Globals.can_shield:
+		shield_controls.visible = true
+	else:
+		shield_controls.visible = false
 	
 	money_display_change()
 	current_wave_display_change()
@@ -80,20 +92,36 @@ func evolution_checks():
 		evolve_sound.play()
 
 func size_button_lock():
-	if Globals.character_speed >= 349 and Globals.evolution <= 0 or Globals.total_points < 15:
+	if Globals.character_speed >= 349 and Globals.evolution <= 0:
 		size_button.disabled = true
-	elif Globals.character_speed >= 499 and Globals.evolution <= 1 or Globals.total_points < 15:
+		size_button.text = "Must Evolve"
+	elif Globals.character_speed >= 499 and Globals.evolution <= 1:
 		size_button.disabled = true
+		size_button.text = "Must Evolve"
+	elif Globals.total_points <= 15:
+		size_button.disabled = true
+		size_button.text = "Increase Speed
+		15 Points"
 	else:
 		size_button.disabled = false
+		size_button.text = "Increase Speed
+		15 Points"
 
 func health_button_lock():
-	if Globals.character_health >= 500 and Globals.evolution <= 0 or Globals.total_points < 35:
+	if Globals.character_health >= 500 and Globals.evolution <= 0:
 		health_button.disabled = true
-	elif Globals.character_health >= 660 and Globals.evolution <= 1 or Globals.total_points < 35:
+		health_button.text = "Must Evolve"
+	elif Globals.character_health >= 660 and Globals.evolution <= 1:
 		health_button.disabled = true
+		health_button.text = "Must Evolve"
+	elif Globals.total_points <= 35:
+		health_button.disabled = true
+		health_button.text = "Increase Duration
+		35 Points"
 	else:
 		health_button.disabled = false
+		health_button.text = "Increase Duration
+		35 Points"
 
 func wave_skip_button_lock():
 	if Globals.total_points < 150:

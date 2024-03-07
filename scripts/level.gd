@@ -31,7 +31,8 @@ var wave_options = [
 	{
 		"duration":7,
 		"types":{
-			"civilian":0.45}
+			"civilian":0.45,
+			"missile":1.0}
 	},
 	{
 		"duration":7,
@@ -106,7 +107,6 @@ func wave_generation():
 	var current_spawn_type = wave_options[Globals.current_wave]["types"].keys().pick_random()
 	call(current_spawn_type + "_spawn")
 	spawn_increment_timer.wait_time = wave_options[Globals.current_wave]["types"][current_spawn_type]
-
 func civilian_spawn():
 	var civilian_instance = civilian.instantiate()
 	add_child(civilian_instance)

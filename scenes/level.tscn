@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=14 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
@@ -11,32 +11,17 @@
 [ext_resource type="Texture2D" uid="uid://c2uufmfh5q1ss" path="res://assets/sounds/UI/healthbar.png" id="7_ffgls"]
 [ext_resource type="Texture2D" uid="uid://b2ptycpwagstn" path="res://assets/sounds/UI/Heart.png" id="9_7r2rv"]
 
-[sub_resource type="Environment" id="Environment_0qr62"]
-background_mode = 3
-tonemap_mode = 3
-tonemap_exposure = 1.2
-tonemap_white = 5.0
-glow_enabled = true
-glow_normalized = true
-glow_blend_mode = 1
-glow_hdr_threshold = 4.0
-adjustment_enabled = true
-adjustment_contrast = 1.1
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(2687, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7u5b"]
-size = Vector2(1050, 12)
+size = Vector2(1446, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gttk0"]
 size = Vector2(20, 708)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_pdkn5")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0qr62")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_xmupy")]
 
@@ -59,12 +44,12 @@ color = Color(0.133333, 0.152941, 0.160784, 1)
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Border"]
-position = Vector2(251, -7)
+position = Vector2(449, -7)
 shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World Border"]
-position = Vector2(730, 336)
+position = Vector2(1162, 328)
 shape = SubResource("RectangleShape2D_gttk0")
 one_way_collision_margin = 74.8
 
@@ -175,6 +160,15 @@ script = ExtResource("4_vvxes")
 position = Vector2(46.22, 14.78)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("9_7r2rv")
+
+[node name="WaveIncrease" type="Label" parent="UI"]
+offset_left = 666.0
+offset_top = 84.0
+offset_right = 688.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("4_f4dew")
+theme_override_font_sizes/font_size = 30
+text = "+1"
 
 [node name="PointIncrease" type="Label" parent="UI"]
 offset_left = 642.0

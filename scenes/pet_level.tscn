@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=16 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -15,6 +15,10 @@
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
 
 [sub_resource type="Theme" id="Theme_vhcm4"]
+default_font = ExtResource("6_c4f3s")
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_6apcq"]
 default_font = ExtResource("6_c4f3s")
 default_font_size = 30
 
@@ -49,8 +53,8 @@ position = Vector2(597, 366)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HealthbarBack" type="Sprite2D" parent="UI"]
-position = Vector2(139, 315)
-scale = Vector2(1.94792, 3.46875)
+position = Vector2(150.25, 315)
+scale = Vector2(2.18229, 3.46875)
 texture = ExtResource("5_2nylg")
 
 [node name="Money" type="Label" parent="UI"]
@@ -81,9 +85,9 @@ horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.05
+anchor_left = 0.03
 anchor_top = 0.05
-anchor_right = 0.05
+anchor_right = 0.03
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
@@ -95,9 +99,9 @@ text = "Play Again"
 
 [node name="SizeButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.23
+anchor_left = 0.21
 anchor_top = 0.05
-anchor_right = 0.23
+anchor_right = 0.21
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
@@ -112,9 +116,9 @@ text = "Increase Speed
 
 [node name="HealthButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.45
+anchor_left = 0.43
 anchor_top = 0.05
-anchor_right = 0.45
+anchor_right = 0.43
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
@@ -123,7 +127,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-text = "Increase Health
+text = "Increase Duration
 35 Points"
 
 [node name="WaveSkipButton" type="Button" parent="UI"]
@@ -206,6 +210,7 @@ anchor_right = 0.05
 anchor_bottom = 0.4
 offset_right = 40.0
 offset_bottom = 40.0
+theme = SubResource("Theme_6apcq")
 
 [node name="Progress" type="Label" parent="UI/Evolution1Vbox2"]
 layout_mode = 2
@@ -215,11 +220,29 @@ horizontal_alignment = 1
 
 [node name="Evolution2" type="ProgressBar" parent="UI/Evolution1Vbox2"]
 layout_mode = 2
-min_value = 4.59
-max_value = 7.49
-value = 4.59
+min_value = 850.0
+max_value = 1160.0
+value = 850.0
 allow_lesser = true
 script = ExtResource("6_qctny")
+
+[node name="FireballControls" type="Label" parent="UI"]
+offset_left = 62.0
+offset_top = 518.0
+offset_right = 102.0
+offset_bottom = 541.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+text = "Fireball = Left Click"
+
+[node name="ShieldControls" type="Label" parent="UI"]
+offset_left = 62.0
+offset_top = 548.0
+offset_right = 102.0
+offset_bottom = 571.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+text = "Shield = Right Click"
 
 [node name="EvolveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vwov3")
