@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxk2qllmv0xb0"]
+[gd_scene load_steps=15 format=3 uid="uid://dxk2qllmv0xb0"]
 
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="1_k2gtx"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="2_hocw3"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://scripts/Text2.gd" id="5_pewal"]
 [ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="5_xj3si"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_hilka"]
+[ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_0vdh3"]
 [ext_resource type="Script" path="res://scripts/TutorialSceneButton.gd" id="9_rik84"]
+[ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="10_qie6i"]
 
 [sub_resource type="Animation" id="Animation_fgxa7"]
 resource_name = "wiggle"
@@ -31,6 +33,8 @@ tracks/0/keys = {
 _data = {
 "wiggle": SubResource("Animation_fgxa7")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26l56"]
 
 [node name="TutorialScene" type="CanvasLayer"]
 
@@ -114,6 +118,10 @@ libraries = {
 "": SubResource("AnimationLibrary_tvaws")
 }
 
+[node name="WaitTimer" type="Timer" parent="Control/Text2"]
+wait_time = 5.0
+autostart = true
+
 [node name="Tutorial" type="Sprite2D" parent="Control"]
 position = Vector2(470, 450)
 scale = Vector2(1e-05, 1e-05)
@@ -128,6 +136,9 @@ libraries = {
 "": SubResource("AnimationLibrary_tvaws")
 }
 
+[node name="WaitTimer" type="Timer" parent="Control/Tutorial"]
+wait_time = 8.0
+
 [node name="Button" type="Button" parent="."]
 offset_left = 711.0
 offset_top = 359.0
@@ -138,6 +149,8 @@ theme_override_fonts/font = ExtResource("1_k2gtx")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = ExtResource("2_hocw3")
 theme_override_styles/hover = ExtResource("8_hilka")
+theme_override_styles/pressed = ExtResource("9_0vdh3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_26l56")
 text = "OKAY"
 script = ExtResource("9_rik84")
 
@@ -153,4 +166,12 @@ libraries = {
 stream = ExtResource("5_xj3si")
 volume_db = -10.0
 
+[node name="ButtonHover" type="AudioStreamPlayer" parent="Button"]
+stream = ExtResource("10_qie6i")
+volume_db = -10.0
+
+[node name="WaitTimer" type="Timer" parent="Button"]
+wait_time = 10.0
+
+[connection signal="mouse_entered" from="Button" to="Button" method="_on_mouse_entered"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

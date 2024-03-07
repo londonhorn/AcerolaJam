@@ -3,11 +3,18 @@ extends Button
 @onready var pop_sound = $PopSound
 @onready var animations = $AnimationPlayer
 @onready var click_sound = $ButtonClick
+@onready var wait_timer = $WaitTimer
 
 @onready var level = preload("res://scenes/level.tscn")
 
+func _process(_delta):
+	if Input.is_action_just_pressed('click'):
+		wait_timer.stop()
+		wait_timer.wait_time = 0.5
+		wait_timer.start()
+
 func _ready():
-	await get_tree().create_timer(12).timeout
+	await wait_timer.timeout
 	animation()
 
 func animation():
@@ -24,3 +31,6 @@ func _on_pressed():
 	click_sound.play()
 	await click_sound.finished
 	LevelTransition.change_scene(level)
+
+func _on_mouse_entered():
+	$ButtonHover.play()

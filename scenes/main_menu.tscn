@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccj1r21bxwwam"]
+[gd_scene load_steps=14 format=3 uid="uid://ccj1r21bxwwam"]
 
 [ext_resource type="Texture2D" uid="uid://teeii6th1sff" path="res://assets/sounds/UI/title_splash.png" id="1_0b5cj"]
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_wf6mg"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="5_cl4m6"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="5_pjouk"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="6_cba6m"]
+[ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_csbw3"]
 
 [sub_resource type="Animation" id="Animation_dnm26"]
 resource_name = "wiggle"
@@ -30,6 +31,10 @@ tracks/0/keys = {
 _data = {
 "wiggle": SubResource("Animation_dnm26")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06k0c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h7yfu"]
 
 [node name="MainMenu" type="CanvasLayer"]
 
@@ -94,6 +99,8 @@ theme_override_fonts/font = ExtResource("4_wahiw")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_pjouk")
 theme_override_styles/hover = ExtResource("6_cba6m")
+theme_override_styles/pressed = ExtResource("9_csbw3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_06k0c")
 text = "Play"
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer"]
@@ -103,6 +110,8 @@ theme_override_fonts/font = ExtResource("4_wahiw")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_pjouk")
 theme_override_styles/hover = ExtResource("6_cba6m")
+theme_override_styles/pressed = ExtResource("9_csbw3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h7yfu")
 text = "Quit"
 
 [connection signal="mouse_entered" from="Control/VBoxContainer/Play" to="Control" method="_on_play_mouse_entered"]

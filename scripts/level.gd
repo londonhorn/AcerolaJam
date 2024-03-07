@@ -11,8 +11,11 @@ extends Node2D
 @onready var health_bar = $UI/Health
 @onready var spawn_increment_timer = $SpawnTimer
 @onready var spawn_total_timer = $WaveTotalTimer
+
 @onready var money_sound = $ExtraTimePoints/MoneySpent
+@onready var wave_sound = $WaveTotalTimer/WaveSound
 @onready var score_label = $UI/PointIncrease
+@onready var wave_label = $UI/WaveIncrease
 
 var pet_level = preload("res://scenes/pet_level.tscn")
 
@@ -32,13 +35,13 @@ var wave_options = [
 		"duration":7,
 		"types":{
 			"civilian":0.45,
-			"missile":1.0}
+			"missile":0.1}
 	},
 	{
 		"duration":7,
 		"types":{
 			"civilian":0.1,
-			"plane":0.2}
+			"plane":0.4}
 	},
 	{
 		"duration":15,
@@ -98,7 +101,10 @@ func _on_wave_total_timer_timeout():
 		spawn_increment_timer.stop()
 		return
 	spawn_total_timer.wait_time = wave_options[Globals.current_wave]["duration"]
-	print(spawn_total_timer.wait_time)
+	wave_label.visible = true
+	wave_sound.play()
+	await get_tree().create_timer(0.5).timeout
+	wave_label.visible = false
 
 func _on_spawn_timer_timeout():
 	wave_generation()
@@ -107,6 +113,7 @@ func wave_generation():
 	var current_spawn_type = wave_options[Globals.current_wave]["types"].keys().pick_random()
 	call(current_spawn_type + "_spawn")
 	spawn_increment_timer.wait_time = wave_options[Globals.current_wave]["types"][current_spawn_type]
+
 func civilian_spawn():
 	var civilian_instance = civilian.instantiate()
 	add_child(civilian_instance)
@@ -221,3 +228,4 @@ func _on_extra_time_points_timeout():
 	score_label.visible = true
 	await get_tree().create_timer(.3).timeout
 	score_label.visible = false
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=17 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://cmv1rt1fes7at" path="res://assets/sounds/EvolveMenuSound.mp3" id="7_vwov3"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_rcy1e"]
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
+[ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="12_1b6ev"]
 
 [sub_resource type="Theme" id="Theme_vhcm4"]
 default_font = ExtResource("6_c4f3s")
@@ -243,6 +244,10 @@ offset_bottom = 571.0
 theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 text = "Shield = Right Click"
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_1b6ev")
+volume_db = -10.0
 
 [node name="EvolveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vwov3")

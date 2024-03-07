@@ -2,9 +2,15 @@ extends Sprite2D
 
 @onready var pop_sound = $PopSound
 @onready var animations = $AnimationPlayer
-
+@onready var wait_timer = $WaitTimer
+func _process(_delta):
+	if Input.is_action_just_pressed('click'):
+		wait_timer.stop()
+		wait_timer.wait_time = 0.3
+		wait_timer.start()
+		
 func _ready():
-	await get_tree().create_timer(10).timeout
+	await wait_timer.timeout
 	animation()
 
 
