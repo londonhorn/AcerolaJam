@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://do74v4hcfpntr"]
+[gd_scene load_steps=16 format=3 uid="uid://do74v4hcfpntr"]
 
 [ext_resource type="Texture2D" uid="uid://ckapyk6tp0np0" path="res://assets/projectiles/Cruise_missile.png" id="1_fqqui"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_krjx1"]
 [ext_resource type="Script" path="res://scripts/cruise_missile.gd" id="1_wtwsj"]
 [ext_resource type="AudioStream" uid="uid://v34457iu4efw" path="res://assets/sounds/RocketSound.mp3" id="4_4acbh"]
+[ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="5_foyqy"]
 
 [sub_resource type="Gradient" id="Gradient_6ly1d"]
 offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
@@ -25,6 +26,85 @@ color_ramp = SubResource("GradientTexture1D_jifkt")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qh60"]
 size = Vector2(30, 12)
 
+[sub_resource type="Gradient" id="Gradient_k7awj"]
+offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
+colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqclg"]
+gradient = SubResource("Gradient_k7awj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cud81"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_jqclg")
+
+[sub_resource type="Animation" id="Animation_8jndt"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_u6uis"]
+resource_name = "vehicle_death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FireTrail:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BloodParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathSound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gpolj"]
+_data = {
+"RESET": SubResource("Animation_8jndt"),
+"vehicle_death": SubResource("Animation_u6uis")
+}
+
 [node name="CruiseMissile" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 collision_layer = 8
@@ -43,7 +123,7 @@ local_coords = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4qh60")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_fqqui")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -54,5 +134,24 @@ stream = ExtResource("4_4acbh")
 volume_db = -5.0
 autoplay = true
 max_distance = 1000.0
+
+[node name="BloodParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_cud81")
+texture = ExtResource("1_krjx1")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_foyqy")
+volume_db = -10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gpolj")
+}
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

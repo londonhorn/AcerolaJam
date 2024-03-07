@@ -23,9 +23,9 @@ signal health_changed
 @export var max_health = 100
 
 const GRAVITY = 1000
-const SPEED = 450
 const FRICTION = 500
 
+var speed: int = 0
 var health_points_tracker = 0
 var can_move: bool = true
 var has_shot: bool = false
@@ -58,7 +58,6 @@ func _physics_process(_delta):
 	
 	if input_dir != Vector2.ZERO and can_move:
 		accelerate(input_dir)
-		velocity.y += 10
 		move_and_slide()
 	else:
 		add_friction()
@@ -73,7 +72,7 @@ func _physics_process(_delta):
 			#velocity.y = max(velocity.y + jump_force, max_velocity_y)
 
 func accelerate(direction):
-	velocity = SPEED * direction
+	velocity = speed * direction
 
 func add_friction():
 	velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
@@ -98,7 +97,7 @@ func _on_hit_detection_body_entered(body):
 		points += body.points
 		health_points_tracker += body.points
 		current_health -= body.health
-		body.queue_free()
+		body.health -= 50
 	else:
 		current_health = 0
 
@@ -128,13 +127,10 @@ func evolve():
 
 func scale_change():
 	health = Globals.character_health
-	scale = Globals.character_size
-	collision1.scale = Globals.character_size
-	hit_detection_collision.scale = Globals.character_size
-	
+	speed = Globals.character_speed
 
 func fireball_shoot():
-	if Globals.evolution >= 2 and has_shot == false and Globals.can_fireball:
+	if Globals.evolution >= 1 and has_shot == false and Globals.can_fireball:
 		has_shot = true
 		shoot_timer.start()
 		var fireball = fireball_scene.instantiate()

@@ -11,6 +11,8 @@ extends Node2D
 @onready var health_bar = $UI/Health
 @onready var spawn_increment_timer = $SpawnTimer
 @onready var spawn_total_timer = $WaveTotalTimer
+@onready var money_sound = $ExtraTimePoints/MoneySpent
+@onready var score_label = $UI/PointIncrease
 
 var pet_level = preload("res://scenes/pet_level.tscn")
 
@@ -23,14 +25,16 @@ var tank = preload("res://scenes/tank.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
 
+var time_points: int = 0
+
 var wave_options = [
 	{
-		"duration":10,
+		"duration":7,
 		"types":{
 			"civilian":0.45}
 	},
 	{
-		"duration":10,
+		"duration":7,
 		"types":{
 			"civilian":0.1,
 			"plane":0.2}
@@ -43,10 +47,10 @@ var wave_options = [
 			"cop":0.5}
 	},
 	{
-		"duration":20,
+		"duration":15,
 		"types":{
 			"civilian":0.1,
-			"cop":0.5,
+			"cop":0.3,
 			"cop_car":2.0}
 	},
 	{
@@ -209,3 +213,11 @@ func wave_keep():
 func _on_character_base_character_died():
 	LevelTransition.change_scene(pet_level)
 
+func _on_extra_time_points_timeout():
+	time_points += 2
+	player.points += time_points
+	money_sound.play()
+	score_label.text = '+' + str(time_points)
+	score_label.visible = true
+	await get_tree().create_timer(.3).timeout
+	score_label.visible = false

@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=15 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
-[ext_resource type="Texture2D" uid="uid://bwfv3rhg7b5oo" path="res://assets/worlds_objects/background_layer2.png" id="1_rbs6g"]
-[ext_resource type="Texture2D" uid="uid://80wva46bhs80" path="res://assets/worlds_objects/background_layer1.png" id="2_ckh2w"]
+[ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
+[ext_resource type="Texture2D" uid="uid://dhlca2v0865bj" path="res://assets/sounds/UI/ButtonBackground_Hover.png" id="3_oijba"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="4_edk6u"]
 [ext_resource type="Texture2D" uid="uid://c0vwno60s1gle" path="res://assets/sounds/UI/healthbar_back.png" id="5_2nylg"]
 [ext_resource type="Script" path="res://scripts/Evolution1Bar.gd" id="5_iia7i"]
@@ -13,9 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://cmv1rt1fes7at" path="res://assets/sounds/EvolveMenuSound.mp3" id="7_vwov3"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_rcy1e"]
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mqme"]
-size = Vector2(1559, 106)
 
 [sub_resource type="Theme" id="Theme_vhcm4"]
 default_font = ExtResource("6_c4f3s")
@@ -30,27 +27,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2rqs3")
 
-[node name="BackgroundLayer2" type="Sprite2D" parent="."]
-position = Vector2(600, 331)
-texture = ExtResource("1_rbs6g")
+[node name="BackgroundLayer2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nhpud")
+expand_mode = 2
+stretch_mode = 1
 
-[node name="BackgroundLayer1" type="Sprite2D" parent="."]
-position = Vector2(600, 332)
-texture = ExtResource("2_ckh2w")
-
-[node name="PlaceholderFloor" type="StaticBody2D" parent="."]
-position = Vector2(-6, 559)
-collision_layer = 2
-collision_mask = 5
-
-[node name="ColorRect" type="ColorRect" parent="PlaceholderFloor"]
-offset_right = 1250.0
-offset_bottom = 106.0
-color = Color(0.211765, 0.207843, 0.215686, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceholderFloor"]
-position = Vector2(779.5, 53)
-shape = SubResource("RectangleShape2D_5mqme")
+[node name="ButtonBackgroundHover" type="Sprite2D" parent="."]
+position = Vector2(601, 365)
+scale = Vector2(2, 3)
+texture = ExtResource("3_oijba")
 
 [node name="CharacterBase" parent="." instance=ExtResource("4_edk6u")]
 position = Vector2(597, 366)
@@ -65,9 +56,9 @@ texture = ExtResource("5_2nylg")
 [node name="Money" type="Label" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.15
+anchor_top = 0.6
 anchor_right = 0.05
-anchor_bottom = 0.15
+anchor_bottom = 0.6
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("6_c4f3s")
@@ -78,9 +69,9 @@ horizontal_alignment = 1
 [node name="CurrentWave" type="Label" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.25
+anchor_top = 0.7
 anchor_right = 0.05
-anchor_bottom = 0.25
+anchor_bottom = 0.7
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("6_c4f3s")
@@ -104,9 +95,9 @@ text = "Play Again"
 
 [node name="SizeButton" type="Button" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.25
+anchor_left = 0.23
 anchor_top = 0.05
-anchor_right = 0.25
+anchor_right = 0.23
 anchor_bottom = 0.05
 offset_right = 8.0
 offset_bottom = 8.0
@@ -115,7 +106,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-text = "Increase Size
+text = "Increase Speed
 15 Points
 "
 
@@ -201,9 +192,9 @@ horizontal_alignment = 1
 
 [node name="Evolution1" type="ProgressBar" parent="UI/Evolution1Vbox"]
 layout_mode = 2
-min_value = 3.0
-max_value = 4.59
-value = 3.0
+min_value = 300.0
+max_value = 850.0
+value = 300.0
 script = ExtResource("5_iia7i")
 
 [node name="Evolution1Vbox2" type="VBoxContainer" parent="UI"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=14 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
+[ext_resource type="AudioStream" uid="uid://c02tq3ecvxon5" path="res://assets/sounds/MoneySpentSound.mp3" id="3_7pq5d"]
 [ext_resource type="PackedScene" uid="uid://d1khwm35amnmx" path="res://scenes/character_base.tscn" id="3_s2vhx"]
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="4_f4dew"]
 [ext_resource type="Script" path="res://scripts/Health.gd" id="4_vvxes"]
@@ -14,7 +15,7 @@
 size = Vector2(2687, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7u5b"]
-size = Vector2(851, 12)
+size = Vector2(1050, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gttk0"]
 size = Vector2(20, 708)
@@ -29,25 +30,26 @@ position = Vector2(-6, 559)
 collision_layer = 2
 collision_mask = 5
 
-[node name="ColorRect" type="ColorRect" parent="PlaceholderFloor"]
-offset_right = 1250.0
-offset_bottom = 106.0
-color = Color(0.211765, 0.207843, 0.215686, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceholderFloor"]
 position = Vector2(1325.5, 53)
 shape = SubResource("RectangleShape2D_i0i7f")
+
+[node name="ColorRect" type="ColorRect" parent="PlaceholderFloor"]
+offset_left = -1.0
+offset_right = 1249.0
+offset_bottom = 106.0
+color = Color(0.133333, 0.152941, 0.160784, 1)
 
 [node name="World Border" type="StaticBody2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Border"]
-position = Vector2(151.5, -7)
+position = Vector2(251, -7)
 shape = SubResource("RectangleShape2D_i7u5b")
 one_way_collision_margin = 74.8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World Border"]
-position = Vector2(561, 318)
+position = Vector2(730, 336)
 shape = SubResource("RectangleShape2D_gttk0")
 one_way_collision_margin = 74.8
 
@@ -59,11 +61,19 @@ one_way_collision_margin = 74.8
 [node name="WaveTotalTimer" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="ExtraTimePoints" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="MoneySpent" type="AudioStreamPlayer" parent="ExtraTimePoints"]
+stream = ExtResource("3_7pq5d")
+volume_db = -10.0
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.1
 
 [node name="CharacterBase" parent="." instance=ExtResource("3_s2vhx")]
-position = Vector2(219, 552)
+position = Vector2(256, 280)
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -107,15 +117,15 @@ position = Vector2(2500, 450)
 position = Vector2(2500, 700)
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(219, 550)
+position = Vector2(258, 280)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
-anchor_left = 0.65
+anchor_left = 0.6
 anchor_top = 0.035
-anchor_right = 0.65
+anchor_right = 0.6
 anchor_bottom = 0.035
 offset_right = 40.0
 offset_bottom = 40.0
@@ -151,9 +161,18 @@ position = Vector2(46.22, 14.78)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("9_7r2rv")
 
+[node name="PointIncrease" type="Label" parent="UI"]
+offset_left = 642.0
+offset_top = 33.0
+offset_right = 682.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("4_f4dew")
+theme_override_font_sizes/font_size = 30
+
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [connection signal="timeout" from="WaveTotalTimer" to="." method="_on_wave_total_timer_timeout"]
+[connection signal="timeout" from="ExtraTimePoints" to="." method="_on_extra_time_points_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="character_died" from="CharacterBase" to="." method="_on_character_base_character_died"]
 [connection signal="health_changed" from="CharacterBase" to="UI/Health" method="_on_character_base_health_changed"]

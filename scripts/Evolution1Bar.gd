@@ -3,10 +3,10 @@ extends ProgressBar
 @onready var vbox = $".."
 
 func _process(_delta):
-	value = Globals.character_size.x + Globals.character_size.y + (float(Globals.character_health) / 100)
+	value = Globals.character_speed + Globals.character_health
 	hide_all()
 
 func hide_all():
-	if value >= 4.59:
+	if value >= 849:
 		vbox.visible = false
 
