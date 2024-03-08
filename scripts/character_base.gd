@@ -12,10 +12,13 @@ signal health_changed
 @onready var collision1 = $CollisionShape1
 @onready var hit_detection_collision = $HitDetection/CollisionShape2D
 @onready var fireball_spawn_marker = $FireballMarker
+
+@onready var small_hit_sound = $SmallHit
 @onready var walking_sound = $WalkingSound
 @onready var flying_sound = $FlyingSound
 @onready var death_sound = $DeathSound
 @onready var eating_sound = $EatingSound
+
 @onready var death_particles = $DeathParticles
 @onready var animation_player = $AnimationPlayer
 
@@ -108,8 +111,12 @@ func _on_hit_detection_body_entered(body):
 		points += body.points
 		health_points_tracker += body.points
 		current_health -= body.health
-		eat_sound()
+		small_hit_play()
 		body.health -= 50
+		var tween = create_tween()
+		tween.tween_property(animations, "modulate", Color.RED, 0.05)
+		tween.tween_property(animations, "modulate", Color.WHITE, 0.05)
+		tween.set_loops(1)
 	else:
 		current_health = 0
 
@@ -165,3 +172,7 @@ func fly_sound():
 func eat_sound():
 	eating_sound.pitch_scale = randf_range(0.9, 1.1)
 	eating_sound.play()
+
+func small_hit_play():
+	small_hit_sound.pitch_scale = randf_range(0.85, 1)
+	small_hit_sound.play()

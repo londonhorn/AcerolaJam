@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=17 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
 [ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dj7usn0n2mcuc" path="res://assets/sounds/WingFlap1.mp3" id="4_vik3g"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_skhvn"]
 [ext_resource type="AudioStream" uid="uid://cwp4a8hq2gk7n" path="res://assets/sounds/EatingSound.mp3" id="6_rdsxc"]
+[ext_resource type="AudioStream" uid="uid://dc54wd2gbhj8v" path="res://assets/sounds/Hit.mp3" id="7_55omi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbxb1"]
 size = Vector2(18, 18)
@@ -84,6 +85,7 @@ _data = {
 process_mode = 3
 collision_mask = 30
 script = ExtResource("1_2vxij")
+points = 5000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -127,6 +129,11 @@ max_polyphony = 5
 stream = ExtResource("6_rdsxc")
 volume_db = -4.0
 max_polyphony = 5
+
+[node name="SmallHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_55omi")
+volume_db = -5.0
+max_polyphony = 10
 
 [node name="DeathParticles" type="GPUParticles2D" parent="."]
 emitting = false

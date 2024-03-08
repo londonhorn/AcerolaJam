@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=26 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -24,6 +24,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6dkqy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dan1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5cl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv806"]
 
@@ -173,6 +175,25 @@ text = "Permanently Skip a Wave
 150 Points"
 script = ExtResource("9_e5iig")
 
+[node name="RegressButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.68
+anchor_top = 0.2
+anchor_right = 0.68
+anchor_bottom = 0.2
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
+theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bf5cl")
+text = "Regress Current Wave
+Refund 150 Points"
+script = ExtResource("9_e5iig")
+
 [node name="FireballButton" type="Button" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.25
@@ -302,6 +323,8 @@ volume_db = -10.0
 [connection signal="pressed" from="UI/HealthButton" to="." method="_on_health_button_pressed"]
 [connection signal="mouse_entered" from="UI/WaveSkipButton" to="UI/WaveSkipButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/WaveSkipButton" to="." method="_on_wave_skip_button_pressed"]
+[connection signal="mouse_entered" from="UI/RegressButton" to="UI/RegressButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="UI/RegressButton" to="." method="_on_regress_button_pressed"]
 [connection signal="mouse_entered" from="UI/FireballButton" to="UI/FireballButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/FireballButton" to="." method="_on_fireball_button_pressed"]
 [connection signal="mouse_entered" from="UI/ShieldButton" to="UI/ShieldButton" method="_on_mouse_entered"]

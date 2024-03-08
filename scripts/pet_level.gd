@@ -9,6 +9,7 @@ extends Control
 @onready var size_button = $UI/SizeButton
 @onready var health_button = $UI/HealthButton
 @onready var wave_skip_button = $UI/WaveSkipButton
+@onready var wave_refund_button = $UI/RegressButton
 @onready var fireball_button = $UI/FireballButton
 @onready var shield_button = $UI/ShieldButton
 
@@ -43,6 +44,7 @@ func _process(_delta):
 	size_button_lock()
 	health_button_lock()
 	wave_skip_button_lock()
+	wave_refund_button_lock()
 	fireball_button_lock()
 	shield_button_lock()
 
@@ -74,6 +76,12 @@ func _on_wave_skip_button_pressed():
 		money_spent_sound.play()
 		Globals.total_points -= 150
 		Globals.current_wave_increment += 1
+
+func _on_regress_button_pressed():
+	if Globals.current_wave_increment > 0:
+		money_spent_sound.play()
+		Globals.total_points += 150
+		Globals.current_wave_increment -= 1
 
 func _on_fireball_button_pressed():
 	if Globals.total_points >= 200:
@@ -133,6 +141,12 @@ func wave_skip_button_lock():
 	else:
 		wave_skip_button.disabled = false
 
+func wave_refund_button_lock():
+	if Globals.current_wave_increment <= 0:
+		wave_refund_button.disabled = true
+	else:
+		wave_refund_button.disabled = false
+
 func fireball_button_lock():
 	if Globals.evolution < 1:
 		fireball_button.visible = false
@@ -156,5 +170,7 @@ func shield_button_lock():
 		shield_button.disabled = false
 	if Globals.can_shield:
 		shield_button.visible = false
+
+
 
 
