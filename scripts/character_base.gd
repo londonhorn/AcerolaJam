@@ -150,7 +150,7 @@ func fireball_shoot():
 		fireball.player = self
 		get_tree().current_scene.add_child(fireball)
 		fireball.global_position = fireball_spawn_marker.global_position
-
+		fireball.look_at(get_global_mouse_position())
 func _on_shoot_timer_timeout():
 	has_shot = false
 

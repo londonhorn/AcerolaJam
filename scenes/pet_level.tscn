@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=25 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -13,7 +13,21 @@
 [ext_resource type="AudioStream" uid="uid://cmv1rt1fes7at" path="res://assets/sounds/EvolveMenuSound.mp3" id="7_vwov3"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_rcy1e"]
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
+[ext_resource type="Script" path="res://scripts/Buttons.gd" id="9_e5iig"]
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="12_1b6ev"]
+[ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="13_yurhq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aktfk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1tf0u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6dkqy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dan1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv806"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rsng4"]
 
 [sub_resource type="Theme" id="Theme_vhcm4"]
 default_font = ExtResource("6_c4f3s")
@@ -96,7 +110,10 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aktfk")
 text = "Play Again"
+script = ExtResource("9_e5iig")
 
 [node name="SizeButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -110,10 +127,13 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1tf0u")
 text = "Increase Speed
 15 Points
 "
+script = ExtResource("9_e5iig")
 
 [node name="HealthButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -127,9 +147,12 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6dkqy")
 text = "Increase Duration
 35 Points"
+script = ExtResource("9_e5iig")
 
 [node name="WaveSkipButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -143,9 +166,12 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2dan1")
 text = "Permanently Skip a Wave
 150 Points"
+script = ExtResource("9_e5iig")
 
 [node name="FireballButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -159,9 +185,12 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sv806")
 text = "Unlock Fireball
 200 Points"
+script = ExtResource("9_e5iig")
 
 [node name="ShieldButton" type="Button" parent="UI"]
 anchors_preset = -1
@@ -175,9 +204,12 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rsng4")
 text = "Unlock Shield
 300 Points"
+script = ExtResource("9_e5iig")
 
 [node name="Evolution1Vbox" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
@@ -245,9 +277,14 @@ theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 text = "Shield = Right Click"
 
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_yurhq")
+volume_db = -10.0
+
 [node name="ButtonHover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_1b6ev")
 volume_db = -10.0
+max_polyphony = 5
 
 [node name="EvolveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vwov3")
@@ -257,9 +294,15 @@ volume_db = -10.0
 stream = ExtResource("7_r2dbu")
 volume_db = -10.0
 
+[connection signal="mouse_entered" from="UI/RestartButton" to="UI/RestartButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/RestartButton" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="UI/SizeButton" to="UI/SizeButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/SizeButton" to="." method="_on_size_button_pressed"]
+[connection signal="mouse_entered" from="UI/HealthButton" to="UI/HealthButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="mouse_entered" from="UI/WaveSkipButton" to="UI/WaveSkipButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/WaveSkipButton" to="." method="_on_wave_skip_button_pressed"]
+[connection signal="mouse_entered" from="UI/FireballButton" to="UI/FireballButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/FireballButton" to="." method="_on_fireball_button_pressed"]
+[connection signal="mouse_entered" from="UI/ShieldButton" to="UI/ShieldButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/ShieldButton" to="." method="_on_shield_button_pressed"]

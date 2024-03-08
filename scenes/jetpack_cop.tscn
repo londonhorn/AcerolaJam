@@ -1,0 +1,186 @@
+[gd_scene load_steps=19 format=3 uid="uid://i15g3t8d8wy"]
+
+[ext_resource type="Script" path="res://scripts/JetpackCop.gd" id="1_1alih"]
+[ext_resource type="Texture2D" uid="uid://cw6tgc4thj8qv" path="res://assets/characters/jetpackcop_spritesheet.png" id="2_j0sab"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_sy4ib"]
+[ext_resource type="AudioStream" uid="uid://ch11mw2wptys7" path="res://assets/sounds/SmallGunshot.mp3" id="3_7yg60"]
+[ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_4ai26"]
+[ext_resource type="AudioStream" uid="uid://bla7wxh4qwtj1" path="res://assets/sounds/PersonDeath.mp3" id="5_43yj1"]
+
+[sub_resource type="Gradient" id="Gradient_0gn77"]
+offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
+colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jifkt"]
+gradient = SubResource("Gradient_0gn77")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_88bkm"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 5, 1)
+radial_velocity_max = 10.0
+gravity = Vector3(90, 0, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_jifkt")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jggw"]
+size = Vector2(42, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmybc"]
+atlas = ExtResource("2_j0sab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48535"]
+atlas = ExtResource("2_j0sab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjkdh"]
+atlas = ExtResource("2_j0sab")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jr1m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmybc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48535")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjkdh")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 8.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ekwyq"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+
+[sub_resource type="Animation" id="Animation_gsv3g"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_t8s5l"]
+resource_name = "death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BloodParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_weih8"]
+_data = {
+"RESET": SubResource("Animation_gsv3g"),
+"death": SubResource("Animation_t8s5l")
+}
+
+[node name="JetpackCop" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_1alih")
+points = 5
+level = 1
+health = 1
+
+[node name="FireTrail" type="GPUParticles2D" parent="."]
+position = Vector2(7, -15)
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_88bkm")
+texture = ExtResource("2_sy4ib")
+local_coords = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8jggw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5, -1)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_1jr1m")
+animation = &"flying"
+frame_progress = 0.435847
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.8, 2.1)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7yg60")
+volume_db = -18.0
+max_distance = 500.0
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(-32, 10)
+
+[node name="BloodParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_ekwyq")
+texture = ExtResource("4_4ai26")
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_43yj1")
+volume_db = -10.0
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.2
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_weih8")
+}
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

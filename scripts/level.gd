@@ -21,7 +21,9 @@ var pet_level = preload("res://scenes/pet_level.tscn")
 
 var civilian = preload("res://scenes/civilian.tscn")
 var plane = preload("res://scenes/civilian_plane.tscn")
+var taxi = preload("res://scenes/taxi.tscn")
 var cop = preload("res://scenes/cop.tscn")
+var jetpack_cop = preload("res://scenes/jetpack_cop.tscn")
 var cop_car = preload("res://scenes/cop_car.tscn")
 var soldier = preload("res://scenes/soldier.tscn")
 var tank = preload("res://scenes/tank.tscn")
@@ -32,10 +34,9 @@ var time_points: int = 0
 
 var wave_options = [
 	{
-		"duration":7,
+		"duration":10,
 		"types":{
-			"civilian":0.45,
-			"missile":0.1}
+			"civilian":0.45}
 	},
 	{
 		"duration":7,
@@ -48,6 +49,7 @@ var wave_options = [
 		"types":{
 			"civilian":0.1,
 			"plane":0.2,
+			"taxi":0.5,
 			"cop":0.5}
 	},
 	{
@@ -55,12 +57,14 @@ var wave_options = [
 		"types":{
 			"civilian":0.1,
 			"cop":0.3,
+			"taxi":1.5,
 			"cop_car":2.0}
 	},
 	{
 		"duration":15,
 		"types":{
 			"cop":0.4,
+			"jetpack_cop":1.0,
 			"cop_car":1.5}
 	},
 	{
@@ -75,6 +79,14 @@ var wave_options = [
 			"cop":0.35,
 			"soldier":0.7,
 			"cop_car":1.0}
+	},
+	{
+		"duration":15,
+		"types":{
+			"cop":0.35,
+			"soldier":0.6,
+			"tank":2.0,
+			"jetpack_cop":0.4}
 	}
 ]
 
@@ -114,6 +126,7 @@ func wave_generation():
 	call(current_spawn_type + "_spawn")
 	spawn_increment_timer.wait_time = wave_options[Globals.current_wave]["types"][current_spawn_type]
 
+
 func civilian_spawn():
 	var civilian_instance = civilian.instantiate()
 	add_child(civilian_instance)
@@ -137,6 +150,43 @@ func plane_spawn():
 		var pos = spawn_point.global_position
 		plane_instance.position = pos
 	return .45
+
+func taxi_spawn():
+	var taxi_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is Taxi:
+			taxi_found += 1
+	
+	if taxi_found < 1:
+		var taxi_instance = taxi.instantiate()
+		var missile_warning_instance = missile_warning.instantiate()
+		add_child(taxi_instance)
+		add_child(missile_warning_instance)
+		var spawn_point = $SpawnPointsMissiles/EnemySpawn4
+		var pos = spawn_point.global_position
+		taxi_instance.position = pos
+		missile_warning_instance.position = Vector2(1050, pos.y)
+		await get_tree().create_timer(1).timeout
+		missile_warning_instance.queue_free()
+	return 2.0
+
+func cop_spawn():
+	var cop_instance = cop.instantiate()
+	add_child(cop_instance)
+	var spawn_points = ground_spawn_markers.get_children()
+	var spawn_point = spawn_points[randi() % spawn_points.size()]
+	var pos = spawn_point.global_position
+	cop_instance.position = pos
+	return 2.0
+
+func jetpack_cop_spawn():
+	var jetpack_cop_instance = jetpack_cop.instantiate()
+	add_child(jetpack_cop_instance)
+	var spawn_points = plane_spawn_markers.get_children()
+	var spawn_point = spawn_points[randi() % spawn_points.size()]
+	var pos = spawn_point.global_position
+	jetpack_cop_instance.position = pos
+	return 2.0
 
 func tank_spawn():
 	var tank_found: int = 0
@@ -180,15 +230,6 @@ func soldier_spawn():
 	var spawn_point = spawn_points[randi() % spawn_points.size()]
 	var pos = spawn_point.global_position
 	soldier_instance.position = pos
-	return 2.0
-
-func cop_spawn():
-	var cop_instance = cop.instantiate()
-	add_child(cop_instance)
-	var spawn_points = ground_spawn_markers.get_children()
-	var spawn_point = spawn_points[randi() % spawn_points.size()]
-	var pos = spawn_point.global_position
-	cop_instance.position = pos
 	return 2.0
 
 func cop_car_spawn():

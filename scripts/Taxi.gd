@@ -1,4 +1,4 @@
-class_name CopCar
+class_name Taxi
 extends Enemy
 
 
@@ -10,7 +10,7 @@ func _process(_delta):
 	enemy_death()
 
 func _physics_process(_delta):
-	velocity.x = -1250
+	velocity.x = -800
 	velocity.y = 100
 	
 	move_and_slide()

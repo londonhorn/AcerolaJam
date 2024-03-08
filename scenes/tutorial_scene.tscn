@@ -73,8 +73,8 @@ theme_override_fonts/font = ExtResource("1_k2gtx")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = ExtResource("2_hocw3")
 text = "You have come into possession of the means to control an otherworldly monstrosity.
-The beasts power has diminished greatly, as they have ran out of prey in their own realm.
-It is your task to guide them to devour anything in their path in our world."
+The beast's power has diminished greatly, as they ran out of prey in their own realm.
+It is your task to guide them to devour anything in their path in this one."
 horizontal_alignment = 1
 script = ExtResource("3_emesl")
 
@@ -106,7 +106,7 @@ theme_override_styles/normal = ExtResource("2_hocw3")
 text = "Feed, grow, and feed again.
 Evolve your monster until their hunger is satisfied.
 The creature can only last a limited amount of time on Earth before being
-banished back to his home dimension, so make every trip to earth count."
+banished back to their home dimension, so make every trip to earth count."
 horizontal_alignment = 1
 script = ExtResource("5_pewal")
 

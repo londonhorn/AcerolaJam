@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bla7wxh4qwtj1" path="res://assets/sounds/PersonDeath.mp3" id="5_xf00t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fyaw"]
-size = Vector2(16, 38)
+size = Vector2(4, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aydtg"]
 atlas = ExtResource("1_mwiiq")

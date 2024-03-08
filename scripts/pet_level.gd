@@ -12,8 +12,10 @@ extends Control
 @onready var fireball_button = $UI/FireballButton
 @onready var shield_button = $UI/ShieldButton
 
+@onready var hover_sound = $ButtonHover
 @onready var money_spent_sound = $MoneySpent
 @onready var evolve_sound = $EvolveSound
+@onready var click_sound = $ButtonClick
 
 @onready var gameplay_level = load("res://scenes/level.tscn")
 
@@ -51,6 +53,8 @@ func current_wave_display_change():
 	current_wave_display.text = ('Current Wave: ' + str(Globals.current_wave))
 
 func _on_button_pressed():
+	click_sound.play()
+	await click_sound.finished
 	LevelTransition.change_scene(gameplay_level)
 
 func _on_size_button_pressed():
@@ -152,8 +156,5 @@ func shield_button_lock():
 		shield_button.disabled = false
 	if Globals.can_shield:
 		shield_button.visible = false
-
-
-
 
 
