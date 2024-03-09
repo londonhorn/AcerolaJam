@@ -8,7 +8,7 @@
 offsets = PackedFloat32Array(0, 0.744526, 1)
 colors = PackedColorArray(0.529067, 0.529067, 0.529067, 1, 0.140447, 0.140447, 0.140447, 1, 0.099986, 0.099986, 0.099986, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fddlk"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2b1r2"]
 gradient = SubResource("Gradient_7wd3i")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_embip"]
@@ -16,19 +16,19 @@ particle_flag_disable_z = true
 gravity = Vector3(100, 0, 0)
 scale_min = 0.7
 scale_max = 0.85
-color_ramp = SubResource("GradientTexture1D_fddlk")
+color_ramp = SubResource("GradientTexture1D_2b1r2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewg8d"]
 size = Vector2(4, 4)
 
-[node name="SoldierBullet" type="CharacterBody2D"]
+[node name="SoldierBullet" type="CharacterBody2D" groups=["bullets"]]
 scale = Vector2(2, 2)
 collision_layer = 8
 script = ExtResource("1_g3baw")
 level = 1
 health = 5
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(3, 0)
 process_material = SubResource("ParticleProcessMaterial_embip")
 texture = ExtResource("2_jekw8")

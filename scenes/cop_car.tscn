@@ -1,16 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx4sthdol7d8w"]
+[gd_scene load_steps=16 format=3 uid="uid://cx4sthdol7d8w"]
 
 [ext_resource type="Script" path="res://scripts/cop_car.gd" id="1_27ny6"]
 [ext_resource type="Texture2D" uid="uid://dtqnhhioa2lhp" path="res://assets/characters/copcar_spritesheet.png" id="1_u1sy6"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_5kxha"]
 [ext_resource type="AudioStream" uid="uid://dumc4hbpprfmu" path="res://assets/sounds/CopCarSound.mp3" id="3_y1n2x"]
 [ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="5_21i7q"]
+[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="5_fentr"]
 
 [sub_resource type="Gradient" id="Gradient_635f3"]
 offsets = PackedFloat32Array(0, 0.751825, 1)
 colors = PackedColorArray(0.351563, 0.351563, 0.351563, 1, 0.147672, 0.147672, 0.147672, 0.823529, 0.129558, 0.129558, 0.129558, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2xkl5"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fhsai"]
 gradient = SubResource("Gradient_635f3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7pq1o"]
@@ -20,7 +21,7 @@ radial_velocity_max = 10.0
 gravity = Vector3(100, -10, 0)
 scale_min = 0.5
 scale_max = 0.5
-color_ramp = SubResource("GradientTexture1D_2xkl5")
+color_ramp = SubResource("GradientTexture1D_fhsai")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k58cm"]
 size = Vector2(74, 38)
@@ -46,24 +47,6 @@ animations = [{
 "name": &"default",
 "speed": 10.0
 }]
-
-[sub_resource type="Gradient" id="Gradient_3bg6y"]
-offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
-colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_f7y4t"]
-gradient = SubResource("Gradient_3bg6y")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2co1o"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 75.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
-color_ramp = SubResource("GradientTexture1D_f7y4t")
 
 [sub_resource type="Animation" id="Animation_6ntou"]
 resource_name = "vehicle_death"
@@ -130,7 +113,7 @@ points = 6
 level = 2
 health = 1
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(45, 12)
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_7pq1o")
@@ -156,10 +139,10 @@ max_distance = 1000.0
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(229, 0)
 
-[node name="BloodParticle" type="GPUParticles2D" parent="."]
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
 emitting = false
 amount = 150
-process_material = SubResource("ParticleProcessMaterial_2co1o")
+process_material = ExtResource("5_fentr")
 texture = ExtResource("2_5kxha")
 lifetime = 0.7
 one_shot = true

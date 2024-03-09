@@ -6,6 +6,7 @@ extends Button
 @onready var wait_timer = $WaitTimer
 
 @onready var level = preload("res://scenes/level.tscn")
+@onready var particle_scene = preload("res://scenes/particle_scene.tscn")
 
 func _process(_delta):
 	if Input.is_action_just_pressed('click'):
@@ -30,7 +31,7 @@ func animation():
 func _on_pressed():
 	click_sound.play()
 	await click_sound.finished
-	LevelTransition.change_scene(level)
+	LevelTransition.change_scene(particle_scene)
 
 func _on_mouse_entered():
 	$ButtonHover.play()

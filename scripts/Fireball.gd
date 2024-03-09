@@ -1,4 +1,5 @@
 extends Projectile
+class_name Fireball
 
 @onready var font = preload("res://assets/Fonts/SpiritsRegular-OEKo.ttf")
 @onready var point_popup = preload("res://scenes/score_popup.tscn")
@@ -28,7 +29,7 @@ func _on_hit_detection_body_entered(body):
 		var pos = spawn_point.global_position
 		label.text = "+" + str(body.points)
 		label.global_position = pos
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(0.03).timeout
 		queue_free()
 	else:
 		queue_free()

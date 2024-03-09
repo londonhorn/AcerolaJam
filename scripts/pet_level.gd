@@ -52,7 +52,7 @@ func money_display_change():
 	money_display.text = ('Points: ' + str(Globals.total_points))
 
 func current_wave_display_change():
-	current_wave_display.text = ('Current Wave: ' + str(Globals.current_wave))
+	current_wave_display.text = ('Current Wave: ' + str(Globals.current_wave_increment + 1))
 
 func _on_button_pressed():
 	click_sound.play()
@@ -69,18 +69,18 @@ func _on_health_button_pressed():
 	if Globals.total_points >= 35:
 		money_spent_sound.play()
 		Globals.total_points -= 35
-		Globals.character_health += 40
+		Globals.character_health += 30
 
 func _on_wave_skip_button_pressed():
-	if Globals.total_points >= 150:
+	if Globals.total_points >= 400:
 		money_spent_sound.play()
-		Globals.total_points -= 150
+		Globals.total_points -= 400
 		Globals.current_wave_increment += 1
 
 func _on_regress_button_pressed():
 	if Globals.current_wave_increment > 0:
 		money_spent_sound.play()
-		Globals.total_points += 150
+		Globals.total_points += 400
 		Globals.current_wave_increment -= 1
 
 func _on_fireball_button_pressed():
@@ -90,16 +90,16 @@ func _on_fireball_button_pressed():
 		Globals.can_fireball = true
 
 func _on_shield_button_pressed():
-	if Globals.total_points >= 300:
+	if Globals.total_points >= 700:
 		money_spent_sound.play()
-		Globals.total_points -= 300
+		Globals.total_points -= 700
 		Globals.can_shield = true
 
 func evolution_checks():
 	if Globals.character_speed >= 350 and Globals.character_health >= 500 and Globals.evolution == 0:
 		Globals.evolution += 1
 		evolve_sound.play()
-	elif Globals.character_speed >= 500 and Globals.character_health >= 660 and Globals.evolution == 1:
+	elif Globals.character_speed >= 425 and Globals.character_health >= 660 and Globals.evolution == 1:
 		Globals.evolution += 1
 		evolve_sound.play()
 
@@ -107,7 +107,7 @@ func size_button_lock():
 	if Globals.character_speed >= 349 and Globals.evolution <= 0:
 		size_button.disabled = true
 		size_button.text = "Must Evolve"
-	elif Globals.character_speed >= 499 and Globals.evolution <= 1:
+	elif Globals.character_speed >= 424 and Globals.evolution <= 1:
 		size_button.disabled = true
 		size_button.text = "Must Evolve"
 	elif Globals.total_points <= 15:
@@ -136,7 +136,7 @@ func health_button_lock():
 		35 Points"
 
 func wave_skip_button_lock():
-	if Globals.total_points < 150:
+	if Globals.total_points < 400:
 		wave_skip_button.disabled = true
 	else:
 		wave_skip_button.disabled = false
@@ -164,7 +164,7 @@ func shield_button_lock():
 		shield_button.visible = false
 	else:
 		shield_button.visible = true
-	if Globals.total_points < 300:
+	if Globals.total_points < 700:
 		shield_button.disabled = true
 	else:
 		shield_button.disabled = false

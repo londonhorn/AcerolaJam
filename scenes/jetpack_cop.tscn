@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://i15g3t8d8wy"]
+[gd_scene load_steps=20 format=3 uid="uid://i15g3t8d8wy"]
 
 [ext_resource type="Script" path="res://scripts/JetpackCop.gd" id="1_1alih"]
 [ext_resource type="Texture2D" uid="uid://cw6tgc4thj8qv" path="res://assets/characters/jetpackcop_spritesheet.png" id="2_j0sab"]
@@ -6,12 +6,13 @@
 [ext_resource type="AudioStream" uid="uid://ch11mw2wptys7" path="res://assets/sounds/SmallGunshot.mp3" id="3_7yg60"]
 [ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_4ai26"]
 [ext_resource type="AudioStream" uid="uid://bla7wxh4qwtj1" path="res://assets/sounds/PersonDeath.mp3" id="5_43yj1"]
+[ext_resource type="AudioStream" uid="uid://dm2rerifnw4oc" path="res://assets/sounds/Jetpack.mp3" id="7_rpool"]
 
 [sub_resource type="Gradient" id="Gradient_0gn77"]
 offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
 colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jifkt"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t3fng"]
 gradient = SubResource("Gradient_0gn77")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_88bkm"]
@@ -22,7 +23,17 @@ radial_velocity_max = 10.0
 gravity = Vector3(90, 0, 0)
 scale_min = 0.2
 scale_max = 0.4
-color_ramp = SubResource("GradientTexture1D_jifkt")
+color_ramp = SubResource("GradientTexture1D_t3fng")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ekwyq"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jggw"]
 size = Vector2(42, 16)
@@ -60,16 +71,6 @@ animations = [{
 "name": &"flying",
 "speed": 8.0
 }]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ekwyq"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 75.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
 
 [sub_resource type="Animation" id="Animation_gsv3g"]
 resource_name = "RESET"
@@ -128,12 +129,22 @@ points = 5
 level = 1
 health = 1
 
-[node name="FireTrail" type="GPUParticles2D" parent="."]
+[node name="FireTrail" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(7, -15)
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_88bkm")
 texture = ExtResource("2_sy4ib")
 local_coords = true
+
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_ekwyq")
+texture = ExtResource("4_4ai26")
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8jggw")
@@ -148,27 +159,23 @@ frame_progress = 0.435847
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(0.8, 2.1)
 
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(-32, 10)
+
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_7yg60")
 volume_db = -18.0
 max_distance = 500.0
 
-[node name="BulletSpawn" type="Marker2D" parent="."]
-position = Vector2(-32, 10)
-
-[node name="BloodParticle" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_ekwyq")
-texture = ExtResource("4_4ai26")
-lifetime = 0.8
-one_shot = true
-speed_scale = 1.2
-explosiveness = 1.0
-
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_43yj1")
 volume_db = -10.0
+
+[node name="IdleSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_rpool")
+volume_db = -12.0
+autoplay = true
+max_distance = 600.0
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 1.2

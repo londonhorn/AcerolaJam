@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://4551v5aerbvd"]
+[gd_scene load_steps=21 format=3 uid="uid://4551v5aerbvd"]
 
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_75ftt"]
 [ext_resource type="Texture2D" uid="uid://coimjmibjet3j" path="res://assets/characters/tank_spritesheet.png" id="2_aubsc"]
 [ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="3_0hg7f"]
 [ext_resource type="AudioStream" uid="uid://cldia7v060lcw" path="res://assets/sounds/TankMoving.mp3" id="3_48dso"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_v3gt7"]
+[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="6_hnwkq"]
 [ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="6_rnh1i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bb0l"]
@@ -62,19 +63,19 @@ size = Vector2(62, 42)
 offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
 colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rba0h"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5e28n"]
 gradient = SubResource("Gradient_1fslf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vam1v"]
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
-spread = 180.0
+direction = Vector3(-1, 0, 0)
 initial_velocity_min = 50.0
 initial_velocity_max = 75.0
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 2.0
-color_ramp = SubResource("GradientTexture1D_rba0h")
+color_ramp = SubResource("GradientTexture1D_5e28n")
 
 [sub_resource type="Animation" id="Animation_mg0hh"]
 resource_name = "RESET"
@@ -130,7 +131,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_75ftt")
 points = 8
-level = 2
+level = 3
 health = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -153,11 +154,11 @@ wait_time = 2.0
 wait_time = 5.0
 
 [node name="BulletSpawn" type="Marker2D" parent="."]
-position = Vector2(-58, 0)
+position = Vector2(-48, -26)
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_0hg7f")
-volume_db = -10.0
+volume_db = -5.0
 
 [node name="DrivingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_48dso")
@@ -165,10 +166,21 @@ volume_db = -20.0
 autoplay = true
 max_distance = 500.0
 
-[node name="BloodParticle" type="GPUParticles2D" parent="."]
+[node name="ShootParticle" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-48, -26)
 emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_vam1v")
+texture = ExtResource("5_v3gt7")
+lifetime = 0.3
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
+emitting = false
+amount = 150
+process_material = ExtResource("6_hnwkq")
 texture = ExtResource("5_v3gt7")
 lifetime = 0.7
 one_shot = true
@@ -176,6 +188,7 @@ speed_scale = 1.2
 explosiveness = 1.0
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-41, 0)
 stream = ExtResource("6_rnh1i")
 volume_db = -10.0
 

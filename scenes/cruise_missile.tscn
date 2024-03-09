@@ -10,7 +10,7 @@
 offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
 colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_0fxsc"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qlptl"]
 gradient = SubResource("Gradient_6ly1d")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2f8f"]
@@ -21,7 +21,7 @@ radial_velocity_max = 10.0
 gravity = Vector3(90, 0, 0)
 scale_min = 0.2
 scale_max = 0.4
-color_ramp = SubResource("GradientTexture1D_0fxsc")
+color_ramp = SubResource("GradientTexture1D_qlptl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qh60"]
 size = Vector2(30, 12)
@@ -30,7 +30,7 @@ size = Vector2(30, 12)
 offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
 colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqclg"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f3x7m"]
 gradient = SubResource("Gradient_k7awj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cud81"]
@@ -42,7 +42,7 @@ initial_velocity_max = 75.0
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 2.0
-color_ramp = SubResource("GradientTexture1D_jqclg")
+color_ramp = SubResource("GradientTexture1D_f3x7m")
 
 [sub_resource type="Animation" id="Animation_8jndt"]
 resource_name = "RESET"
@@ -113,7 +113,7 @@ level = 3
 points = 15
 health = 20
 
-[node name="FireTrail" type="GPUParticles2D" parent="."]
+[node name="FireTrail" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(16, 0)
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_i2f8f")
@@ -135,7 +135,7 @@ volume_db = -5.0
 autoplay = true
 max_distance = 1000.0
 
-[node name="BloodParticle" type="GPUParticles2D" parent="."]
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
 emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_cud81")

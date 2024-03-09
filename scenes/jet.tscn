@@ -1,0 +1,213 @@
+[gd_scene load_steps=20 format=3 uid="uid://p6vhxvwwt8pc"]
+
+[ext_resource type="Texture2D" uid="uid://b7iiv4f7p5m3g" path="res://assets/characters/jet.png" id="1_1d7xv"]
+[ext_resource type="Script" path="res://scripts/jet.gd" id="1_pli8f"]
+[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="2_tw031"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="3_40xvh"]
+[ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="4_wp6os"]
+[ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="5_q3rx5"]
+[ext_resource type="AudioStream" uid="uid://cqwd8ay61drlq" path="res://assets/sounds/JetFlying.mp3" id="7_rk36g"]
+
+[sub_resource type="Gradient" id="Gradient_2n7ts"]
+offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
+colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kn0u4"]
+gradient = SubResource("Gradient_2n7ts")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w3e2l"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 5, 1)
+radial_velocity_max = 10.0
+gravity = Vector3(90, 0, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_kn0u4")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jow7e"]
+atlas = ExtResource("1_1d7xv")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7b4mq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jow7e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0wa7"]
+size = Vector2(80, 40)
+
+[sub_resource type="Gradient" id="Gradient_eo088"]
+offsets = PackedFloat32Array(0, 0.321168, 0.715328, 0.992701)
+colors = PackedColorArray(1, 0.262745, 0, 1, 1, 0.262745, 0, 1, 1, 0.478431, 0.184314, 0.623529, 1, 0.627451, 0.313726, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ri6jo"]
+gradient = SubResource("Gradient_eo088")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u2t1l"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_ri6jo")
+
+[sub_resource type="Animation" id="Animation_m8srg"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_2ncuo"]
+resource_name = "vehicle_death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathSound:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BloodParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkg0y"]
+_data = {
+"RESET": SubResource("Animation_m8srg"),
+"vehicle_death": SubResource("Animation_2ncuo")
+}
+
+[node name="Jet" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_pli8f")
+points = 10
+level = 3
+health = 1
+
+[node name="FireTrail" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-12, -18)
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_w3e2l")
+texture = ExtResource("3_40xvh")
+local_coords = true
+
+[node name="FireTrail2" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(4, 16)
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_w3e2l")
+texture = ExtResource("3_40xvh")
+local_coords = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_7b4mq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_k0wa7")
+metadata/_edit_lock_ = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(114, 0)
+
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
+emitting = false
+amount = 150
+process_material = ExtResource("2_tw031")
+texture = ExtResource("3_40xvh")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="ShootParticle" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-36, 18)
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_u2t1l")
+texture = ExtResource("3_40xvh")
+lifetime = 0.3
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="ShootParticle2" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-42, -9)
+emitting = false
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_u2t1l")
+texture = ExtResource("3_40xvh")
+lifetime = 0.3
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_wp6os")
+volume_db = -5.0
+max_polyphony = 4
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_q3rx5")
+volume_db = -10.0
+
+[node name="FlyingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_rk36g")
+volume_db = -20.0
+autoplay = true
+max_distance = 800.0
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(-40, 18)
+
+[node name="BulletSpawn2" type="Marker2D" parent="."]
+position = Vector2(-47, -9)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xkg0y")
+}
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

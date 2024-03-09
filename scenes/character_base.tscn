@@ -19,7 +19,7 @@ size = Vector2(26, 26)
 offsets = PackedFloat32Array(0, 0.759124, 1)
 colors = PackedColorArray(0.14902, 0.168627, 0.266667, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5amyx"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i8qm0"]
 gradient = SubResource("Gradient_f3a4u")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_doia1"]
@@ -29,7 +29,7 @@ spread = 180.0
 initial_velocity_min = 30.0
 initial_velocity_max = 75.0
 gravity = Vector3(0, 0, 0)
-color_ramp = SubResource("GradientTexture1D_5amyx")
+color_ramp = SubResource("GradientTexture1D_i8qm0")
 
 [sub_resource type="Animation" id="Animation_5pd7t"]
 resource_name = "RESET"
@@ -85,7 +85,6 @@ _data = {
 process_mode = 3
 collision_mask = 30
 script = ExtResource("1_2vxij")
-points = 5000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -109,6 +108,11 @@ autostart = true
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.35
+one_shot = true
+
+[node name="ShieldTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [node name="FireballMarker" type="Marker2D" parent="."]
 position = Vector2(23, 0)
@@ -135,7 +139,7 @@ stream = ExtResource("7_55omi")
 volume_db = -5.0
 max_polyphony = 10
 
-[node name="DeathParticles" type="GPUParticles2D" parent="."]
+[node name="DeathParticles" type="GPUParticles2D" parent="." groups=["particles"]]
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_doia1")
@@ -177,3 +181,4 @@ position = Vector2(-28, -20)
 [connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
 [connection signal="timeout" from="HealthDecrease" to="." method="_on_health_decrease_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="ShieldTimer" to="." method="_on_shield_timer_timeout"]

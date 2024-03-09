@@ -172,7 +172,7 @@ theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2dan1")
 text = "Permanently Skip a Wave
-150 Points"
+400 Points"
 script = ExtResource("9_e5iig")
 
 [node name="RegressButton" type="Button" parent="UI"]
@@ -191,7 +191,7 @@ theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bf5cl")
 text = "Regress Current Wave
-Refund 150 Points"
+Refund 400 Points"
 script = ExtResource("9_e5iig")
 
 [node name="FireballButton" type="Button" parent="UI"]
@@ -229,7 +229,7 @@ theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rsng4")
 text = "Unlock Shield
-300 Points"
+700 Points"
 script = ExtResource("9_e5iig")
 
 [node name="Evolution1Vbox" type="VBoxContainer" parent="UI"]
@@ -275,7 +275,7 @@ horizontal_alignment = 1
 [node name="Evolution2" type="ProgressBar" parent="UI/Evolution1Vbox2"]
 layout_mode = 2
 min_value = 850.0
-max_value = 1160.0
+max_value = 1085.0
 value = 850.0
 allow_lesser = true
 script = ExtResource("6_qctny")

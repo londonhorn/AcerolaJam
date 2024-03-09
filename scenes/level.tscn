@@ -94,14 +94,32 @@ position = Vector2(1305, 525)
 [node name="SpawnLocation1" type="Node2D" parent="."]
 position = Vector2(1305, 525)
 
+[node name="SpawnLocation2" type="Node2D" parent="."]
+position = Vector2(1365, 527)
+
+[node name="SpawnLocation3" type="Node2D" parent="."]
+position = Vector2(1246, 528)
+
 [node name="SpawnPointsPlanes" type="Node2D" parent="."]
 position = Vector2(0, -200)
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPointsPlanes"]
-position = Vector2(1194, 500)
+position = Vector2(1231, 455)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPointsPlanes"]
 position = Vector2(1427, 400)
+
+[node name="EnemySpawn4" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1370, 332)
+
+[node name="EnemySpawn5" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1247, 524)
+
+[node name="EnemySpawn6" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1245, 273)
+
+[node name="EnemySpawn7" type="Marker2D" parent="SpawnPointsPlanes"]
+position = Vector2(1363, 500)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPointsPlanes"]
 position = Vector2(1305, 450)
@@ -112,11 +130,23 @@ position = Vector2(0, -200)
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPointsMissiles"]
 position = Vector2(2500, 600)
 
+[node name="EnemySpawn8" type="Marker2D" parent="SpawnPointsMissiles"]
+position = Vector2(2496, 347)
+
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPointsMissiles"]
 position = Vector2(2500, 300)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPointsMissiles"]
 position = Vector2(2500, 450)
+
+[node name="EnemySpawn5" type="Marker2D" parent="SpawnPointsMissiles"]
+position = Vector2(2501, 549)
+
+[node name="EnemySpawn6" type="Marker2D" parent="SpawnPointsMissiles"]
+position = Vector2(2500, 500)
+
+[node name="EnemySpawn7" type="Marker2D" parent="SpawnPointsMissiles"]
+position = Vector2(2497, 394)
 
 [node name="EnemySpawn4" type="Marker2D" parent="SpawnPointsMissiles"]
 position = Vector2(2500, 700)
@@ -149,6 +179,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_ugkgk")
 
 [node name="Health" type="TextureProgressBar" parent="UI"]
+top_level = true
 anchors_preset = -1
 anchor_left = 0.815
 anchor_top = 0.03

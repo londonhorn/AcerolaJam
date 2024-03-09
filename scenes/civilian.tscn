@@ -124,7 +124,7 @@ volume_db = -15.0
 autoplay = true
 max_distance = 500.0
 
-[node name="BloodParticle" type="GPUParticles2D" parent="."]
+[node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ei27q")

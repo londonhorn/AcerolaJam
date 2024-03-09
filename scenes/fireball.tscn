@@ -15,14 +15,14 @@ size = Vector2(30, 22)
 offsets = PackedFloat32Array(0, 0.477807, 1)
 colors = PackedColorArray(0.996078, 0.905882, 0.380392, 1, 0.968627, 0.462745, 0.133333, 1, 0.894118, 0.231373, 0.266667, 0.341176)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fyyap"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f8ny6"]
 gradient = SubResource("Gradient_xjrtj")
 
 [sub_resource type="Curve" id="Curve_chvw3"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_hafp6"]
+[sub_resource type="CurveTexture" id="CurveTexture_jd01b"]
 curve = SubResource("Curve_chvw3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ife6t"]
@@ -32,8 +32,8 @@ angular_velocity_max = 120.0
 radial_velocity_min = 5.0
 radial_velocity_max = 10.0
 gravity = Vector3(-500, 0, 0)
-scale_curve = SubResource("CurveTexture_hafp6")
-color_ramp = SubResource("GradientTexture1D_fyyap")
+scale_curve = SubResource("CurveTexture_jd01b")
+color_ramp = SubResource("GradientTexture1D_f8ny6")
 turbulence_enabled = true
 turbulence_noise_scale = 1.08
 
@@ -51,12 +51,12 @@ position = Vector2(-37, 0)
 
 [node name="HitDetection" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 12
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
 shape = SubResource("RectangleShape2D_wtqcp")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(3.66667, 0)
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_ife6t")

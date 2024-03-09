@@ -7,7 +7,7 @@ func _process(_delta):
 	enemy_death()
 
 func _physics_process(_delta):
-	velocity.x = -1200
+	velocity.x = -1300
 	
 	
 	move_and_slide()

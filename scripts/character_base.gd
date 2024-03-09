@@ -9,6 +9,7 @@ signal health_changed
 
 @onready var evolution_sprite_1 = $CharacterSprite1
 @onready var shoot_timer = $ShootTimer
+@onready var shield_timer = $ShieldTimer
 @onready var collision1 = $CollisionShape1
 @onready var hit_detection_collision = $HitDetection/CollisionShape2D
 @onready var fireball_spawn_marker = $FireballMarker
@@ -23,6 +24,7 @@ signal health_changed
 @onready var animation_player = $AnimationPlayer
 
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
+@onready var shield_scene = preload("res://scenes/shield.tscn")
 @onready var point_popup = preload("res://scenes/score_popup.tscn")
 
 @onready var current_health: int = max_health
@@ -34,7 +36,9 @@ const FRICTION = 500
 var speed: int = 0
 var health_points_tracker = 0
 var can_move: bool = true
+var is_shielding: bool = false
 var has_shot: bool = false
+var has_shield: bool = false
 
 var animations_evolution_sprites: Array = [
 	"res://sprite_frames_spot/evolution_0.tres", 
@@ -51,6 +55,10 @@ func _process(_delta):
 	
 	if Input.is_action_pressed('Fireball'):
 		fireball_shoot()
+	if Input.is_action_pressed('Shield'):
+		shield_spawn()
+	if is_shielding:
+		get_tree().call_group('bullets','queue_free')
 	
 	scale_change()
 	evolve()
@@ -125,7 +133,7 @@ func _on_health_decrease_timeout():
 	health_changed.emit(max_health, current_health)
 
 func health_point_increase():
-	if health_points_tracker >= 10:
+	if health_points_tracker >= 5:
 		current_health += 3
 		health_points_tracker = 0
 	health_changed.emit(max_health, current_health)
@@ -161,6 +169,20 @@ func fireball_shoot():
 func _on_shoot_timer_timeout():
 	has_shot = false
 
+func shield_spawn():
+	if Globals.evolution >= 2 and has_shield == false and Globals.can_shield:
+		has_shield = true
+		shield_timer.start()
+		var shield = shield_scene.instantiate()
+		shield.player = self
+		get_tree().current_scene.add_child(shield)
+		is_shielding = true
+		await get_tree().create_timer(1).timeout
+		is_shielding = false
+func _on_shield_timer_timeout():
+	has_shield = false
+
+
 func walk_sound():
 	walking_sound.pitch_scale = randf_range(1, 1.2)
 	walking_sound.play()
@@ -176,3 +198,5 @@ func eat_sound():
 func small_hit_play():
 	small_hit_sound.pitch_scale = randf_range(0.85, 1)
 	small_hit_sound.play()
+
+

@@ -27,6 +27,7 @@ var jetpack_cop = preload("res://scenes/jetpack_cop.tscn")
 var cop_car = preload("res://scenes/cop_car.tscn")
 var soldier = preload("res://scenes/soldier.tscn")
 var tank = preload("res://scenes/tank.tscn")
+var jet = preload("res://scenes/jet.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
 
@@ -34,7 +35,7 @@ var time_points: int = 0
 
 var wave_options = [
 	{
-		"duration":10,
+		"duration":7,
 		"types":{
 			"civilian":0.45}
 	},
@@ -49,29 +50,29 @@ var wave_options = [
 		"types":{
 			"civilian":0.1,
 			"plane":0.2,
-			"taxi":0.5,
-			"cop":0.5}
+			"taxi":0.3,
+			"cop":0.4}
 	},
 	{
 		"duration":15,
 		"types":{
 			"civilian":0.1,
 			"cop":0.3,
-			"taxi":1.5,
-			"cop_car":2.0}
+			"taxi":0.7,
+			"cop_car":1.0}
 	},
 	{
-		"duration":15,
+		"duration":25,
 		"types":{
 			"cop":0.4,
 			"jetpack_cop":1.0,
 			"cop_car":1.5}
 	},
 	{
-		"duration":10,
+		"duration":20,
 		"types":{
 			"cop":0.4,
-			"soldier":0.8}
+			"soldier":0.7}
 	},
 	{
 		"duration":15,
@@ -81,12 +82,49 @@ var wave_options = [
 			"cop_car":1.0}
 	},
 	{
-		"duration":15,
+		"duration":20,
 		"types":{
 			"cop":0.35,
-			"soldier":0.6,
-			"tank":2.0,
-			"jetpack_cop":0.4}
+			"soldier":0.5,
+			"tank":1.0,
+			"jetpack_cop":0.3}
+	},
+	{
+		"duration":25,
+		"types":{
+			"soldier":0.4,
+			"tank":0.8,
+			"jetpack_cop":0.3}
+	},
+	{
+		"duration":20,
+		"types":{
+			"soldier":0.3,
+			"tank":0.6,
+			"missile":1.5}
+	},
+	{
+		"duration":20,
+		"types":{
+			"missile":0.3}
+	},
+	{
+		"duration":15,
+		"types":{
+			"jet":1.5,
+			"jetpack_cop":1.0,
+			"cop_car":0.5}
+	},
+	{
+		"duration":12,
+		"types":{
+			"missile":0.3}
+	},
+	{
+		"duration":15,
+		"types":{
+			"jet":0.5,
+			"tank":0.5}
 	}
 ]
 
@@ -201,7 +239,22 @@ func tank_spawn():
 		var spawn_point = spawn_points[randi() % spawn_points.size()]
 		var pos = spawn_point.global_position
 		tank_instance.position = pos
-	return 5.0
+	return 1.0
+
+func jet_spawn():
+	var jet_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is Jet:
+			jet_found += 1
+	
+	if jet_found < 2:
+		var jet_instance = jet.instantiate()
+		add_child(jet_instance)
+		var spawn_points = plane_spawn_markers.get_children()
+		var spawn_point = spawn_points[randi() % spawn_points.size()]
+		var pos = spawn_point.global_position
+		jet_instance.position = pos
+	return 1.0
 
 func missile_spawn():
 	var missile_found: int = 0
@@ -221,7 +274,7 @@ func missile_spawn():
 		missile_warning_instance.position = Vector2(1050, pos.y)
 		await get_tree().create_timer(1).timeout
 		missile_warning_instance.queue_free()
-	return 2.0
+	return 1.0
 
 func soldier_spawn():
 	var soldier_instance = soldier.instantiate()
@@ -230,7 +283,7 @@ func soldier_spawn():
 	var spawn_point = spawn_points[randi() % spawn_points.size()]
 	var pos = spawn_point.global_position
 	soldier_instance.position = pos
-	return 2.0
+	return 1.0
 
 func cop_car_spawn():
 	var cop_car_found: int = 0
@@ -249,7 +302,7 @@ func cop_car_spawn():
 		missile_warning_instance.position = Vector2(1050, pos.y)
 		await get_tree().create_timer(1).timeout
 		missile_warning_instance.queue_free()
-	return 2.0
+	return 1.0
 
 
 func score_keep():
