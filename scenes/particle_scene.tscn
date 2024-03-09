@@ -1,8 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://barkjp8rvr5qk"]
+[gd_scene load_steps=56 format=3 uid="uid://barkjp8rvr5qk"]
 
 [ext_resource type="Script" path="res://scripts/ParticleScene.gd" id="1_vv2lo"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_2ptcc"]
+[ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="2_p87xr"]
 [ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="3_a6uaj"]
+[ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="3_xbwp0"]
 [ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_376ls"]
 
 [sub_resource type="Gradient" id="Gradient_e5wfb"]
@@ -291,6 +293,34 @@ color_ramp = SubResource("GradientTexture1D_qlptl")
 [node name="ParticleScene" type="Node2D"]
 script = ExtResource("1_vv2lo")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+top_level = true
+offset_left = -93.0
+offset_top = -58.0
+offset_right = 1214.0
+offset_bottom = 683.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+top_level = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.5
+offset_top = -50.0
+offset_right = 215.5
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_p87xr")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = ExtResource("3_xbwp0")
+text = "Please Wait"
+
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(330, 153)
 amount = 40
@@ -456,15 +486,6 @@ process_material = SubResource("ParticleProcessMaterial_h0vbx")
 texture = ExtResource("2_2ptcc")
 lifetime = 0.5
 local_coords = true
-
-[node name="ColorRect" type="ColorRect" parent="."]
-top_level = true
-offset_left = -93.0
-offset_top = -58.0
-offset_right = 1214.0
-offset_bottom = 683.0
-color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true
 
 [node name="BloodParticle10" type="GPUParticles2D" parent="." groups=["particles"]]
 position = Vector2(408, 280)
