@@ -10,7 +10,7 @@
 offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
 colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_qlptl"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cvyeg"]
 gradient = SubResource("Gradient_6ly1d")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2f8f"]
@@ -21,7 +21,7 @@ radial_velocity_max = 10.0
 gravity = Vector3(90, 0, 0)
 scale_min = 0.2
 scale_max = 0.4
-color_ramp = SubResource("GradientTexture1D_qlptl")
+color_ramp = SubResource("GradientTexture1D_cvyeg")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qh60"]
 size = Vector2(30, 12)

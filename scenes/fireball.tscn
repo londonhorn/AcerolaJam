@@ -38,10 +38,11 @@ turbulence_enabled = true
 turbulence_noise_scale = 1.08
 
 [node name="Fireball" type="CharacterBody2D"]
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_8ch5o")
+level = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_kok7g")

@@ -85,12 +85,12 @@ _data = {
 process_mode = 3
 collision_mask = 30
 script = ExtResource("1_2vxij")
+points = 5000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_rn6vv")
-animation = &"floor"
-frame_progress = 0.658913
+animation = &"flying_up"
 
 [node name="CollisionShape1" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cbxb1")
@@ -103,7 +103,7 @@ collision_mask = 12
 shape = SubResource("RectangleShape2D_ptf3i")
 
 [node name="HealthDecrease" type="Timer" parent="."]
-wait_time = 1.6
+wait_time = 2.0
 autostart = true
 
 [node name="ShootTimer" type="Timer" parent="."]
@@ -127,6 +127,8 @@ volume_db = -10.0
 
 [node name="FlyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_vik3g")
+volume_db = -5.0
+pitch_scale = 2.0
 max_polyphony = 5
 
 [node name="EatingSound" type="AudioStreamPlayer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=27 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -15,6 +15,7 @@
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
 [ext_resource type="Script" path="res://scripts/Buttons.gd" id="9_e5iig"]
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="12_1b6ev"]
+[ext_resource type="Script" path="res://scripts/Evolution3.gd" id="13_sugg8"]
 [ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="13_yurhq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aktfk"]
@@ -251,7 +252,7 @@ horizontal_alignment = 1
 [node name="Evolution1" type="ProgressBar" parent="UI/Evolution1Vbox"]
 layout_mode = 2
 min_value = 300.0
-max_value = 850.0
+max_value = 750.0
 value = 300.0
 script = ExtResource("5_iia7i")
 
@@ -274,11 +275,48 @@ horizontal_alignment = 1
 
 [node name="Evolution2" type="ProgressBar" parent="UI/Evolution1Vbox2"]
 layout_mode = 2
-min_value = 850.0
-max_value = 1085.0
+min_value = 750.0
+max_value = 1095.0
 value = 850.0
 allow_lesser = true
 script = ExtResource("6_qctny")
+
+[node name="Evolution1Vbox3" type="VBoxContainer" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.4
+anchor_right = 0.05
+anchor_bottom = 0.4
+offset_left = 0.399998
+offset_top = -0.200012
+offset_right = 167.4
+offset_bottom = 100.8
+theme = SubResource("Theme_6apcq")
+
+[node name="Progress" type="Label" parent="UI/Evolution1Vbox3"]
+layout_mode = 2
+text = "Progress to 
+Final Evolution"
+horizontal_alignment = 1
+
+[node name="Evolution3" type="ProgressBar" parent="UI/Evolution1Vbox3"]
+layout_mode = 2
+min_value = 1095.0
+max_value = 1310.0
+value = 1095.0
+allow_lesser = true
+script = ExtResource("13_sugg8")
+
+[node name="MaxedLabel" type="Label" parent="UI"]
+visible = false
+offset_left = 102.0
+offset_top = 293.0
+offset_right = 193.0
+offset_bottom = 323.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+text = "MAXED"
 
 [node name="FireballControls" type="Label" parent="UI"]
 offset_left = 62.0

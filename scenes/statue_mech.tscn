@@ -1,0 +1,231 @@
+[gd_scene load_steps=20 format=3 uid="uid://bm7tiugobo07e"]
+
+[ext_resource type="Texture2D" uid="uid://d3uc6i5qdmenk" path="res://assets/characters/Mech/Torso.png" id="1_oe0kw"]
+[ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_rior5"]
+[ext_resource type="Script" path="res://scripts/StatueParent.gd" id="1_wlkrv"]
+[ext_resource type="SkeletonModification2DCCDIK" uid="uid://b8rilcnhl6jqm" path="res://resources/LeftArm.tres" id="2_dfqjc"]
+[ext_resource type="Texture2D" uid="uid://bxv7rymif0cfr" path="res://assets/characters/Mech/ArmTop.png" id="2_mhpe4"]
+[ext_resource type="Texture2D" uid="uid://bhxy7q83wtafb" path="res://assets/characters/Mech/Forearm.png" id="3_2jxcv"]
+[ext_resource type="Texture2D" uid="uid://lcwhs0hcb2v6" path="res://assets/characters/Mech/Head.png" id="4_k3f1c"]
+[ext_resource type="Texture2D" uid="uid://cquplykvjmwxh" path="res://assets/characters/Mech/CannonHand.png" id="4_ksxph"]
+[ext_resource type="Texture2D" uid="uid://cutymd2enoveu" path="res://assets/characters/Mech/GunHand.png" id="5_iwu6r"]
+
+[sub_resource type="Gradient" id="Gradient_o0gs0"]
+offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
+colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dr8k1"]
+gradient = SubResource("Gradient_o0gs0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlaeo"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 14, 1)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+radial_velocity_max = 10.0
+gravity = Vector3(90, 0, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_dr8k1")
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ltrdi"]
+
+[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_4600h"]
+enabled = false
+target_nodepath = NodePath("../Targets/RightArmTarget")
+tip_nodepath = NodePath("Hips/Torso/RightArm/RightForearm/RightArmEnd")
+ccdik_data_chain_length = 2
+joint_data/0/bone_index = 5
+joint_data/0/bone2d_node = NodePath("Hips/Torso/RightArm")
+joint_data/0/rotate_from_joint = false
+joint_data/0/enable_constraint = true
+joint_data/0/constraint_angle_min = -40.0
+joint_data/0/constraint_angle_max = 80.0
+joint_data/0/constraint_angle_invert = true
+joint_data/0/constraint_in_localspace = true
+joint_data/0/editor_draw_gizmo = true
+joint_data/1/bone_index = 6
+joint_data/1/bone2d_node = NodePath("Hips/Torso/RightArm/RightForearm")
+joint_data/1/rotate_from_joint = false
+joint_data/1/enable_constraint = true
+joint_data/1/constraint_angle_min = 100.0
+joint_data/1/constraint_angle_max = 300.0
+joint_data/1/constraint_angle_invert = true
+joint_data/1/constraint_in_localspace = true
+joint_data/1/editor_draw_gizmo = true
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_gpl5x"]
+enabled = true
+modification_count = 2
+modifications/0 = ExtResource("2_dfqjc")
+modifications/1 = SubResource("SkeletonModification2DCCDIK_4600h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc2jo"]
+atlas = ExtResource("4_k3f1c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85v3d"]
+atlas = ExtResource("4_k3f1c")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3di50"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kc2jo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85v3d")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tndr3"]
+size = Vector2(17.8571, 98.5714)
+
+[node name="StatueMech" type="CharacterBody2D"]
+scale = Vector2(2.8, 2.8)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_wlkrv")
+
+[node name="FireTrail" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(0.357143, 50)
+rotation = 1.5708
+scale = Vector2(1, 1)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_vlaeo")
+texture = ExtResource("1_rior5")
+lifetime = 0.5
+local_coords = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ltrdi")
+}
+
+[node name="Targets" type="Node2D" parent="Node2D"]
+
+[node name="LeftArmTarget" type="Node2D" parent="Node2D/Targets"]
+position = Vector2(-162.857, -43.9286)
+
+[node name="RightArmTarget" type="Node2D" parent="Node2D/Targets"]
+position = Vector2(43.9286, 88.9286)
+
+[node name="BodyParent" type="Skeleton2D" parent="Node2D"]
+unique_name_in_owner = true
+modification_stack = SubResource("SkeletonModificationStack2D_gpl5x")
+
+[node name="Hips" type="Bone2D" parent="Node2D/BodyParent"]
+position = Vector2(0, 65.7143)
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+editor_settings/show_bone_gizmo = false
+
+[node name="Torso" type="Bone2D" parent="Node2D/BodyParent/Hips"]
+position = Vector2(0, -66)
+rest = Transform2D(1, 0, 0, 1, 0, -66)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso"]
+position = Vector2(1.07143, 16.7143)
+scale = Vector2(2, 2)
+texture = ExtResource("1_oe0kw")
+
+[node name="LeftArm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
+position = Vector2(-16, -13)
+rotation = 0.349066
+scale = Vector2(0.999385, 0.999385)
+rest = Transform2D(0.939266, 0.341865, -0.341865, 0.939266, -16.4286, -16.8571)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm"]
+position = Vector2(0, 20)
+texture = ExtResource("2_mhpe4")
+
+[node name="LeftForearm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm"]
+position = Vector2(-0.993931, 42.0041)
+rotation = 1.40306
+scale = Vector2(0.999839, 0.999839)
+rest = Transform2D(0.258779, 0.965776, -0.965776, 0.258779, -0.993931, 42.0041)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
+position = Vector2(12.6906, -0.836206)
+rotation = -1.5708
+texture = ExtResource("3_2jxcv")
+
+[node name="LeftArmEnd" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
+position = Vector2(27.5132, 0.543968)
+rotation = -0.258282
+rest = Transform2D(0.96683, -0.25542, 0.25542, 0.96683, 27.5132, 0.543968)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd"]
+position = Vector2(13.7707, 3.93217)
+rotation = -2.87979
+texture = ExtResource("4_ksxph")
+
+[node name="CannonMarker" type="Marker2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd/Sprite2D"]
+position = Vector2(-18.2664, -2.40243)
+
+[node name="RightArm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
+position = Vector2(21.7857, -16.5)
+rotation = 1.0472
+scale = Vector2(0.999828, 0.999828)
+rest = Transform2D(0.5, 0.866025, -0.866025, 0.5, 21.7857, -16.5)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm"]
+position = Vector2(18.0885, 4.66987)
+rotation = -1.309
+texture = ExtResource("2_mhpe4")
+
+[node name="RightForearm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/RightArm"]
+position = Vector2(37.0429, 9.83975)
+rotation = 0.523599
+scale = Vector2(0.999897, 0.999897)
+rest = Transform2D(0.866025, 0.5, -0.5, 0.866025, 37.0429, 9.83975)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
+position = Vector2(15, -2)
+rotation = -1.5708
+texture = ExtResource("3_2jxcv")
+
+[node name="RightArmEnd" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
+position = Vector2(30.5, -2.14286)
+rest = Transform2D(1, 0, 0, 1, 30.5, -2.14286)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmEnd"]
+position = Vector2(13.2179, 1.07171)
+rotation = 3.14159
+texture = ExtResource("5_iwu6r")
+
+[node name="Head" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
+position = Vector2(-1.07143, -22.9286)
+rotation = -1.5708
+rest = Transform2D(-4.37114e-08, -1, 1, -4.37114e-08, -1, -16)
+editor_settings/show_bone_gizmo = false
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Node2D/BodyParent/Hips/Torso/Head"]
+position = Vector2(20.8571, 1.71429)
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_3di50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.98023e-08)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_tndr3")

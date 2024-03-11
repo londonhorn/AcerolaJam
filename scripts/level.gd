@@ -17,6 +17,8 @@ extends Node2D
 @onready var score_label = $UI/PointIncrease
 @onready var wave_label = $UI/WaveIncrease
 
+@onready var mech_left_arm: Resource = load("res://resources/LeftArm.tres")
+
 var pet_level = preload("res://scenes/pet_level.tscn")
 
 var civilian = preload("res://scenes/civilian.tscn")

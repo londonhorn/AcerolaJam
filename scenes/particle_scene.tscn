@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://barkjp8rvr5qk"]
+[gd_scene load_steps=59 format=3 uid="uid://barkjp8rvr5qk"]
 
 [ext_resource type="Script" path="res://scripts/ParticleScene.gd" id="1_vv2lo"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_2ptcc"]
@@ -290,6 +290,23 @@ scale_min = 0.2
 scale_max = 0.4
 color_ramp = SubResource("GradientTexture1D_qlptl")
 
+[sub_resource type="Gradient" id="Gradient_q30ni"]
+offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
+colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cvyeg"]
+gradient = SubResource("Gradient_q30ni")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ruo8"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 5, 1)
+radial_velocity_max = 10.0
+gravity = Vector3(90, 0, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_cvyeg")
+
 [node name="ParticleScene" type="Node2D"]
 script = ExtResource("1_vv2lo")
 
@@ -539,5 +556,12 @@ local_coords = true
 position = Vector2(639, 311)
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_xk0ub")
+texture = ExtResource("2_2ptcc")
+local_coords = true
+
+[node name="FireTrail5" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(297, 273)
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_8ruo8")
 texture = ExtResource("2_2ptcc")
 local_coords = true

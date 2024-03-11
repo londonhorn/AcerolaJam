@@ -138,6 +138,7 @@ libraries = {
 
 [node name="WaitTimer" type="Timer" parent="Control/Tutorial"]
 wait_time = 8.0
+autostart = true
 
 [node name="Button" type="Button" parent="."]
 offset_left = 711.0
@@ -172,6 +173,7 @@ volume_db = -10.0
 
 [node name="WaitTimer" type="Timer" parent="Button"]
 wait_time = 10.0
+autostart = true
 
 [connection signal="mouse_entered" from="Button" to="Button" method="_on_mouse_entered"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

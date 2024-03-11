@@ -23,6 +23,9 @@ signal health_changed
 @onready var death_particles = $DeathParticles
 @onready var animation_player = $AnimationPlayer
 
+@onready var collision_shape = $CollisionShape1
+@onready var hit_shape = $HitDetection/CollisionShape2D
+
 @onready var fireball_scene = preload("res://scenes/fireball.tscn")
 @onready var shield_scene = preload("res://scenes/shield.tscn")
 @onready var point_popup = preload("res://scenes/score_popup.tscn")
@@ -43,7 +46,8 @@ var has_shield: bool = false
 var animations_evolution_sprites: Array = [
 	"res://sprite_frames_spot/evolution_0.tres", 
 	"res://sprite_frames_spot/evolution_1.tres",
-	"res://sprite_frames_spot/evolution_2.tres"
+	"res://sprite_frames_spot/evolution_2.tres",
+	"res://sprite_frames_spot/evolution_3.tres"
 	]
 
 
@@ -152,6 +156,12 @@ func player_death():
 func evolve():
 	animations.sprite_frames = load(animations_evolution_sprites[Globals.evolution])
 	level = Globals.evolution
+	if Globals.evolution == 1:
+		collision_shape.scale = Vector2(1.5,1.5)
+		hit_shape.scale = Vector2(1.5,1.5)
+	elif Globals.evolution == 2:
+		collision_shape.scale = Vector2(2.0,2.5)
+		hit_shape.scale = Vector2(2.0, 2.8)
 
 func scale_change():
 	health = Globals.character_health
