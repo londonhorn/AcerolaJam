@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dirb8km766jwk"]
+[gd_scene load_steps=15 format=3 uid="uid://dirb8km766jwk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_pdkn5"]
 [ext_resource type="PackedScene" uid="uid://uhskngwc6itv" path="res://scenes/city_background.tscn" id="1_xmupy"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://c0vwno60s1gle" path="res://assets/sounds/UI/healthbar_back.png" id="6_abmh2"]
 [ext_resource type="Texture2D" uid="uid://c2uufmfh5q1ss" path="res://assets/sounds/UI/healthbar.png" id="7_ffgls"]
 [ext_resource type="Texture2D" uid="uid://b2ptycpwagstn" path="res://assets/sounds/UI/Heart.png" id="9_7r2rv"]
-[ext_resource type="PackedScene" uid="uid://bm7tiugobo07e" path="res://scenes/statue_mech.tscn" id="12_e0ovi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0i7f"]
 size = Vector2(2687, 106)
@@ -78,9 +77,6 @@ volume_db = -10.0
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="StatueMech" parent="." instance=ExtResource("12_e0ovi")]
-position = Vector2(985, 265)
-
 [node name="CharacterBase" parent="." instance=ExtResource("3_s2vhx")]
 position = Vector2(256, 280)
 
@@ -95,13 +91,13 @@ position = Vector2(1427, 525)
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1305, 525)
 
-[node name="SpawnLocation1" type="Node2D" parent="."]
+[node name="SpawnLocation1" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1305, 525)
 
-[node name="SpawnLocation2" type="Node2D" parent="."]
+[node name="SpawnLocation2" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1365, 527)
 
-[node name="SpawnLocation3" type="Node2D" parent="."]
+[node name="SpawnLocation3" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1246, 528)
 
 [node name="SpawnPointsPlanes" type="Node2D" parent="."]
@@ -155,8 +151,8 @@ position = Vector2(2497, 394)
 [node name="EnemySpawn4" type="Marker2D" parent="SpawnPointsMissiles"]
 position = Vector2(2500, 700)
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(258, 280)
+[node name="BossSpawn" type="Marker2D" parent="."]
+position = Vector2(1591, 255)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -207,23 +203,21 @@ texture = ExtResource("9_7r2rv")
 
 [node name="WaveIncrease" type="Label" parent="UI"]
 visible = false
-offset_left = 666.0
-offset_top = 84.0
-offset_right = 688.0
-offset_bottom = 114.0
+offset_left = 254.0
+offset_top = 161.0
+offset_right = 276.0
+offset_bottom = 191.0
 theme_override_fonts/font = ExtResource("4_f4dew")
 theme_override_font_sizes/font_size = 30
 text = "+1"
 
 [node name="PointIncrease" type="Label" parent="UI"]
-offset_left = 642.0
-offset_top = 33.0
-offset_right = 682.0
-offset_bottom = 63.0
+offset_left = 252.0
+offset_top = 110.0
+offset_right = 298.0
+offset_bottom = 140.0
 theme_override_fonts/font = ExtResource("4_f4dew")
 theme_override_font_sizes/font_size = 30
-
-[node name="Marker2D" type="Marker2D" parent="."]
 
 [connection signal="timeout" from="WaveTotalTimer" to="." method="_on_wave_total_timer_timeout"]
 [connection signal="timeout" from="ExtraTimePoints" to="." method="_on_extra_time_points_timeout"]

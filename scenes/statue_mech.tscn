@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bm7tiugobo07e"]
+[gd_scene load_steps=31 format=3 uid="uid://bm7tiugobo07e"]
 
 [ext_resource type="Texture2D" uid="uid://d3uc6i5qdmenk" path="res://assets/characters/Mech/Torso.png" id="1_oe0kw"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_rior5"]
@@ -6,60 +6,139 @@
 [ext_resource type="SkeletonModification2DCCDIK" uid="uid://b8rilcnhl6jqm" path="res://resources/LeftArm.tres" id="2_dfqjc"]
 [ext_resource type="Texture2D" uid="uid://bxv7rymif0cfr" path="res://assets/characters/Mech/ArmTop.png" id="2_mhpe4"]
 [ext_resource type="Texture2D" uid="uid://bhxy7q83wtafb" path="res://assets/characters/Mech/Forearm.png" id="3_2jxcv"]
+[ext_resource type="SkeletonModification2DCCDIK" uid="uid://cpixmnfhek4pj" path="res://resources/RightArm.tres" id="4_er41t"]
+[ext_resource type="Material" uid="uid://d14llimj5nv4p" path="res://resources/fire_tail.tres" id="4_f1mie"]
 [ext_resource type="Texture2D" uid="uid://lcwhs0hcb2v6" path="res://assets/characters/Mech/Head.png" id="4_k3f1c"]
 [ext_resource type="Texture2D" uid="uid://cquplykvjmwxh" path="res://assets/characters/Mech/CannonHand.png" id="4_ksxph"]
 [ext_resource type="Texture2D" uid="uid://cutymd2enoveu" path="res://assets/characters/Mech/GunHand.png" id="5_iwu6r"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="11_k5re5"]
+[ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="12_bo3he"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="12_kc28g"]
+[ext_resource type="Script" path="res://scripts/EnemyClass.gd" id="13_3s3oa"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="13_i8gbf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="14_2k4sq"]
 
-[sub_resource type="Gradient" id="Gradient_o0gs0"]
-offsets = PackedFloat32Array(0, 0.226277, 0.919708, 1)
-colors = PackedColorArray(0.635294, 0.14902, 0.2, 1, 0.968627, 0.462745, 0.133333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+[sub_resource type="Animation" id="Animation_adr4e"]
+resource_name = "floating"
+length = 2.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.4),
+"transitions": PackedFloat32Array(1, 1.51572, 0.466517),
+"update": 0,
+"values": [Vector2(1.19209e-07, -1.90735e-06), Vector2(4.23516e-22, -16.4286), Vector2(0, -9.53674e-07)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/BodyParent/Hips:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.4),
+"transitions": PackedFloat32Array(1, 1.51572, 0.615572),
+"update": 0,
+"values": [Vector2(1.07143, 49.2857), Vector2(1.07143, 32.8571), Vector2(1.07143, 49.2857)]
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dr8k1"]
-gradient = SubResource("Gradient_o0gs0")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlaeo"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(1, 14, 1)
-initial_velocity_min = 60.0
-initial_velocity_max = 60.0
-radial_velocity_max = 10.0
-gravity = Vector3(90, 0, 0)
-scale_min = 0.2
-scale_max = 0.4
-color_ramp = SubResource("GradientTexture1D_dr8k1")
+[sub_resource type="Animation" id="Animation_qcbi5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.98023e-08, 2.85714)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/BodyParent/Hips:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 52.5)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ltrdi"]
+_data = {
+"RESET": SubResource("Animation_qcbi5"),
+"floating": SubResource("Animation_adr4e")
+}
 
-[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_4600h"]
-enabled = false
-target_nodepath = NodePath("../Targets/RightArmTarget")
-tip_nodepath = NodePath("Hips/Torso/RightArm/RightForearm/RightArmEnd")
-ccdik_data_chain_length = 2
-joint_data/0/bone_index = 5
-joint_data/0/bone2d_node = NodePath("Hips/Torso/RightArm")
-joint_data/0/rotate_from_joint = false
-joint_data/0/enable_constraint = true
-joint_data/0/constraint_angle_min = -40.0
-joint_data/0/constraint_angle_max = 80.0
-joint_data/0/constraint_angle_invert = true
-joint_data/0/constraint_in_localspace = true
-joint_data/0/editor_draw_gizmo = true
-joint_data/1/bone_index = 6
-joint_data/1/bone2d_node = NodePath("Hips/Torso/RightArm/RightForearm")
-joint_data/1/rotate_from_joint = false
-joint_data/1/enable_constraint = true
-joint_data/1/constraint_angle_min = 100.0
-joint_data/1/constraint_angle_max = 300.0
-joint_data/1/constraint_angle_invert = true
-joint_data/1/constraint_in_localspace = true
-joint_data/1/editor_draw_gizmo = true
+[sub_resource type="Animation" id="Animation_nfkl0"]
+resource_name = "fire_up"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.523599, 0.523599, -0.436332]
+}
+
+[sub_resource type="Animation" id="Animation_pq45g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mft5r"]
+resource_name = "fire_down"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.785398, -0.785398, -0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uj1ef"]
+_data = {
+"RESET": SubResource("Animation_pq45g"),
+"fire_down": SubResource("Animation_mft5r"),
+"fire_up": SubResource("Animation_nfkl0")
+}
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_gpl5x"]
 enabled = true
 modification_count = 2
 modifications/0 = ExtResource("2_dfqjc")
-modifications/1 = SubResource("SkeletonModification2DCCDIK_4600h")
+modifications/1 = ExtResource("4_er41t")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kc2jo"]
 atlas = ExtResource("4_k3f1c")
@@ -88,6 +167,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5h2nr"]
+size = Vector2(377.619, 9.04761)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tndr3"]
 size = Vector2(17.8571, 98.5714)
 
@@ -97,22 +179,18 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_wlkrv")
 
-[node name="FireTrail" type="GPUParticles2D" parent="." groups=["particles"]]
-position = Vector2(0.357143, 50)
-rotation = 1.5708
-scale = Vector2(1, 1)
-amount = 300
-process_material = SubResource("ParticleProcessMaterial_vlaeo")
-texture = ExtResource("1_rior5")
-lifetime = 0.5
-local_coords = true
-
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_ltrdi")
+}
+autoplay = "floating"
+
+[node name="FireAnimations" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+"": SubResource("AnimationLibrary_uj1ef")
 }
 
 [node name="Targets" type="Node2D" parent="Node2D"]
@@ -128,26 +206,35 @@ unique_name_in_owner = true
 modification_stack = SubResource("SkeletonModificationStack2D_gpl5x")
 
 [node name="Hips" type="Bone2D" parent="Node2D/BodyParent"]
-position = Vector2(0, 65.7143)
+position = Vector2(0, 52.5)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
-editor_settings/show_bone_gizmo = false
+
+[node name="FireTrail" type="GPUParticles2D" parent="Node2D/BodyParent/Hips" groups=["particles"]]
+position = Vector2(0.357143, -3.05176e-05)
+rotation = 1.5708
+scale = Vector2(1, 1)
+amount = 300
+process_material = ExtResource("4_f1mie")
+texture = ExtResource("1_rior5")
+lifetime = 0.5
+local_coords = true
+metadata/_edit_lock_ = true
 
 [node name="Torso" type="Bone2D" parent="Node2D/BodyParent/Hips"]
-position = Vector2(0, -66)
+position = Vector2(-1.07143, -49.2857)
 rest = Transform2D(1, 0, 0, 1, 0, -66)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(1.07143, 16.7143)
 scale = Vector2(2, 2)
 texture = ExtResource("1_oe0kw")
+metadata/_edit_lock_ = true
 
 [node name="LeftArm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(-16, -13)
 rotation = 0.349066
 scale = Vector2(0.999385, 0.999385)
 rest = Transform2D(0.939266, 0.341865, -0.341865, 0.939266, -16.4286, -16.8571)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm"]
 position = Vector2(0, 20)
@@ -158,7 +245,6 @@ position = Vector2(-0.993931, 42.0041)
 rotation = 1.40306
 scale = Vector2(0.999839, 0.999839)
 rest = Transform2D(0.258779, 0.965776, -0.965776, 0.258779, -0.993931, 42.0041)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
 position = Vector2(12.6906, -0.836206)
@@ -168,8 +254,8 @@ texture = ExtResource("3_2jxcv")
 [node name="LeftArmEnd" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
 position = Vector2(27.5132, 0.543968)
 rotation = -0.258282
+scale = Vector2(1, 1)
 rest = Transform2D(0.96683, -0.25542, 0.25542, 0.96683, 27.5132, 0.543968)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd"]
 position = Vector2(13.7707, 3.93217)
@@ -184,7 +270,6 @@ position = Vector2(21.7857, -16.5)
 rotation = 1.0472
 scale = Vector2(0.999828, 0.999828)
 rest = Transform2D(0.5, 0.866025, -0.866025, 0.5, 21.7857, -16.5)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm"]
 position = Vector2(18.0885, 4.66987)
@@ -196,7 +281,6 @@ position = Vector2(37.0429, 9.83975)
 rotation = 0.523599
 scale = Vector2(0.999897, 0.999897)
 rest = Transform2D(0.866025, 0.5, -0.5, 0.866025, 37.0429, 9.83975)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
 position = Vector2(15, -2)
@@ -206,26 +290,147 @@ texture = ExtResource("3_2jxcv")
 [node name="RightArmEnd" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
 position = Vector2(30.5, -2.14286)
 rest = Transform2D(1, 0, 0, 1, 30.5, -2.14286)
-editor_settings/show_bone_gizmo = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmEnd"]
 position = Vector2(13.2179, 1.07171)
 rotation = 3.14159
 texture = ExtResource("5_iwu6r")
 
+[node name="GunMarker" type="Marker2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmEnd/Sprite2D"]
+position = Vector2(-16.8051, 3.57495)
+rotation = -3.14159
+scale = Vector2(1, 1)
+
 [node name="Head" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(-1.07143, -22.9286)
-rotation = -1.5708
 rest = Transform2D(-4.37114e-08, -1, 1, -4.37114e-08, -1, -16)
-editor_settings/show_bone_gizmo = false
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="Node2D/BodyParent/Hips/Torso/Head"]
-position = Vector2(20.8571, 1.71429)
-rotation = 1.5708
+[node name="HeadSprites" type="AnimatedSprite2D" parent="Node2D/BodyParent/Hips/Torso/Head"]
+position = Vector2(1.78571, -22.4285)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_3di50")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2.98023e-08)
+[node name="FirebreathEffect" type="GPUParticles2D" parent="Node2D/BodyParent/Hips/Torso/Head/HeadSprites" groups=["particles"]]
+position = Vector2(-1.90476, 9.22007)
+rotation = 3.14159
+scale = Vector2(0.666666, 0.666666)
+emitting = false
+amount = 1000
+process_material = ExtResource("12_bo3he")
+texture = ExtResource("1_rior5")
+lifetime = 4.0
+preprocess = 2.0
+speed_scale = 2.0
+local_coords = true
+
+[node name="FirebreathHitbox" type="CharacterBody2D" parent="Node2D/BodyParent/Hips/Torso/Head/HeadSprites"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("13_3s3oa")
+level = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/Head/HeadSprites/FirebreathHitbox"]
+position = Vector2(-193.81, 9.12699)
 scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_5h2nr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.98023e-08, 2.85714)
 shape = SubResource("RectangleShape2D_tndr3")
+metadata/_edit_lock_ = true
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("11_k5re5")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("12_kc28g")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To RightArm" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../RightArmShoot")
+event = &"right_arm_start"
+
+[node name="To LeftArm" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../LeftArmShoot")
+event = &"left_arm_start"
+
+[node name="To Firebreath" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../FireBreath")
+event = &"firebreath_start"
+
+[node name="To BothArms" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../BothArms")
+event = &"both_arms_start"
+
+[node name="LeftArmShoot" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To Idle" type="Node" parent="StateChart/CompoundState/LeftArmShoot"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+
+[node name="RightArmShoot" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To Idle" type="Node" parent="StateChart/CompoundState/RightArmShoot"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+
+[node name="FireBreath" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To Idle" type="Node" parent="StateChart/CompoundState/FireBreath"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+
+[node name="BothArms" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To Idle" type="Node" parent="StateChart/CompoundState/BothArms"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="LeftArmTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="RightArmTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="BothArmsTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="LeftResetTimer" type="Timer" parent="."]
+
+[node name="RightResetTimer" type="Timer" parent="."]
+
+[connection signal="state_entered" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/RightArmShoot" to="." method="_on_right_arm_shoot_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/RightArmShoot" to="." method="_on_right_arm_shoot_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/FireBreath" to="." method="_on_fire_breath_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/FireBreath" to="." method="_on_fire_breath_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/BothArms" to="." method="_on_both_arms_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/BothArms" to="." method="_on_both_arms_state_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="LeftArmTimer" to="." method="_on_left_arm_timer_timeout"]
+[connection signal="timeout" from="RightArmTimer" to="." method="_on_right_arm_timer_timeout"]
+[connection signal="timeout" from="BothArmsTimer" to="." method="_on_both_arms_timer_timeout"]
+[connection signal="timeout" from="LeftResetTimer" to="." method="_on_left_reset_timer_timeout"]
+[connection signal="timeout" from="RightResetTimer" to="." method="_on_right_reset_timer_timeout"]

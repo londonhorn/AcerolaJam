@@ -21,9 +21,14 @@ extends Control
 
 @onready var gameplay_level = load("res://scenes/level.tscn")
 
+var mech_left_arm = preload("res://resources/LeftArm.tres")
+var mech_right_arm = preload("res://resources/RightArm.tres")
+
 func _ready():
 	player.can_move = false
 	player.animations.play('floor')
+	mech_right_arm.enabled = false
+	mech_left_arm.enabled = false
 
 func _process(_delta):
 	player.current_health += 100

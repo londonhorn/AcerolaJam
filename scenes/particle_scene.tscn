@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://barkjp8rvr5qk"]
+[gd_scene load_steps=60 format=3 uid="uid://barkjp8rvr5qk"]
 
 [ext_resource type="Script" path="res://scripts/ParticleScene.gd" id="1_vv2lo"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_2ptcc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="3_a6uaj"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="3_xbwp0"]
 [ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_376ls"]
+[ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="7_11vfj"]
 
 [sub_resource type="Gradient" id="Gradient_e5wfb"]
 offsets = PackedFloat32Array(0, 0.744526, 1)
@@ -564,4 +565,17 @@ position = Vector2(297, 273)
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_8ruo8")
 texture = ExtResource("2_2ptcc")
+local_coords = true
+
+[node name="FirebreathEffect" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(796, 203)
+rotation = 3.14159
+scale = Vector2(0.666666, 0.666666)
+emitting = false
+amount = 1000
+process_material = ExtResource("7_11vfj")
+texture = ExtResource("2_2ptcc")
+lifetime = 4.0
+preprocess = 2.0
+speed_scale = 2.0
 local_coords = true

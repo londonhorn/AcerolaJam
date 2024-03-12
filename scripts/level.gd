@@ -3,23 +3,20 @@ extends Node2D
 @onready var ground_spawn_markers = $SpawnPoints
 @onready var plane_spawn_markers = $SpawnPointsPlanes
 @onready var missile_spawn_markers = $SpawnPointsMissiles
-@onready var player_spawn_marker = $PlayerSpawn
-@onready var spawn_location = $SpawnLocation1
 @onready var player = $CharacterBase
 @onready var score = $UI/VBoxContainer/Score
 @onready var wave_counter = $UI/VBoxContainer/Wave
 @onready var health_bar = $UI/Health
 @onready var spawn_increment_timer = $SpawnTimer
 @onready var spawn_total_timer = $WaveTotalTimer
+@onready var extra_points_timer = $ExtraTimePoints
 
 @onready var money_sound = $ExtraTimePoints/MoneySpent
 @onready var wave_sound = $WaveTotalTimer/WaveSound
 @onready var score_label = $UI/PointIncrease
 @onready var wave_label = $UI/WaveIncrease
 
-@onready var mech_left_arm: Resource = load("res://resources/LeftArm.tres")
-
-var pet_level = preload("res://scenes/pet_level.tscn")
+var pet_level = load("res://scenes/pet_level.tscn")
 
 var civilian = preload("res://scenes/civilian.tscn")
 var plane = preload("res://scenes/civilian_plane.tscn")
@@ -32,6 +29,7 @@ var tank = preload("res://scenes/tank.tscn")
 var jet = preload("res://scenes/jet.tscn")
 var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
+var boss = preload("res://scenes/statue_mech.tscn")
 
 var time_points: int = 0
 
@@ -127,6 +125,11 @@ var wave_options = [
 		"types":{
 			"jet":0.5,
 			"tank":0.5}
+	},
+	{
+		"duration":1,
+		"types":{
+			"boss":1}
 	}
 ]
 
@@ -134,16 +137,20 @@ var wave_options = [
 
 
 func _ready():
-	Globals.current_wave = 0 + Globals.current_wave_increment
+	Globals.current_wave = 14
 	player.player_death()
 	spawn_total_timer.wait_time = wave_options[Globals.current_wave]["duration"]
 	spawn_total_timer.start()
 	spawn_increment_timer.start()
-	
 
 func _process(_delta):
 	score_keep()
 	wave_keep()
+	
+	if Globals.current_wave >= 14:
+		extra_points_timer.stop()
+		player.health_timer.stop()
+		
 
 func _on_wave_total_timer_timeout():
 	Globals.current_wave += 1
@@ -304,6 +311,20 @@ func cop_car_spawn():
 		missile_warning_instance.position = Vector2(1050, pos.y)
 		await get_tree().create_timer(1).timeout
 		missile_warning_instance.queue_free()
+	return 1.0
+
+func boss_spawn():
+	var boss_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is Boss:
+			boss_found += 1
+	
+	if boss_found < 1:
+		var boss_instance = boss.instantiate()
+		add_child(boss_instance)
+		var spawn_point = $BossSpawn
+		var pos = spawn_point.global_position
+		boss_instance.position = pos
 	return 1.0
 
 

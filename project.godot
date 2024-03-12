@@ -24,6 +24,10 @@ LevelTransition="*res://scenes/level_transition.tscn"
 
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
 [input]
 
 jump={
