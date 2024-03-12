@@ -18,15 +18,23 @@ class_name Boss
 @onready var right_arm_timer = $RightArmTimer
 @onready var both_arms_timer = $BothArmsTimer
 
+@onready var left_arm_hitbox = $Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox
+@onready var right_arm_hitbox = $Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox
+
 var bullet_scene = preload("res://scenes/tank_bullet.tscn")
 var small_bullet_scene = preload("res://scenes/soldier_bullet.tscn")
+var missile = preload("res://scenes/cruise_missile.tscn")
+var missile_warning = preload("res://scenes/missile_warning.tscn")
 var mech_left_arm = load("res://resources/LeftArm.tres")
 var mech_right_arm = load("res://resources/RightArm.tres")
 
+var level_scene = null
 var left_has_shot: bool = true
 var right_has_shot: bool = true
 var firebreathing: bool = false
-
+var can_missile: bool = true
+var left_arm_gone: bool = false
+var right_arm_gone: bool = false
 var destination: int = 1000
 
 var fire_options: Array = [
@@ -35,9 +43,10 @@ var fire_options: Array = [
 ]
 
 var attack_options: Array =[
+	"firebreath_start",
+	"rocket_launch_start",
 	"left_arm_start",
 	"right_arm_start",
-	"firebreath_start",
 	"both_arms_start"
 ]
 
@@ -57,6 +66,11 @@ func _ready():
 func _process(_delta):
 	left_shoot()
 	right_shoot()
+	missile_spawn()
+	left_arm_death()
+	right_arm_death()
+	torso_hit_detection()
+	torso_death()
 	movement()
 	move_and_slide()
 
@@ -89,9 +103,31 @@ func right_shoot():
 func _on_right_reset_timer_timeout():
 	right_has_shot = false
 
+func missile_spawn():
+	var missile_found: int = 0
+	for child in get_tree().current_scene.get_children():
+		if child is Missile:
+			missile_found += 1
+	
+	if missile_found < 5 and not can_missile:
+		can_missile = true
+		var missile_instance = missile.instantiate()
+		var missile_warning_instance = missile_warning.instantiate()
+		get_tree().current_scene.add_child(missile_instance)
+		get_tree().current_scene.add_child(missile_warning_instance)
+		var spawn_points = level_scene.missile_spawn_markers.get_children()
+		var spawn_point = spawn_points[randi() % spawn_points.size()]
+		var pos = spawn_point.global_position
+		missile_instance.global_position = pos
+		missile_warning_instance.global_position = Vector2(1050, pos.y)
+		await get_tree().create_timer(1).timeout
+		missile_warning_instance.queue_free()
+func _on_rocket_reset_timer_timeout():
+	can_missile = false
+
 func _on_attack_timer_timeout():
-	state_chart.send_event('right_arm_start')
-	#state_chart.send_event(attack_options[randi_range(0, attack_options.size() - 1)])
+	#state_chart.send_event('rocket_launch_start')
+	state_chart.send_event(attack_options[randi_range(0, attack_options.size() - 1)])
 	attack_timer.stop()
 
 func _on_left_arm_shoot_state_entered():
@@ -153,9 +189,42 @@ func _on_both_arms_state_exited():
 	attack_timer.start()
 
 
+func _on_rocket_launch_state_entered():
+	$Node2D/RocketLaunchAnimations.play('arms_up')
+	await $Node2D/RocketLaunchAnimations.animation_finished
+	can_missile = false
+	$RocketLaunchTimer.start()
+	$RocketResetTimer.start()
+func _on_rocket_launch_timer_timeout():
+	state_chart.send_event('idle_entered')
+func _on_rocket_launch_state_exited():
+	$Node2D/RocketLaunchAnimations.play_backwards('arms_up')
+	can_missile = true
+	$RocketResetTimer.stop()
+	attack_timer.start()
 
+func left_arm_death():
+	if left_arm_hitbox.health <= 0:
+		left_arm_gone = true
+		$Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm.visible = false
+		left_arm_hitbox.set_collision_layer_value(7, false)
+		attack_options.erase("left_arm_start")
+		if not right_arm_gone:
+			attack_options.erase("both_arms_start")
 
+func right_arm_death():
+	if right_arm_hitbox.health <= 0:
+		right_arm_gone = true
+		$Node2D/BodyParent/Hips/Torso/RightArm/RightForearm.visible = false
+		right_arm_hitbox.set_collision_layer_value(7, false)
+		attack_options.erase("right_arm_start")
+		if not right_arm_gone:
+			attack_options.erase("both_arms_start")
 
+func torso_hit_detection():
+	if left_arm_gone and right_arm_gone:
+		set_collision_layer_value(7, true)
 
-
-
+func torso_death():
+	if health <= 0:
+		queue_free()

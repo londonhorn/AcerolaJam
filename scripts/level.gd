@@ -321,6 +321,7 @@ func boss_spawn():
 	
 	if boss_found < 1:
 		var boss_instance = boss.instantiate()
+		boss_instance.level_scene = self
 		add_child(boss_instance)
 		var spawn_point = $BossSpawn
 		var pos = spawn_point.global_position

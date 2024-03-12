@@ -31,6 +31,11 @@ func _on_hit_detection_body_entered(body):
 		label.global_position = pos
 		await get_tree().create_timer(0.03).timeout
 		queue_free()
+	elif body is Limb:
+		body.health -= 10
+		hit_sound_play()
+		await get_tree().create_timer(0.03).timeout
+		queue_free()
 	else:
 		queue_free()
 

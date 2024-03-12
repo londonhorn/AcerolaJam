@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bm7tiugobo07e"]
+[gd_scene load_steps=38 format=3 uid="uid://bm7tiugobo07e"]
 
 [ext_resource type="Texture2D" uid="uid://d3uc6i5qdmenk" path="res://assets/characters/Mech/Torso.png" id="1_oe0kw"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_rior5"]
@@ -11,12 +11,41 @@
 [ext_resource type="Texture2D" uid="uid://lcwhs0hcb2v6" path="res://assets/characters/Mech/Head.png" id="4_k3f1c"]
 [ext_resource type="Texture2D" uid="uid://cquplykvjmwxh" path="res://assets/characters/Mech/CannonHand.png" id="4_ksxph"]
 [ext_resource type="Texture2D" uid="uid://cutymd2enoveu" path="res://assets/characters/Mech/GunHand.png" id="5_iwu6r"]
+[ext_resource type="Script" path="res://scripts/LeftArmHitbox.gd" id="10_f3mdr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="11_k5re5"]
 [ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="12_bo3he"]
+[ext_resource type="Script" path="res://scripts/LimbClass.gd" id="12_c7lg4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="12_kc28g"]
 [ext_resource type="Script" path="res://scripts/EnemyClass.gd" id="13_3s3oa"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="13_i8gbf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="14_2k4sq"]
+
+[sub_resource type="Animation" id="Animation_qcbi5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.98023e-08, 2.85714)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/BodyParent/Hips:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 52.5)]
+}
 
 [sub_resource type="Animation" id="Animation_adr4e"]
 resource_name = "floating"
@@ -47,53 +76,10 @@ tracks/1/keys = {
 "values": [Vector2(1.07143, 49.2857), Vector2(1.07143, 32.8571), Vector2(1.07143, 49.2857)]
 }
 
-[sub_resource type="Animation" id="Animation_qcbi5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2.98023e-08, 2.85714)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/BodyParent/Hips:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 52.5)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ltrdi"]
 _data = {
 "RESET": SubResource("Animation_qcbi5"),
 "floating": SubResource("Animation_adr4e")
-}
-
-[sub_resource type="Animation" id="Animation_nfkl0"]
-resource_name = "fire_up"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.523599, 0.523599, -0.436332]
 }
 
 [sub_resource type="Animation" id="Animation_pq45g"]
@@ -127,6 +113,22 @@ tracks/0/keys = {
 "values": [-0.785398, -0.785398, -0.0872665]
 }
 
+[sub_resource type="Animation" id="Animation_nfkl0"]
+resource_name = "fire_up"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.523599, 0.523599, -0.436332]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uj1ef"]
 _data = {
 "RESET": SubResource("Animation_pq45g"),
@@ -134,11 +136,126 @@ _data = {
 "fire_up": SubResource("Animation_nfkl0")
 }
 
+[sub_resource type="Animation" id="Animation_rykwn"]
+resource_name = "RESET"
+length = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/RightArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(21.7857, -16.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%BodyParent/Hips/Torso/RightArm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0472]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%BodyParent/Hips/Torso/LeftArm:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-16, -13)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%BodyParent/Hips/Torso/LeftArm:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.349066]
+}
+
+[sub_resource type="Animation" id="Animation_cn0k8"]
+resource_name = "arms_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%BodyParent/Hips/Torso/RightArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(21.7857, -16.5), Vector2(21.7857, -16.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%BodyParent/Hips/Torso/RightArm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0472, -1.0472]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%BodyParent/Hips/Torso/LeftArm:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-16, -13), Vector2(-16, -13)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%BodyParent/Hips/Torso/LeftArm:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.349066, 2.35619]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1g111"]
+_data = {
+"RESET": SubResource("Animation_rykwn"),
+"arms_up": SubResource("Animation_cn0k8")
+}
+
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_gpl5x"]
 enabled = true
 modification_count = 2
 modifications/0 = ExtResource("2_dfqjc")
 modifications/1 = ExtResource("4_er41t")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4fv2"]
+size = Vector2(9.19076, 41.6765)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hm6x"]
+size = Vector2(49.4865, 10.7114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kc2jo"]
 atlas = ExtResource("4_k3f1c")
@@ -176,8 +293,9 @@ size = Vector2(17.8571, 98.5714)
 [node name="StatueMech" type="CharacterBody2D"]
 scale = Vector2(2.8, 2.8)
 collision_layer = 0
-collision_mask = 0
+collision_mask = 8
 script = ExtResource("1_wlkrv")
+health = 10
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -191,6 +309,11 @@ autoplay = "floating"
 [node name="FireAnimations" type="AnimationPlayer" parent="Node2D"]
 libraries = {
 "": SubResource("AnimationLibrary_uj1ef")
+}
+
+[node name="RocketLaunchAnimations" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+"": SubResource("AnimationLibrary_1g111")
 }
 
 [node name="Targets" type="Node2D" parent="Node2D"]
@@ -207,12 +330,11 @@ modification_stack = SubResource("SkeletonModificationStack2D_gpl5x")
 
 [node name="Hips" type="Bone2D" parent="Node2D/BodyParent"]
 position = Vector2(0, 52.5)
-rest = Transform2D(1, 0, 0, 1, 0, 0)
+rest = Transform2D(1, 0, 0, 1, 1.07143, 35.5952)
 
 [node name="FireTrail" type="GPUParticles2D" parent="Node2D/BodyParent/Hips" groups=["particles"]]
 position = Vector2(0.357143, -3.05176e-05)
 rotation = 1.5708
-scale = Vector2(1, 1)
 amount = 300
 process_material = ExtResource("4_f1mie")
 texture = ExtResource("1_rior5")
@@ -222,7 +344,7 @@ metadata/_edit_lock_ = true
 
 [node name="Torso" type="Bone2D" parent="Node2D/BodyParent/Hips"]
 position = Vector2(-1.07143, -49.2857)
-rest = Transform2D(1, 0, 0, 1, 0, -66)
+rest = Transform2D(1, 0, 0, 1, -1.07143, -49.2857)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(1.07143, 16.7143)
@@ -234,7 +356,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-16, -13)
 rotation = 0.349066
 scale = Vector2(0.999385, 0.999385)
-rest = Transform2D(0.939266, 0.341865, -0.341865, 0.939266, -16.4286, -16.8571)
+rest = Transform2D(0.939115, 0.34181, -0.34181, 0.939115, -16, -13)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm"]
 position = Vector2(0, 20)
@@ -244,11 +366,11 @@ texture = ExtResource("2_mhpe4")
 position = Vector2(-0.993931, 42.0041)
 rotation = 1.40306
 scale = Vector2(0.999839, 0.999839)
-rest = Transform2D(0.258779, 0.965776, -0.965776, 0.258779, -0.993931, 42.0041)
+rest = Transform2D(0.166924, 0.985806, -0.985806, 0.166924, -0.993931, 42.0041)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
 position = Vector2(12.6906, -0.836206)
-rotation = -1.5708
+rotation = -1.57079
 texture = ExtResource("3_2jxcv")
 
 [node name="LeftArmEnd" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
@@ -265,11 +387,25 @@ texture = ExtResource("4_ksxph")
 [node name="CannonMarker" type="Marker2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd/Sprite2D"]
 position = Vector2(-18.2664, -2.40243)
 
+[node name="LeftArmHitbox" type="CharacterBody2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm"]
+position = Vector2(-17.8697, -28.5608)
+rotation = -1.75213
+scale = Vector2(1.00078, 1.00078)
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("10_f3mdr")
+health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox"]
+position = Vector2(-34.7798, 30.5819)
+rotation = 0.261799
+shape = SubResource("RectangleShape2D_u4fv2")
+
 [node name="RightArm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(21.7857, -16.5)
 rotation = 1.0472
 scale = Vector2(0.999828, 0.999828)
-rest = Transform2D(0.5, 0.866025, -0.866025, 0.5, 21.7857, -16.5)
+rest = Transform2D(0.499915, 0.865876, -0.865876, 0.499915, 21.7857, -16.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm"]
 position = Vector2(18.0885, 4.66987)
@@ -280,7 +416,7 @@ texture = ExtResource("2_mhpe4")
 position = Vector2(37.0429, 9.83975)
 rotation = 0.523599
 scale = Vector2(0.999897, 0.999897)
-rest = Transform2D(0.866025, 0.5, -0.5, 0.866025, 37.0429, 9.83975)
+rest = Transform2D(0.865936, 0.499949, -0.499949, 0.865936, 37.0429, 9.83975)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
 position = Vector2(15, -2)
@@ -299,11 +435,21 @@ texture = ExtResource("5_iwu6r")
 [node name="GunMarker" type="Marker2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmEnd/Sprite2D"]
 position = Vector2(-16.8051, 3.57495)
 rotation = -3.14159
+
+[node name="RightArmHitbox" type="CharacterBody2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm"]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("12_c7lg4")
+health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox"]
+position = Vector2(25.9421, -2.85985)
 scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_3hm6x")
 
 [node name="Head" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(-1.07143, -22.9286)
-rest = Transform2D(-4.37114e-08, -1, 1, -4.37114e-08, -1, -16)
+rest = Transform2D(1, 0, 0, 1, -1.07143, -22.9286)
 
 [node name="HeadSprites" type="AnimatedSprite2D" parent="Node2D/BodyParent/Hips/Torso/Head"]
 position = Vector2(1.78571, -22.4285)
@@ -331,7 +477,6 @@ level = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/Head/HeadSprites/FirebreathHitbox"]
 position = Vector2(-193.81, 9.12699)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5h2nr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -369,6 +514,11 @@ script = ExtResource("14_2k4sq")
 to = NodePath("../../BothArms")
 event = &"both_arms_start"
 
+[node name="To RocketLaunch" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../RocketLaunch")
+event = &"rocket_launch_start"
+
 [node name="LeftArmShoot" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("13_i8gbf")
 
@@ -401,6 +551,14 @@ script = ExtResource("14_2k4sq")
 to = NodePath("../../Idle")
 event = &"idle_entered"
 
+[node name="RocketLaunch" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("13_i8gbf")
+
+[node name="To Idle" type="Node" parent="StateChart/CompoundState/RocketLaunch"]
+script = ExtResource("14_2k4sq")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
@@ -416,9 +574,15 @@ one_shot = true
 [node name="BothArmsTimer" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="RocketLaunchTimer" type="Timer" parent="."]
+wait_time = 7.0
+
 [node name="LeftResetTimer" type="Timer" parent="."]
 
 [node name="RightResetTimer" type="Timer" parent="."]
+
+[node name="RocketResetTimer" type="Timer" parent="."]
+wait_time = 0.3
 
 [connection signal="state_entered" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_exited"]
@@ -428,9 +592,13 @@ wait_time = 3.0
 [connection signal="state_exited" from="StateChart/CompoundState/FireBreath" to="." method="_on_fire_breath_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/BothArms" to="." method="_on_both_arms_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/BothArms" to="." method="_on_both_arms_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/RocketLaunch" to="." method="_on_rocket_launch_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/RocketLaunch" to="." method="_on_rocket_launch_state_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="LeftArmTimer" to="." method="_on_left_arm_timer_timeout"]
 [connection signal="timeout" from="RightArmTimer" to="." method="_on_right_arm_timer_timeout"]
 [connection signal="timeout" from="BothArmsTimer" to="." method="_on_both_arms_timer_timeout"]
+[connection signal="timeout" from="RocketLaunchTimer" to="." method="_on_rocket_launch_timer_timeout"]
 [connection signal="timeout" from="LeftResetTimer" to="." method="_on_left_reset_timer_timeout"]
 [connection signal="timeout" from="RightResetTimer" to="." method="_on_right_reset_timer_timeout"]
+[connection signal="timeout" from="RocketResetTimer" to="." method="_on_rocket_reset_timer_timeout"]
