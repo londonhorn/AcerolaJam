@@ -311,7 +311,7 @@ func cop_car_spawn():
 		missile_warning_instance.position = Vector2(1050, pos.y)
 		await get_tree().create_timer(1).timeout
 		missile_warning_instance.queue_free()
-	return 1.0
+	return 1.0  
 
 func boss_spawn():
 	var boss_found: int = 0
@@ -326,6 +326,7 @@ func boss_spawn():
 		var spawn_point = $BossSpawn
 		var pos = spawn_point.global_position
 		boss_instance.position = pos
+		$"World Border/CollisionShape2D2".global_position = Vector2(750, 330)
 	return 1.0
 
 

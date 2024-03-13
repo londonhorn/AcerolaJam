@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scripts/ParticleScene.gd" id="1_vv2lo"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_2ptcc"]
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="2_p87xr"]
-[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="3_a6uaj"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="3_xbwp0"]
 [ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_376ls"]
+[ext_resource type="Material" uid="uid://ccckg7wp1yptq" path="res://scenes/vehicle_explosion1.tres" id="5_5krtp"]
 [ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="7_11vfj"]
 
 [sub_resource type="Gradient" id="Gradient_e5wfb"]
@@ -386,7 +386,7 @@ explosiveness = 1.0
 position = Vector2(288, 83)
 emitting = false
 amount = 150
-process_material = ExtResource("3_a6uaj")
+process_material = ExtResource("5_5krtp")
 texture = ExtResource("2_2ptcc")
 lifetime = 0.7
 one_shot = true
@@ -416,7 +416,7 @@ local_coords = true
 position = Vector2(789, 245)
 emitting = false
 amount = 150
-process_material = ExtResource("3_a6uaj")
+process_material = ExtResource("5_5krtp")
 texture = ExtResource("2_2ptcc")
 lifetime = 0.7
 one_shot = true
@@ -509,7 +509,7 @@ local_coords = true
 position = Vector2(408, 280)
 emitting = false
 amount = 150
-process_material = ExtResource("3_a6uaj")
+process_material = ExtResource("5_5krtp")
 texture = ExtResource("2_2ptcc")
 lifetime = 0.7
 one_shot = true
@@ -579,3 +579,14 @@ lifetime = 4.0
 preprocess = 2.0
 speed_scale = 2.0
 local_coords = true
+
+[node name="BloodParticle11" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(741, 187)
+emitting = false
+amount = 150
+process_material = ExtResource("5_5krtp")
+texture = ExtResource("2_2ptcc")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0

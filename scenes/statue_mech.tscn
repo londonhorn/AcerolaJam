@@ -1,16 +1,21 @@
-[gd_scene load_steps=38 format=3 uid="uid://bm7tiugobo07e"]
+[gd_scene load_steps=52 format=3 uid="uid://bm7tiugobo07e"]
 
 [ext_resource type="Texture2D" uid="uid://d3uc6i5qdmenk" path="res://assets/characters/Mech/Torso.png" id="1_oe0kw"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_rior5"]
 [ext_resource type="Script" path="res://scripts/StatueParent.gd" id="1_wlkrv"]
 [ext_resource type="SkeletonModification2DCCDIK" uid="uid://b8rilcnhl6jqm" path="res://resources/LeftArm.tres" id="2_dfqjc"]
 [ext_resource type="Texture2D" uid="uid://bxv7rymif0cfr" path="res://assets/characters/Mech/ArmTop.png" id="2_mhpe4"]
+[ext_resource type="AudioStream" uid="uid://8n1pk5kt5huw" path="res://assets/sounds/MechExplosion.mp3" id="2_t8d70"]
 [ext_resource type="Texture2D" uid="uid://bhxy7q83wtafb" path="res://assets/characters/Mech/Forearm.png" id="3_2jxcv"]
+[ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="3_k7dea"]
+[ext_resource type="AudioStream" uid="uid://c8k142wsgt64h" path="res://assets/sounds/RightArmShoot.mp3" id="4_8pple"]
 [ext_resource type="SkeletonModification2DCCDIK" uid="uid://cpixmnfhek4pj" path="res://resources/RightArm.tres" id="4_er41t"]
 [ext_resource type="Material" uid="uid://d14llimj5nv4p" path="res://resources/fire_tail.tres" id="4_f1mie"]
 [ext_resource type="Texture2D" uid="uid://lcwhs0hcb2v6" path="res://assets/characters/Mech/Head.png" id="4_k3f1c"]
 [ext_resource type="Texture2D" uid="uid://cquplykvjmwxh" path="res://assets/characters/Mech/CannonHand.png" id="4_ksxph"]
+[ext_resource type="AudioStream" uid="uid://86qqpk6qf7jw" path="res://assets/sounds/FirebreathSound.mp3" id="5_euwpa"]
 [ext_resource type="Texture2D" uid="uid://cutymd2enoveu" path="res://assets/characters/Mech/GunHand.png" id="5_iwu6r"]
+[ext_resource type="AudioStream" uid="uid://b76boqvbf5dpl" path="res://assets/sounds/MechHit.mp3" id="6_8cscy"]
 [ext_resource type="Script" path="res://scripts/LeftArmHitbox.gd" id="10_f3mdr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="11_k5re5"]
 [ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="12_bo3he"]
@@ -19,6 +24,8 @@
 [ext_resource type="Script" path="res://scripts/EnemyClass.gd" id="13_3s3oa"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="13_i8gbf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="14_2k4sq"]
+[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="16_xc43y"]
+[ext_resource type="Material" uid="uid://b5qe4y0ydi1w5" path="res://scenes/torso_explosion.tres" id="18_47hul"]
 
 [sub_resource type="Animation" id="Animation_qcbi5"]
 length = 0.001
@@ -245,6 +252,157 @@ _data = {
 "arms_up": SubResource("Animation_cn0k8")
 }
 
+[sub_resource type="Animation" id="Animation_sr2w1"]
+resource_name = "left_arm_death"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../LeftArmDeath:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%BodyParent/Hips/Torso/LeftArm:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSounds:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_15c08"]
+resource_name = "right_arm_death"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RightArmDeath:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%BodyParent/Hips/Torso/RightArm:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathSounds:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_v057l"]
+resource_name = "torso_death"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TorsoDeath:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TorsoDeath2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TorsoDeath3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%BodyParent:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeathSounds:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ekq3m"]
+_data = {
+"left_arm_death": SubResource("Animation_sr2w1"),
+"right_arm_death": SubResource("Animation_15c08"),
+"torso_death": SubResource("Animation_v057l")
+}
+
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_gpl5x"]
 enabled = true
 modification_count = 2
@@ -254,8 +412,14 @@ modifications/1 = ExtResource("4_er41t")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u4fv2"]
 size = Vector2(9.19076, 41.6765)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6juu"]
+size = Vector2(16.6082, 49.2229)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hm6x"]
 size = Vector2(49.4865, 10.7114)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxnnt"]
+size = Vector2(56.4413, 16.4331)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kc2jo"]
 atlas = ExtResource("4_k3f1c")
@@ -290,12 +454,15 @@ size = Vector2(377.619, 9.04761)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tndr3"]
 size = Vector2(17.8571, 98.5714)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmo47"]
+size = Vector2(23.5714, 106.071)
+
 [node name="StatueMech" type="CharacterBody2D"]
 scale = Vector2(2.8, 2.8)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 128
 script = ExtResource("1_wlkrv")
-health = 10
+health = 400
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -315,6 +482,38 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_1g111")
 }
+
+[node name="DeathAnimations" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+"": SubResource("AnimationLibrary_ekq3m")
+}
+
+[node name="DeathSounds" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("2_t8d70")
+volume_db = -15.0
+max_polyphony = 10
+
+[node name="LeftArmSound" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("3_k7dea")
+volume_db = -5.0
+max_polyphony = 3
+
+[node name="RightArmSound" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("4_8pple")
+volume_db = -15.0
+
+[node name="FireBreathSound" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("5_euwpa")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("6_8cscy")
+volume_db = -5.0
+max_polyphony = 10
 
 [node name="Targets" type="Node2D" parent="Node2D"]
 
@@ -394,12 +593,22 @@ scale = Vector2(1.00078, 1.00078)
 collision_layer = 64
 collision_mask = 8
 script = ExtResource("10_f3mdr")
-health = 10
+health = 400
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox"]
 position = Vector2(-34.7798, 30.5819)
 rotation = 0.261799
 shape = SubResource("RectangleShape2D_u4fv2")
+
+[node name="HitMarker" type="Area2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox"]
+collision_layer = 8
+collision_mask = 192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker"]
+position = Vector2(-34.496, 30.423)
+rotation = 0.261799
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_q6juu")
 
 [node name="RightArm" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(21.7857, -16.5)
@@ -440,12 +649,20 @@ rotation = -3.14159
 collision_layer = 64
 collision_mask = 8
 script = ExtResource("12_c7lg4")
-health = 10
+health = 400
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox"]
 position = Vector2(25.9421, -2.85985)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_3hm6x")
+
+[node name="HitMarker" type="Area2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox"]
+collision_layer = 8
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox/HitMarker"]
+position = Vector2(25.229, -2.85979)
+shape = SubResource("RectangleShape2D_sxnnt")
 
 [node name="Head" type="Bone2D" parent="Node2D/BodyParent/Hips/Torso"]
 position = Vector2(-1.07143, -22.9286)
@@ -483,6 +700,72 @@ shape = SubResource("RectangleShape2D_5h2nr")
 position = Vector2(-2.98023e-08, 2.85714)
 shape = SubResource("RectangleShape2D_tndr3")
 metadata/_edit_lock_ = true
+
+[node name="HitMarker" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitMarker"]
+position = Vector2(0, 2.67857)
+shape = SubResource("RectangleShape2D_qmo47")
+
+[node name="LeftArmDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-33.9286, 27.8571)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("16_xc43y")
+texture = ExtResource("1_rior5")
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="RightArmDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(32.1428, 27.1429)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("16_xc43y")
+texture = ExtResource("1_rior5")
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="TorsoDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-2.85714, -24.6429)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("18_47hul")
+texture = ExtResource("1_rior5")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5
+
+[node name="TorsoDeath2" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(-0.357143, 11.4286)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("18_47hul")
+texture = ExtResource("1_rior5")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5
+
+[node name="TorsoDeath3" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(0.714286, 33.2143)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("18_47hul")
+texture = ExtResource("1_rior5")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("11_k5re5")
@@ -578,12 +861,18 @@ wait_time = 3.0
 wait_time = 7.0
 
 [node name="LeftResetTimer" type="Timer" parent="."]
+wait_time = 0.6
 
 [node name="RightResetTimer" type="Timer" parent="."]
+wait_time = 0.8
 
 [node name="RocketResetTimer" type="Timer" parent="."]
 wait_time = 0.3
 
+[connection signal="area_entered" from="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered3"]
+[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered3"]
+[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered2"]
+[connection signal="body_entered" from="HitMarker" to="." method="_on_hit_marker_area_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/RightArmShoot" to="." method="_on_right_arm_shoot_state_entered"]

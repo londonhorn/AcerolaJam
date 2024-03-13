@@ -9,6 +9,11 @@ class_name Boss
 @onready var firebreath_particle = $Node2D/BodyParent/Hips/Torso/Head/HeadSprites/FirebreathEffect
 @onready var firebreath_hitbox = $Node2D/BodyParent/Hips/Torso/Head/HeadSprites/FirebreathHitbox
 @onready var fire_animations = $Node2D/FireAnimations
+@onready var death_animations = $Node2D/DeathAnimations
+
+@onready var left_arm_sound = $Node2D/LeftArmSound
+@onready var right_arm_sound = $Node2D/RightArmSound
+@onready var firebreath_sound = $Node2D/FireBreathSound
 
 @onready var left_tip = $Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd
 @onready var right_tip = $Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmEnd
@@ -52,6 +57,8 @@ var attack_options: Array =[
 
 func _ready():
 	start_moving()
+	$Node2D/BodyParent/Hips/Torso/LeftArm.visible = true
+	$Node2D/BodyParent/Hips/Torso/RightArm.visible = true
 	var mod_stack = skeleton_parent.get_modification_stack()
 	var skl_mod = mod_stack.get_modification(0)
 	skl_mod.target_nodepath = skl_mod.target_nodepath
@@ -60,7 +67,7 @@ func _ready():
 	mech_left_arm.set_target_node(get_tree().get_first_node_in_group('player').get_path())
 	mech_right_arm.set_tip_node(right_tip.get_path())
 	mech_right_arm.set_target_node(get_tree().get_first_node_in_group('player').get_path())
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(3).timeout
 	attack_timer.start()
 
 func _process(_delta):
@@ -89,6 +96,7 @@ func left_shoot():
 		bullet.global_position = cannon_spawn_marker.global_position
 		bullet.look_at(get_tree().get_first_node_in_group('player').global_position)
 		get_tree().current_scene.add_child(bullet)
+		left_arm_sound.play()
 func _on_left_reset_timer_timeout():
 	left_has_shot = false
 
@@ -97,9 +105,12 @@ func right_shoot():
 		await get_tree().create_timer(0.25).timeout
 		right_has_shot = true
 		var bullet = small_bullet_scene.instantiate()
+		right_arm_sound.play()
 		bullet.global_position = gun_spawn_marker.global_position
 		bullet.look_at(get_tree().get_first_node_in_group('player').global_position)
 		get_tree().current_scene.add_child(bullet)
+
+
 func _on_right_reset_timer_timeout():
 	right_has_shot = false
 
@@ -126,7 +137,6 @@ func _on_rocket_reset_timer_timeout():
 	can_missile = false
 
 func _on_attack_timer_timeout():
-	#state_chart.send_event('rocket_launch_start')
 	state_chart.send_event(attack_options[randi_range(0, attack_options.size() - 1)])
 	attack_timer.stop()
 
@@ -158,9 +168,29 @@ func _on_right_arm_shoot_state_exited():
 	attack_timer.start()
 
 
+func _on_both_arms_state_entered():
+	mech_right_arm.enabled = true
+	mech_left_arm.enabled = true
+	$RightResetTimer.start()
+	$LeftResetTimer.start()
+	both_arms_timer.start()
+	await get_tree().create_timer(.1).timeout
+	right_has_shot = false
+	left_has_shot = false
+func _on_both_arms_timer_timeout():
+	state_chart.send_event('idle_entered')
+func _on_both_arms_state_exited():
+	mech_right_arm.enabled = false
+	mech_left_arm.enabled = false
+	$RightResetTimer.stop()
+	$LeftResetTimer.stop()
+	attack_timer.start()
+
+
 func _on_fire_breath_state_entered():
 	firebreathing = true
 	if firebreathing:
+		$Node2D/FireBreathSound.play()
 		head_sprites.play('fire')
 		fire_animations.play(str(fire_options[randi_range(0, fire_options.size() - 1)]))
 		firebreath_particle.emitting = true
@@ -177,16 +207,6 @@ func _on_fire_breath_state_exited():
 	attack_timer.start()
 
 
-func _on_both_arms_state_entered():
-	mech_right_arm.enabled = true
-	mech_left_arm.enabled = true
-	both_arms_timer.start()
-func _on_both_arms_timer_timeout():
-	state_chart.send_event('idle_entered')
-func _on_both_arms_state_exited():
-	mech_right_arm.enabled = false
-	mech_left_arm.enabled = false
-	attack_timer.start()
 
 
 func _on_rocket_launch_state_entered():
@@ -206,25 +226,52 @@ func _on_rocket_launch_state_exited():
 func left_arm_death():
 	if left_arm_hitbox.health <= 0:
 		left_arm_gone = true
-		$Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm.visible = false
 		left_arm_hitbox.set_collision_layer_value(7, false)
 		attack_options.erase("left_arm_start")
+		if $Node2D/BodyParent/Hips/Torso/LeftArm.visible:
+			death_animations.play('left_arm_death')	
 		if not right_arm_gone:
 			attack_options.erase("both_arms_start")
 
 func right_arm_death():
 	if right_arm_hitbox.health <= 0:
 		right_arm_gone = true
-		$Node2D/BodyParent/Hips/Torso/RightArm/RightForearm.visible = false
 		right_arm_hitbox.set_collision_layer_value(7, false)
 		attack_options.erase("right_arm_start")
+		if $Node2D/BodyParent/Hips/Torso/RightArm.visible:
+			death_animations.play('right_arm_death')
 		if not right_arm_gone:
 			attack_options.erase("both_arms_start")
 
 func torso_hit_detection():
 	if left_arm_gone and right_arm_gone:
 		set_collision_layer_value(7, true)
-
+		$HitMarker.set_collision_layer_value(7, true)
 func torso_death():
 	if health <= 0:
+		death_animations.play('torso_death')
+		await death_animations.animation_finished
+		print('you win!')
 		queue_free()
+
+
+func _on_hit_marker_area_entered(body):
+	if body is Fireball:
+		$Node2D/HitSound.play() # TORSO
+		var tween = create_tween()
+		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.RED, 0.05)
+		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.WHITE, 0.05)
+
+func _on_hit_marker_area_entered2(body):
+	if body is Fireball:
+		$Node2D/HitSound.play() # RIGHT
+		var tween = create_tween()
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.RED, 0.05)
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.WHITE, 0.05)
+
+func _on_hit_marker_area_entered3(body):
+	if body is Fireball:
+		$Node2D/HitSound.play() # LEFT
+		var tween = create_tween()
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/LeftArm, "modulate", Color.RED, 0.05)
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/LeftArm, "modulate", Color.WHITE, 0.05)

@@ -5,8 +5,8 @@
 [ext_resource type="AudioStream" uid="uid://baluqttoof05i" path="res://assets/sounds/TankShoot.mp3" id="3_0hg7f"]
 [ext_resource type="AudioStream" uid="uid://cldia7v060lcw" path="res://assets/sounds/TankMoving.mp3" id="3_48dso"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_v3gt7"]
-[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="6_hnwkq"]
 [ext_resource type="AudioStream" uid="uid://eyauvbq563vg" path="res://assets/sounds/VehicleCrash.mp3" id="6_rnh1i"]
+[ext_resource type="Material" uid="uid://ccckg7wp1yptq" path="res://scenes/vehicle_explosion1.tres" id="6_w5g2i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bb0l"]
 atlas = ExtResource("2_aubsc")
@@ -180,7 +180,7 @@ explosiveness = 1.0
 [node name="BloodParticle" type="GPUParticles2D" parent="." groups=["particles"]]
 emitting = false
 amount = 150
-process_material = ExtResource("6_hnwkq")
+process_material = ExtResource("6_w5g2i")
 texture = ExtResource("5_v3gt7")
 lifetime = 0.7
 one_shot = true
