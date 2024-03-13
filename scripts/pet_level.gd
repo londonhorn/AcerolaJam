@@ -21,14 +21,14 @@ extends Control
 
 @onready var gameplay_level = load("res://scenes/level.tscn")
 
-var mech_left_arm = preload("res://resources/LeftArm.tres")
-var mech_right_arm = preload("res://resources/RightArm.tres")
+#var mech_left_arm = load("res://resources/LeftArm.tres")
+#var mech_right_arm = load("res://resources/RightArm.tres")
 
 func _ready():
 	player.can_move = false
 	player.animations.play('floor')
-	mech_right_arm.enabled = false
-	mech_left_arm.enabled = false
+	#mech_right_arm.enabled = false
+	#mech_left_arm.enabled = false
 
 func _process(_delta):
 	player.current_health += 100
@@ -83,6 +83,7 @@ func _on_health_button_pressed():
 func _on_wave_skip_button_pressed():
 	if Globals.total_points >= 399:
 		money_spent_sound.play()
+		print(Globals.current_wave_increment)
 		Globals.total_points -= 400
 		Globals.current_wave_increment += 1
 
@@ -163,10 +164,17 @@ func health_button_lock():
 
 
 func wave_skip_button_lock():
-	if Globals.total_points < 400:
+	if Globals.current_wave_increment == 14:
 		wave_skip_button.disabled = true
+		wave_skip_button.text = "MAXED"
+	elif Globals.total_points < 400:
+		wave_skip_button.disabled = true
+		wave_skip_button.text = "Permanently Skip a Wave
+400 Points"
 	else:
 		wave_skip_button.disabled = false
+		wave_skip_button.text = "Permanently Skip a Wave
+400 Points"
 
 func wave_refund_button_lock():
 	if Globals.current_wave_increment <= 0:

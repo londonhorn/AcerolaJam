@@ -13,7 +13,7 @@
 size = Vector2(18, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptf3i"]
-size = Vector2(26, 26)
+size = Vector2(28, 28)
 
 [sub_resource type="Gradient" id="Gradient_f3a4u"]
 offsets = PackedFloat32Array(0, 0.759124, 1)
@@ -85,7 +85,6 @@ _data = {
 process_mode = 3
 collision_mask = 30
 script = ExtResource("1_2vxij")
-points = 5000
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)

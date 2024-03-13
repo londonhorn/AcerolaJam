@@ -7,6 +7,7 @@ extends Control
 
 func _on_play_pressed():
 	click_sound.play()
+	Globals.current_wave_increment = 0
 	await click_sound.finished
 	LevelTransition.change_scene(tutorial_scene)
 

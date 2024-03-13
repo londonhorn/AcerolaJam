@@ -1,12 +1,14 @@
-[gd_scene load_steps=60 format=3 uid="uid://barkjp8rvr5qk"]
+[gd_scene load_steps=62 format=3 uid="uid://barkjp8rvr5qk"]
 
 [ext_resource type="Script" path="res://scripts/ParticleScene.gd" id="1_vv2lo"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="2_2ptcc"]
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="2_p87xr"]
+[ext_resource type="Material" uid="uid://cjinfl5n25hku" path="res://scenes/vehicle_explosion.tres" id="3_a6uaj"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="3_xbwp0"]
 [ext_resource type="Texture2D" uid="uid://dtafyd2pihw8k" path="res://assets/projectiles/blood.png" id="4_376ls"]
 [ext_resource type="Material" uid="uid://ccckg7wp1yptq" path="res://scenes/vehicle_explosion1.tres" id="5_5krtp"]
 [ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="7_11vfj"]
+[ext_resource type="Material" uid="uid://b5qe4y0ydi1w5" path="res://scenes/torso_explosion.tres" id="9_1olmx"]
 
 [sub_resource type="Gradient" id="Gradient_e5wfb"]
 offsets = PackedFloat32Array(0, 0.744526, 1)
@@ -590,3 +592,60 @@ lifetime = 0.7
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
+
+[node name="LeftArmDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(871, 417.5)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("3_a6uaj")
+texture = ExtResource("2_2ptcc")
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="RightArmDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(937.071, 416.786)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("3_a6uaj")
+texture = ExtResource("2_2ptcc")
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+
+[node name="TorsoDeath" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(902.071, 365)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("9_1olmx")
+texture = ExtResource("2_2ptcc")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5
+
+[node name="TorsoDeath2" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(904.571, 401.071)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("9_1olmx")
+texture = ExtResource("2_2ptcc")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5
+
+[node name="TorsoDeath3" type="GPUParticles2D" parent="." groups=["particles"]]
+position = Vector2(905.643, 422.857)
+scale = Vector2(1, 1)
+emitting = false
+amount = 300
+process_material = ExtResource("9_1olmx")
+texture = ExtResource("2_2ptcc")
+lifetime = 0.98
+speed_scale = 1.2
+explosiveness = 0.5

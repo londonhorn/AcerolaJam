@@ -1,4 +1,4 @@
-extends Enemy
+extends Limb
 class_name Boss
 
 @onready var cannon_spawn_marker = $Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmEnd/Sprite2D/CannonMarker
@@ -32,6 +32,8 @@ var missile = preload("res://scenes/cruise_missile.tscn")
 var missile_warning = preload("res://scenes/missile_warning.tscn")
 var mech_left_arm = load("res://resources/LeftArm.tres")
 var mech_right_arm = load("res://resources/RightArm.tres")
+
+var outro_scene = load("res://scenes/outro_scene.tscn")
 
 var level_scene = null
 var left_has_shot: bool = true
@@ -102,7 +104,7 @@ func _on_left_reset_timer_timeout():
 
 func right_shoot():
 	if not right_has_shot:
-		await get_tree().create_timer(0.25).timeout
+		await get_tree().create_timer(0.27).timeout
 		right_has_shot = true
 		var bullet = small_bullet_scene.instantiate()
 		right_arm_sound.play()
@@ -247,31 +249,33 @@ func torso_hit_detection():
 	if left_arm_gone and right_arm_gone:
 		set_collision_layer_value(7, true)
 		$HitMarker.set_collision_layer_value(7, true)
+		$HitMarker.set_collision_mask_value(8, true)
 func torso_death():
 	if health <= 0:
 		death_animations.play('torso_death')
 		await death_animations.animation_finished
-		print('you win!')
-		queue_free()
+		get_tree().paused = true
+		LevelTransitionFinal.change_scene(outro_scene)
 
 
-func _on_hit_marker_area_entered(body):
+func _on_hit_marker_body_entered(body):
+	# LEFT
 	if body is Fireball:
-		$Node2D/HitSound.play() # TORSO
-		var tween = create_tween()
-		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.RED, 0.05)
-		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.WHITE, 0.05)
-
-func _on_hit_marker_area_entered2(body):
-	if body is Fireball:
-		$Node2D/HitSound.play() # RIGHT
-		var tween = create_tween()
-		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.RED, 0.05)
-		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.WHITE, 0.05)
-
-func _on_hit_marker_area_entered3(body):
-	if body is Fireball:
-		$Node2D/HitSound.play() # LEFT
+		$Node2D/HitSound.play()
 		var tween = create_tween()
 		tween.tween_property($Node2D/BodyParent/Hips/Torso/LeftArm, "modulate", Color.RED, 0.05)
 		tween.tween_property($Node2D/BodyParent/Hips/Torso/LeftArm, "modulate", Color.WHITE, 0.05)
+func _on_hit_marker_body_entered2(body):
+	# RIGHT
+	if body is Fireball:
+		$Node2D/HitSound.play()
+		var tween = create_tween()
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.RED, 0.05)
+		tween.tween_property($Node2D/BodyParent/Hips/Torso/RightArm, "modulate", Color.WHITE, 0.05)
+func _on_hit_marker_body_entered3(body):
+	# TORSO
+	if body is Fireball:
+		$Node2D/HitSound.play()
+		var tween = create_tween()
+		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.RED, 0.05)
+		tween.tween_property($Node2D/BodyParent/Hips/Torso, "modulate", Color.WHITE, 0.05)

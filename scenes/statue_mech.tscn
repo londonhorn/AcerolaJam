@@ -114,10 +114,10 @@ tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3.5),
+"times": PackedFloat32Array(0, 1, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [-0.785398, -0.785398, -0.0872665]
+"values": [-0.785398, -0.785398, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_nfkl0"]
@@ -130,10 +130,10 @@ tracks/0/path = NodePath("%BodyParent/Hips/Torso/Head/HeadSprites:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3.5),
+"times": PackedFloat32Array(0, 1, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.523599, 0.523599, -0.436332]
+"values": [0.523599, 0.523599, -0.523599]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uj1ef"]
@@ -413,7 +413,7 @@ modifications/1 = ExtResource("4_er41t")
 size = Vector2(9.19076, 41.6765)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6juu"]
-size = Vector2(16.6082, 49.2229)
+size = Vector2(18.0475, 49.2229)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hm6x"]
 size = Vector2(49.4865, 10.7114)
@@ -455,14 +455,14 @@ size = Vector2(377.619, 9.04761)
 size = Vector2(17.8571, 98.5714)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qmo47"]
-size = Vector2(23.5714, 106.071)
+size = Vector2(43.5714, 106.071)
 
 [node name="StatueMech" type="CharacterBody2D"]
 scale = Vector2(2.8, 2.8)
 collision_layer = 0
-collision_mask = 128
+collision_mask = 0
 script = ExtResource("1_wlkrv")
-health = 400
+health = 100
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -593,7 +593,7 @@ scale = Vector2(1.00078, 1.00078)
 collision_layer = 64
 collision_mask = 8
 script = ExtResource("10_f3mdr")
-health = 400
+health = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox"]
 position = Vector2(-34.7798, 30.5819)
@@ -601,8 +601,8 @@ rotation = 0.261799
 shape = SubResource("RectangleShape2D_u4fv2")
 
 [node name="HitMarker" type="Area2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox"]
-collision_layer = 8
-collision_mask = 192
+collision_layer = 64
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker"]
 position = Vector2(-34.496, 30.423)
@@ -649,7 +649,7 @@ rotation = -3.14159
 collision_layer = 64
 collision_mask = 8
 script = ExtResource("12_c7lg4")
-health = 400
+health = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox"]
 position = Vector2(25.9421, -2.85985)
@@ -657,8 +657,8 @@ scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_3hm6x")
 
 [node name="HitMarker" type="Area2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox"]
-collision_layer = 8
-collision_mask = 64
+collision_layer = 64
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox/HitMarker"]
 position = Vector2(25.229, -2.85979)
@@ -704,7 +704,7 @@ metadata/_edit_lock_ = true
 [node name="HitMarker" type="Area2D" parent="."]
 scale = Vector2(1, 1)
 collision_layer = 0
-collision_mask = 128
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitMarker"]
 position = Vector2(0, 2.67857)
@@ -843,7 +843,7 @@ to = NodePath("../../Idle")
 event = &"idle_entered"
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 
 [node name="LeftArmTimer" type="Timer" parent="."]
@@ -855,24 +855,25 @@ wait_time = 5.0
 one_shot = true
 
 [node name="BothArmsTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
+one_shot = true
 
 [node name="RocketLaunchTimer" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 6.0
+one_shot = true
 
 [node name="LeftResetTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.4
 
 [node name="RightResetTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.7
 
 [node name="RocketResetTimer" type="Timer" parent="."]
 wait_time = 0.3
 
-[connection signal="area_entered" from="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered3"]
-[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered3"]
-[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox/HitMarker" to="." method="_on_hit_marker_area_entered2"]
-[connection signal="body_entered" from="HitMarker" to="." method="_on_hit_marker_area_entered"]
+[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/LeftArm/LeftForearm/LeftArmHitbox/HitMarker" to="." method="_on_hit_marker_body_entered"]
+[connection signal="body_entered" from="Node2D/BodyParent/Hips/Torso/RightArm/RightForearm/RightArmHitbox/HitMarker" to="." method="_on_hit_marker_body_entered2"]
+[connection signal="body_entered" from="HitMarker" to="." method="_on_hit_marker_body_entered3"]
 [connection signal="state_entered" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/LeftArmShoot" to="." method="_on_left_arm_shoot_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/RightArmShoot" to="." method="_on_right_arm_shoot_state_entered"]

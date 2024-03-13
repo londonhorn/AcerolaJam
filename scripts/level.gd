@@ -137,7 +137,7 @@ var wave_options = [
 
 
 func _ready():
-	Globals.current_wave = 14
+	Globals.current_wave = 0 + Globals.current_wave_increment
 	player.player_death()
 	spawn_total_timer.wait_time = wave_options[Globals.current_wave]["duration"]
 	spawn_total_timer.start()
