@@ -4,6 +4,7 @@ extends ProgressBar
 
 func _process(_delta):
 	value = Globals.character_speed + Globals.character_health
+	#print(value)
 	hide_all()
 
 func hide_all():

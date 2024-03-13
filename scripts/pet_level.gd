@@ -79,6 +79,7 @@ func _on_health_button_pressed():
 		money_spent_sound.play()
 		Globals.total_points -= 35
 		Globals.character_health += 30
+		print(Globals.character_health)
 
 func _on_wave_skip_button_pressed():
 	if Globals.total_points >= 399:
@@ -106,13 +107,13 @@ func _on_shield_button_pressed():
 		Globals.can_shield = true
 
 func evolution_checks():
-	if Globals.character_speed >= 350 and Globals.character_health >= 400 and Globals.evolution == 0:
+	if Globals.character_speed >= 275 and Globals.character_health >= 410 and Globals.evolution == 0:
 		Globals.evolution += 1
 		evolve_sound.play()
-	elif Globals.character_speed >= 425 and Globals.character_health >= 670 and Globals.evolution == 1:
+	elif Globals.character_speed >= 425 and Globals.character_health >= 680 and Globals.evolution == 1:
 		Globals.evolution += 1
 		evolve_sound.play()
-	elif Globals.character_speed >= 500 and Globals.character_health >= 810 and Globals.evolution == 2:
+	elif Globals.character_speed >= 500 and Globals.character_health >= 830 and Globals.evolution == 2:
 		Globals.evolution += 1
 		evolve_sound.play()
 
@@ -120,7 +121,7 @@ func size_button_lock():
 	if Globals.evolution == 3:
 		size_button.disabled = true
 		size_button.text = "MAXED"
-	elif Globals.character_speed >= 349 and Globals.evolution <= 0:
+	elif Globals.character_speed >= 274 and Globals.evolution <= 0:
 		size_button.disabled = true
 		size_button.text = "Must Evolve"
 	elif Globals.character_speed >= 424 and Globals.evolution <= 1:
@@ -144,13 +145,13 @@ func health_button_lock():
 	if Globals.evolution == 3:
 		health_button.disabled = true
 		health_button.text = "MAXED"
-	elif Globals.character_health >= 500 and Globals.evolution <= 0:
+	elif Globals.character_health >= 409 and Globals.evolution <= 0:
 		health_button.disabled = true
 		health_button.text = "Must Evolve"
-	elif Globals.character_health >= 659 and Globals.evolution <= 1:
+	elif Globals.character_health >= 679 and Globals.evolution <= 1:
 		health_button.disabled = true
 		health_button.text = "Must Evolve"
-	elif Globals.character_health >= 809 and Globals.evolution <= 2:
+	elif Globals.character_health >= 829 and Globals.evolution <= 2:
 		health_button.disabled = true
 		health_button.text = "MAXED"
 	elif Globals.total_points <= 35:

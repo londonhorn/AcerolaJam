@@ -251,9 +251,9 @@ horizontal_alignment = 1
 
 [node name="Evolution1" type="ProgressBar" parent="UI/Evolution1Vbox"]
 layout_mode = 2
-min_value = 300.0
-max_value = 750.0
-value = 300.0
+min_value = 460.0
+max_value = 685.0
+value = 460.0
 script = ExtResource("5_iia7i")
 
 [node name="Evolution1Vbox2" type="VBoxContainer" parent="UI"]
@@ -275,8 +275,8 @@ horizontal_alignment = 1
 
 [node name="Evolution2" type="ProgressBar" parent="UI/Evolution1Vbox2"]
 layout_mode = 2
-min_value = 750.0
-max_value = 1095.0
+min_value = 685.0
+max_value = 1105.0
 value = 850.0
 allow_lesser = true
 script = ExtResource("6_qctny")
@@ -302,8 +302,8 @@ horizontal_alignment = 1
 
 [node name="Evolution3" type="ProgressBar" parent="UI/Evolution1Vbox3"]
 layout_mode = 2
-min_value = 1095.0
-max_value = 1310.0
+min_value = 1105.0
+max_value = 1330.0
 value = 1095.0
 allow_lesser = true
 script = ExtResource("13_sugg8")

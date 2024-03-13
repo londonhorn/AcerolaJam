@@ -109,7 +109,7 @@ _data = {
 scale = Vector2(3, 3)
 collision_layer = 8
 script = ExtResource("1_wtwsj")
-level = 3
+level = 5
 points = 15
 health = 20
 

@@ -7,6 +7,6 @@ func _process(_delta):
 	hide_all()
 
 func hide_all():
-	if value >= 749:
+	if value >= 684:
 		vbox.visible = false
 

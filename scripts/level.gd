@@ -78,22 +78,22 @@ var wave_options = [
 		"duration":15,
 		"types":{
 			"cop":0.35,
-			"soldier":0.7,
-			"cop_car":1.0}
+			"soldier":0.5,
+			"cop_car":0.6}
 	},
 	{
 		"duration":20,
 		"types":{
 			"cop":0.35,
 			"soldier":0.5,
-			"tank":1.0,
+			"tank":0.7,
 			"jetpack_cop":0.3}
 	},
 	{
 		"duration":25,
 		"types":{
 			"soldier":0.4,
-			"tank":0.8,
+			"tank":0.6,
 			"jetpack_cop":0.3}
 	},
 	{
@@ -101,7 +101,7 @@ var wave_options = [
 		"types":{
 			"soldier":0.3,
 			"tank":0.6,
-			"missile":1.5}
+			"missile":1.0}
 	},
 	{
 		"duration":20,
@@ -111,8 +111,8 @@ var wave_options = [
 	{
 		"duration":15,
 		"types":{
-			"jet":1.5,
-			"jetpack_cop":1.0,
+			"jet":1.0,
+			"jetpack_cop":0.5,
 			"cop_car":0.5}
 	},
 	{
@@ -123,7 +123,7 @@ var wave_options = [
 	{
 		"duration":15,
 		"types":{
-			"jet":0.5,
+			"jet":0.4,
 			"tank":0.5}
 	},
 	{
