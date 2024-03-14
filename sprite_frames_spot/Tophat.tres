@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://bfv2n4cv3htct"]
+
+[ext_resource type="Texture2D" uid="uid://cl6fapn65rk1f" path="res://assets/characters/Hat2.png" id="1_ehx6i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejt28"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sxe4"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27fl3"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swny8"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbpsm"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evjpm"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riv0l"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy6i1"]
+atlas = ExtResource("1_ehx6i")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejt28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sxe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27fl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swny8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbpsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evjpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_riv0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy6i1")
+}],
+"loop": true,
+"name": &"Tophat",
+"speed": 10.0
+}]

@@ -9,6 +9,8 @@
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="5_pjouk"]
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="6_cba6m"]
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_csbw3"]
+[ext_resource type="Script" path="res://scripts/Play.gd" id="10_0r6bk"]
+[ext_resource type="Script" path="res://scripts/ReturnButton.gd" id="11_h52ch"]
 
 [sub_resource type="Animation" id="Animation_dnm26"]
 resource_name = "wiggle"
@@ -31,10 +33,6 @@ tracks/0/keys = {
 _data = {
 "wiggle": SubResource("Animation_dnm26")
 }
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06k0c"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h7yfu"]
 
 [node name="MainMenu" type="CanvasLayer"]
 
@@ -74,8 +72,10 @@ libraries = {
 [node name="ButtonHover" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource("5_cl4m6")
 volume_db = -10.0
+max_polyphony = 10
 
 [node name="ButtonClick" type="AudioStreamPlayer" parent="Control"]
+process_mode = 3
 stream = ExtResource("3_67cl2")
 volume_db = -10.0
 
@@ -83,9 +83,9 @@ volume_db = -10.0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.9
+anchor_top = 0.95
 anchor_right = 0.5
-anchor_bottom = 0.9
+anchor_bottom = 0.95
 offset_left = -65.0
 offset_top = -104.0
 offset_right = 65.0
@@ -100,8 +100,9 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_pjouk")
 theme_override_styles/hover = ExtResource("6_cba6m")
 theme_override_styles/pressed = ExtResource("9_csbw3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_06k0c")
+theme_override_styles/focus = ExtResource("6_cba6m")
 text = "Play"
+script = ExtResource("10_0r6bk")
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -111,10 +112,124 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_pjouk")
 theme_override_styles/hover = ExtResource("6_cba6m")
 theme_override_styles/pressed = ExtResource("9_csbw3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_h7yfu")
+theme_override_styles/focus = ExtResource("6_cba6m")
 text = "Quit"
 
+[node name="Credits" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_fonts/font = ExtResource("4_wahiw")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_pjouk")
+theme_override_styles/hover = ExtResource("6_cba6m")
+theme_override_styles/pressed = ExtResource("9_csbw3")
+theme_override_styles/disabled = ExtResource("9_csbw3")
+theme_override_styles/focus = ExtResource("6_cba6m")
+text = "Credits"
+
+[node name="Credits" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.478431)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Credits"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.01
+anchor_right = 1.0
+anchor_bottom = 0.01
+offset_left = 1.0
+offset_top = -0.48
+offset_bottom = 670.52
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Control/Credits/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Made in Godot Game Engine
+Created by londonhorn123 on itch.io
+Parallax Background Textures made by stext25 on itch.io
+All sound effects sourced from Pixabay.com
+Special thanks to Walrusware specifically, and all my playtesters in the Acerola and Godot discords.
+And thank you especially for playing my game. :)"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/Credits/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Licenses
+"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Control/Credits/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "This game uses Godot Engine, available under the following license:
+Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Portions of this software are copyright © 1996-2023 The FreeType Project (www.freetype.org). All rights reserved.
+
+Copyright (c) 2002-2020 Lee Salzman
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Copyright The Mbed TLS Contributors
+Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ReturnButton" type="Button" parent="Control/Credits"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.03
+anchor_right = 0.03
+anchor_bottom = 0.03
+offset_right = 80.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_fonts/font = ExtResource("4_wahiw")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_pjouk")
+theme_override_styles/hover = ExtResource("6_cba6m")
+theme_override_styles/pressed = ExtResource("9_csbw3")
+theme_override_styles/disabled = ExtResource("9_csbw3")
+theme_override_styles/focus = ExtResource("6_cba6m")
+text = "Close Credits"
+script = ExtResource("11_h52ch")
+
+[connection signal="focus_entered" from="Control/VBoxContainer/Play" to="Control" method="_on_play_focus_entered"]
 [connection signal="mouse_entered" from="Control/VBoxContainer/Play" to="Control" method="_on_play_mouse_entered"]
 [connection signal="pressed" from="Control/VBoxContainer/Play" to="Control" method="_on_play_pressed"]
+[connection signal="focus_entered" from="Control/VBoxContainer/Quit" to="Control" method="_on_play_focus_entered"]
 [connection signal="mouse_entered" from="Control/VBoxContainer/Quit" to="Control" method="_on_play_mouse_entered"]
 [connection signal="pressed" from="Control/VBoxContainer/Quit" to="Control" method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="Control/VBoxContainer/Credits" to="Control" method="_on_play_mouse_entered"]
+[connection signal="pressed" from="Control/VBoxContainer/Credits" to="Control" method="_on_credits_pressed"]
+[connection signal="mouse_entered" from="Control/Credits/ReturnButton" to="Control/Credits/ReturnButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/Credits/ReturnButton" to="Control" method="_on_return_button_pressed"]

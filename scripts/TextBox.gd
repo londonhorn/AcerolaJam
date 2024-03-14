@@ -15,3 +15,6 @@ func animation():
 	pop_sound.play()
 	await tween.finished
 	animations.play('wiggle')
+
+
+

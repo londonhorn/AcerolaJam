@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://d1khwm35amnmx"]
+[gd_scene load_steps=19 format=3 uid="uid://d1khwm35amnmx"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_2vxij"]
-[ext_resource type="SpriteFrames" uid="uid://c4kovoxaumcs5" path="res://sprite_frames_spot/evolution_0.tres" id="2_rn6vv"]
+[ext_resource type="SpriteFrames" uid="uid://mm7nc3g713qa" path="res://sprite_frames_spot/evolution_3.tres" id="2_27tu1"]
+[ext_resource type="SpriteFrames" uid="uid://dm0fv6shcm6lu" path="res://sprite_frames_spot/Spunchbob.tres" id="3_4ky23"]
 [ext_resource type="AudioStream" uid="uid://d4co1w2krbrx7" path="res://assets/sounds/8BitWalking.mp3" id="3_s748w"]
 [ext_resource type="AudioStream" uid="uid://difhc2njf4hq4" path="res://assets/sounds/DeathSound.mp3" id="4_hw3sn"]
+[ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="4_lu62h"]
 [ext_resource type="AudioStream" uid="uid://dj7usn0n2mcuc" path="res://assets/sounds/WingFlap1.mp3" id="4_vik3g"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="5_skhvn"]
 [ext_resource type="AudioStream" uid="uid://cwp4a8hq2gk7n" path="res://assets/sounds/EatingSound.mp3" id="6_rdsxc"]
@@ -88,8 +90,19 @@ script = ExtResource("1_2vxij")
 
 [node name="CharacterSprite1" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
-sprite_frames = ExtResource("2_rn6vv")
+sprite_frames = ExtResource("2_27tu1")
 animation = &"flying_up"
+
+[node name="Hats" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -34)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("3_4ky23")
+animation = &"Spunchbob"
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="Hats"]
+stream = ExtResource("4_lu62h")
+volume_db = -10.0
+max_polyphony = 5
 
 [node name="CollisionShape1" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cbxb1")

@@ -22,6 +22,7 @@ signal health_changed
 
 @onready var death_particles = $DeathParticles
 @onready var animation_player = $AnimationPlayer
+@onready var hat = $Hats
 
 @onready var collision_shape = $CollisionShape1
 @onready var hit_shape = $HitDetection/CollisionShape2D
@@ -50,7 +51,21 @@ var animations_evolution_sprites: Array = [
 	"res://sprite_frames_spot/evolution_3.tres"
 	]
 
-
+var hat_spriteframes: Array = [
+	"res://sprite_frames_spot/Cowboy.tres",
+	"res://sprite_frames_spot/Tophat.tres",
+	"res://sprite_frames_spot/Construction.tres",
+	"res://sprite_frames_spot/Fez.tres",
+	"res://sprite_frames_spot/Bucket.tres",
+	"res://sprite_frames_spot/Santa.tres",
+	"res://sprite_frames_spot/RegularHat.tres",
+	"res://sprite_frames_spot/#1Hat.tres",
+	"res://sprite_frames_spot/Bowler.tres",
+	"res://sprite_frames_spot/Bow.tres",
+	"res://sprite_frames_spot/Evolution.tres",
+	"res://sprite_frames_spot/Wizard.tres",
+	"res://sprite_frames_spot/Spunchbob.tres"
+]
 
 func _ready():
 	health_changed.emit(max_health, current_health)
@@ -63,13 +78,14 @@ func _process(_delta):
 		shield_spawn()
 	if is_shielding:
 		get_tree().call_group('bullets','queue_free')
+
 	
 	scale_change()
 	evolve()
 	animations_player()
 	health_point_increase()
 	player_death()
-	
+	hats()
 
 func _physics_process(_delta):
 	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
@@ -209,4 +225,12 @@ func small_hit_play():
 	small_hit_sound.pitch_scale = randf_range(0.85, 1)
 	small_hit_sound.play()
 
-
+func hats():
+	var current_frame = animations.get_frame()
+	var current_progress = animations.get_frame_progress()
+	if Globals.can_hat:
+		hat.set_frame_and_progress(current_frame, current_progress)
+		hat.sprite_frames = load(hat_spriteframes[Globals.hat_tracker])
+		hat.visible = true
+	else:
+		hat.visible = false

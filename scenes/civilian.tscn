@@ -102,7 +102,7 @@ _data = {
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_nnbu0")
-points = 1
+points = 2
 health = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

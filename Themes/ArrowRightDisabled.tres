@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://tm3cif5egwd4"]
+
+[ext_resource type="Texture2D" uid="uid://b4gh02e6trghw" path="res://assets/sounds/UI/HatButtonRightDisabled.png" id="1_v2m20"]
+
+[resource]
+texture = ExtResource("1_v2m20")
+texture_margin_top = 30.0
+texture_margin_right = 30.0

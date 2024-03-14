@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://cs2qv38j55us6"]
+
+[ext_resource type="Texture2D" uid="uid://gl65bipoe5mm" path="res://assets/characters/Hat12.png" id="1_5a1bc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7p4f"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odl2a"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13ahh"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhc56"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8mpr"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t11t1"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qruax"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmvi6"]
+atlas = ExtResource("1_5a1bc")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7p4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odl2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13ahh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhc56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8mpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t11t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qruax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmvi6")
+}],
+"loop": true,
+"name": &"Santa",
+"speed": 10.0
+}]

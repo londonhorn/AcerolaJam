@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c63likdbxoa73"]
+[gd_scene load_steps=36 format=3 uid="uid://c63likdbxoa73"]
 
 [ext_resource type="Script" path="res://scripts/pet_level.gd" id="1_2rqs3"]
 [ext_resource type="Texture2D" uid="uid://cu88kjpg50q8d" path="res://assets/worlds_objects/Space_Stars2.png" id="2_nhpud"]
@@ -14,23 +14,35 @@
 [ext_resource type="StyleBox" uid="uid://con1qacn2v0ro" path="res://Themes/ButtonHover.tres" id="8_rcy1e"]
 [ext_resource type="StyleBox" uid="uid://b1in0jw7br4kt" path="res://Themes/ButtonDisabled.tres" id="9_d16w1"]
 [ext_resource type="Script" path="res://scripts/Buttons.gd" id="9_e5iig"]
+[ext_resource type="StyleBox" uid="uid://bj7jfna2qor75" path="res://Themes/ArrowRightNormal.tres" id="11_tp5l6"]
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="12_1b6ev"]
+[ext_resource type="StyleBox" uid="uid://bbgp77f7xfqr5" path="res://Themes/ArrowRightHover.tres" id="12_2nira"]
+[ext_resource type="StyleBox" uid="uid://dcrh7vhsqur3r" path="res://Themes/ArrowNormal.tres" id="12_rcjt3"]
+[ext_resource type="StyleBox" uid="uid://tm3cif5egwd4" path="res://Themes/ArrowRightDisabled.tres" id="13_o062o"]
 [ext_resource type="Script" path="res://scripts/Evolution3.gd" id="13_sugg8"]
 [ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="13_yurhq"]
+[ext_resource type="StyleBox" uid="uid://dbgk8fl4k1ip2" path="res://Themes/ArrowHover.tres" id="15_23yri"]
+[ext_resource type="StyleBox" uid="uid://cnp6civmarxgt" path="res://Themes/ArrowDisabled.tres" id="16_bkb1g"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aktfk"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3d5o"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1tf0u"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o6iet"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6dkqy"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yr45b"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dan1"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bobvr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf5cl"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m13sy"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv806"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8nyfy"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rsng4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6hdb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s3prd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hr6qu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_75ncf"]
 
 [sub_resource type="Theme" id="Theme_vhcm4"]
 default_font = ExtResource("6_c4f3s")
@@ -114,7 +126,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_aktfk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m3d5o")
 text = "Play Again"
 script = ExtResource("9_e5iig")
 
@@ -132,7 +144,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1tf0u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o6iet")
 text = "Increase Speed
 15 Points
 "
@@ -152,7 +164,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6dkqy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yr45b")
 text = "Increase Duration
 35 Points"
 script = ExtResource("9_e5iig")
@@ -171,7 +183,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2dan1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bobvr")
 text = "Permanently Skip a Wave
 400 Points"
 script = ExtResource("9_e5iig")
@@ -190,7 +202,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_bf5cl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m13sy")
 text = "Regress Current Wave
 Refund 400 Points"
 script = ExtResource("9_e5iig")
@@ -209,7 +221,7 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sv806")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8nyfy")
 text = "Unlock Fireball
 200 Points"
 script = ExtResource("9_e5iig")
@@ -228,9 +240,54 @@ theme_override_styles/normal = ExtResource("7_lkwpl")
 theme_override_styles/hover = ExtResource("8_rcy1e")
 theme_override_styles/pressed = ExtResource("9_d16w1")
 theme_override_styles/disabled = ExtResource("9_d16w1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rsng4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6hdb")
 text = "Unlock Shield
 700 Points"
+script = ExtResource("9_e5iig")
+
+[node name="HatButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.35
+anchor_right = 0.25
+anchor_bottom = 0.35
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_c4f3s")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("7_lkwpl")
+theme_override_styles/hover = ExtResource("8_rcy1e")
+theme_override_styles/pressed = ExtResource("9_d16w1")
+theme_override_styles/disabled = ExtResource("9_d16w1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s3prd")
+text = "Unlock Hats
+1500 Points"
+script = ExtResource("9_e5iig")
+
+[node name="HatButtonRight" type="Button" parent="UI"]
+offset_left = 660.0
+offset_top = 335.0
+offset_right = 690.0
+offset_bottom = 365.0
+scale = Vector2(2, 2)
+theme_override_styles/normal = ExtResource("11_tp5l6")
+theme_override_styles/hover = ExtResource("12_2nira")
+theme_override_styles/pressed = ExtResource("13_o062o")
+theme_override_styles/disabled = ExtResource("13_o062o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hr6qu")
+script = ExtResource("9_e5iig")
+
+[node name="HatButtonLeft" type="Button" parent="UI"]
+offset_left = 469.0
+offset_top = 335.0
+offset_right = 499.0
+offset_bottom = 365.0
+scale = Vector2(2, 2)
+theme_override_styles/normal = ExtResource("12_rcjt3")
+theme_override_styles/hover = ExtResource("15_23yri")
+theme_override_styles/pressed = ExtResource("16_bkb1g")
+theme_override_styles/disabled = ExtResource("16_bkb1g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_75ncf")
 script = ExtResource("9_e5iig")
 
 [node name="Evolution1Vbox" type="VBoxContainer" parent="UI"]
@@ -239,8 +296,10 @@ anchor_left = 0.05
 anchor_top = 0.4
 anchor_right = 0.05
 anchor_bottom = 0.4
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 12.4
+offset_top = -0.200012
+offset_right = 176.4
+offset_bottom = 100.8
 theme = SubResource("Theme_vhcm4")
 
 [node name="Progress" type="Label" parent="UI/Evolution1Vbox"]
@@ -288,9 +347,9 @@ anchor_left = 0.05
 anchor_top = 0.4
 anchor_right = 0.05
 anchor_bottom = 0.4
-offset_left = 0.399998
+offset_left = 7.4
 offset_top = -0.200012
-offset_right = 167.4
+offset_right = 174.4
 offset_bottom = 100.8
 theme = SubResource("Theme_6apcq")
 
@@ -304,16 +363,16 @@ horizontal_alignment = 1
 layout_mode = 2
 min_value = 1105.0
 max_value = 1330.0
-value = 1095.0
+value = 1105.0
 allow_lesser = true
 script = ExtResource("13_sugg8")
 
 [node name="MaxedLabel" type="Label" parent="UI"]
 visible = false
-offset_left = 102.0
-offset_top = 293.0
-offset_right = 193.0
-offset_bottom = 323.0
+offset_left = 103.0
+offset_top = 299.0
+offset_right = 194.0
+offset_bottom = 329.0
 theme_override_fonts/font = ExtResource("6_c4f3s")
 theme_override_font_sizes/font_size = 30
 text = "MAXED"
@@ -343,7 +402,7 @@ volume_db = -10.0
 [node name="ButtonHover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_1b6ev")
 volume_db = -10.0
-max_polyphony = 5
+max_polyphony = 10
 
 [node name="EvolveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vwov3")
@@ -355,15 +414,30 @@ volume_db = -10.0
 
 [connection signal="mouse_entered" from="UI/RestartButton" to="UI/RestartButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/RestartButton" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="UI/SizeButton" to="UI/SizeButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/SizeButton" to="UI/SizeButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/SizeButton" to="." method="_on_size_button_pressed"]
+[connection signal="focus_entered" from="UI/HealthButton" to="UI/HealthButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/HealthButton" to="UI/HealthButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="focus_entered" from="UI/WaveSkipButton" to="UI/WaveSkipButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/WaveSkipButton" to="UI/WaveSkipButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/WaveSkipButton" to="." method="_on_wave_skip_button_pressed"]
+[connection signal="focus_entered" from="UI/RegressButton" to="UI/RegressButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/RegressButton" to="UI/RegressButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/RegressButton" to="." method="_on_regress_button_pressed"]
+[connection signal="focus_entered" from="UI/FireballButton" to="UI/FireballButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/FireballButton" to="UI/FireballButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/FireballButton" to="." method="_on_fireball_button_pressed"]
+[connection signal="focus_entered" from="UI/ShieldButton" to="UI/ShieldButton" method="_on_focus_entered"]
 [connection signal="mouse_entered" from="UI/ShieldButton" to="UI/ShieldButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="UI/ShieldButton" to="." method="_on_shield_button_pressed"]
+[connection signal="focus_entered" from="UI/HatButton" to="UI/HatButton" method="_on_focus_entered"]
+[connection signal="mouse_entered" from="UI/HatButton" to="UI/HatButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="UI/HatButton" to="." method="_on_hat_button_pressed"]
+[connection signal="focus_entered" from="UI/HatButtonRight" to="UI/HatButtonRight" method="_on_focus_entered"]
+[connection signal="mouse_entered" from="UI/HatButtonRight" to="UI/HatButtonRight" method="_on_mouse_entered"]
+[connection signal="pressed" from="UI/HatButtonRight" to="." method="_on_hat_button_right_pressed"]
+[connection signal="focus_entered" from="UI/HatButtonLeft" to="UI/HatButtonLeft" method="_on_focus_entered"]
+[connection signal="mouse_entered" from="UI/HatButtonLeft" to="UI/HatButtonLeft" method="_on_mouse_entered"]
+[connection signal="pressed" from="UI/HatButtonLeft" to="." method="_on_hat_button_left_pressed"]

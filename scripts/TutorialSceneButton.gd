@@ -35,3 +35,6 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	$ButtonHover.play()
+
+func _on_mouse_exited():
+	release_focus()

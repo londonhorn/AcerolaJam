@@ -18,3 +18,19 @@ func _on_quit_pressed():
 
 func _on_play_mouse_entered():
 	hover_sound.play()
+
+func _on_play_focus_entered():
+	hover_sound.play()
+
+func _on_return_button_pressed():
+	click_sound.play()
+	$Credits.visible = false
+	$Credits.set_process_mode(4)
+	get_tree().paused = false
+
+func _on_credits_pressed():
+	click_sound.play()
+	$Credits.visible = true
+	$Credits.set_process_mode(3)
+	get_tree().paused = true
+

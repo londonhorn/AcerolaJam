@@ -189,6 +189,11 @@ theme_override_fonts/font = ExtResource("4_f4dew")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_ugkgk")
 
+[node name="BossKeep" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_f4dew")
+theme_override_font_sizes/font_size = 25
+
 [node name="Health" type="TextureProgressBar" parent="UI"]
 top_level = true
 anchors_preset = -1

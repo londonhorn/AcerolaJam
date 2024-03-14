@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bm7tiugobo07e"]
+[gd_scene load_steps=53 format=3 uid="uid://bm7tiugobo07e"]
 
 [ext_resource type="Texture2D" uid="uid://d3uc6i5qdmenk" path="res://assets/characters/Mech/Torso.png" id="1_oe0kw"]
 [ext_resource type="Texture2D" uid="uid://b3bcreqkxkh2q" path="res://assets/projectiles/grass_particle.png" id="1_rior5"]
@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://86qqpk6qf7jw" path="res://assets/sounds/FirebreathSound.mp3" id="5_euwpa"]
 [ext_resource type="Texture2D" uid="uid://cutymd2enoveu" path="res://assets/characters/Mech/GunHand.png" id="5_iwu6r"]
 [ext_resource type="AudioStream" uid="uid://b76boqvbf5dpl" path="res://assets/sounds/MechHit.mp3" id="6_8cscy"]
+[ext_resource type="AudioStream" uid="uid://6mlg3fphxu7r" path="res://assets/sounds/MechHover.mp3" id="7_cvs58"]
 [ext_resource type="Script" path="res://scripts/LeftArmHitbox.gd" id="10_f3mdr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="11_k5re5"]
 [ext_resource type="Material" uid="uid://n52oeqm5xye4" path="res://resources/firebreath.tres" id="12_bo3he"]
@@ -514,6 +515,12 @@ scale = Vector2(1, 1)
 stream = ExtResource("6_8cscy")
 volume_db = -5.0
 max_polyphony = 10
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="Node2D"]
+scale = Vector2(1, 1)
+stream = ExtResource("7_cvs58")
+volume_db = -15.0
+autoplay = true
 
 [node name="Targets" type="Node2D" parent="Node2D"]
 

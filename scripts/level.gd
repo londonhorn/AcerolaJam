@@ -15,6 +15,7 @@ extends Node2D
 @onready var wave_sound = $WaveTotalTimer/WaveSound
 @onready var score_label = $UI/PointIncrease
 @onready var wave_label = $UI/WaveIncrease
+@onready var boss_label = $UI/VBoxContainer/BossKeep
 
 var pet_level = load("res://scenes/pet_level.tscn")
 
@@ -46,7 +47,7 @@ var wave_options = [
 			"plane":0.4}
 	},
 	{
-		"duration":15,
+		"duration":10,
 		"types":{
 			"civilian":0.1,
 			"plane":0.2,
@@ -54,7 +55,7 @@ var wave_options = [
 			"cop":0.4}
 	},
 	{
-		"duration":15,
+		"duration":12,
 		"types":{
 			"civilian":0.1,
 			"cop":0.3,
@@ -62,27 +63,27 @@ var wave_options = [
 			"cop_car":1.0}
 	},
 	{
-		"duration":25,
+		"duration":15,
 		"types":{
 			"cop":0.4,
 			"jetpack_cop":1.0,
 			"cop_car":1.5}
 	},
 	{
-		"duration":20,
+		"duration":10,
 		"types":{
 			"cop":0.4,
 			"soldier":0.7}
 	},
 	{
-		"duration":15,
+		"duration":10,
 		"types":{
 			"cop":0.35,
 			"soldier":0.5,
 			"cop_car":0.6}
 	},
 	{
-		"duration":20,
+		"duration":15,
 		"types":{
 			"cop":0.35,
 			"soldier":0.5,
@@ -90,7 +91,7 @@ var wave_options = [
 			"jetpack_cop":0.3}
 	},
 	{
-		"duration":25,
+		"duration":15,
 		"types":{
 			"soldier":0.4,
 			"tank":0.6,
@@ -104,19 +105,19 @@ var wave_options = [
 			"missile":1.0}
 	},
 	{
-		"duration":20,
+		"duration":15,
 		"types":{
 			"missile":0.3}
 	},
 	{
-		"duration":15,
+		"duration":10,
 		"types":{
 			"jet":1.0,
 			"jetpack_cop":0.5,
 			"cop_car":0.5}
 	},
 	{
-		"duration":12,
+		"duration":15,
 		"types":{
 			"missile":0.3}
 	},
@@ -146,11 +147,12 @@ func _ready():
 func _process(_delta):
 	score_keep()
 	wave_keep()
+	boss_keep()
 	
 	if Globals.current_wave >= 14:
 		extra_points_timer.stop()
 		player.health_timer.stop()
-		
+
 
 func _on_wave_total_timer_timeout():
 	Globals.current_wave += 1
@@ -335,6 +337,9 @@ func score_keep():
 
 func wave_keep():
 	wave_counter.text = 'Wave: ' + str(Globals.current_wave + 1)
+
+func boss_keep():
+	boss_label.text = str(15 - Globals.current_wave) + " waves until boss"
 
 func _on_character_base_character_died():
 	LevelTransition.change_scene(pet_level)

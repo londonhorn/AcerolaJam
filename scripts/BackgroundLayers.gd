@@ -7,6 +7,7 @@ var scrolling_speed3 = 150
 @onready var layer1 = $"../ParallaxLayer"
 @onready var layer2 = $"."
 @onready var layer3 = $"../ParallaxLayer3"
+@onready var layer4 = $"."
 
 func _process(delta):
 	layer1.motion_offset.x -= scrolling_speed1 * delta

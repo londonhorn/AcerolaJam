@@ -7,30 +7,31 @@ extends Control
 @onready var fireball_controls = $UI/FireballControls
 @onready var shield_controls = $UI/ShieldControls
 
+@onready var restart_button = $UI/RestartButton
 @onready var size_button = $UI/SizeButton
 @onready var health_button = $UI/HealthButton
 @onready var wave_skip_button = $UI/WaveSkipButton
 @onready var wave_refund_button = $UI/RegressButton
 @onready var fireball_button = $UI/FireballButton
 @onready var shield_button = $UI/ShieldButton
+@onready var hat_button = $UI/HatButton
 
 @onready var hover_sound = $ButtonHover
 @onready var money_spent_sound = $MoneySpent
 @onready var evolve_sound = $EvolveSound
 @onready var click_sound = $ButtonClick
 
-@onready var gameplay_level = load("res://scenes/level.tscn")
 
-#var mech_left_arm = load("res://resources/LeftArm.tres")
-#var mech_right_arm = load("res://resources/RightArm.tres")
+
+@onready var gameplay_level = load("res://scenes/level.tscn")
 
 func _ready():
 	player.can_move = false
 	player.animations.play('floor')
-	#mech_right_arm.enabled = false
-	#mech_left_arm.enabled = false
 
 func _process(_delta):
+	player.has_shot = true
+	player.has_shield = true
 	player.current_health += 100
 	
 	if Globals.can_fireball:
@@ -56,6 +57,7 @@ func _process(_delta):
 	wave_refund_button_lock()
 	fireball_button_lock()
 	shield_button_lock()
+	hat_button_lock()
 
 func money_display_change():
 	money_display.text = ('Points: ' + str(Globals.total_points))
@@ -105,6 +107,12 @@ func _on_shield_button_pressed():
 		money_spent_sound.play()
 		Globals.total_points -= 700
 		Globals.can_shield = true
+
+func _on_hat_button_pressed():
+	if Globals.total_points >= 1500:
+		money_spent_sound.play()
+		Globals.total_points -= 1500
+		Globals.can_hat = true
 
 func evolution_checks():
 	if Globals.character_speed >= 275 and Globals.character_health >= 410 and Globals.evolution == 0:
@@ -207,6 +215,30 @@ func shield_button_lock():
 	if Globals.can_shield:
 		shield_button.visible = false
 
+func hat_button_lock():
+	if Globals.evolution < 3:
+		hat_button.visible = false
+		$UI/HatButtonRight.visible = false
+		$UI/HatButtonLeft.visible = false
+	else:
+		hat_button.visible = true
+	if Globals.total_points < 1500:
+		hat_button.disabled = true
+	else:
+		hat_button.disabled = false
+	if Globals.can_hat:
+		hat_button.visible = false
+		$UI/HatButtonRight.visible = true
+		$UI/HatButtonLeft.visible = true
 
 
-
+func _on_hat_button_right_pressed():
+	money_spent_sound.play()
+	Globals.hat_tracker += 1
+	if Globals.hat_tracker >= player.hat_spriteframes.size():
+		Globals.hat_tracker = 0
+func _on_hat_button_left_pressed():
+	money_spent_sound.play()
+	Globals.hat_tracker -= 1
+	if Globals.hat_tracker < 0:
+		Globals.hat_tracker = player.hat_spriteframes.size() - 1

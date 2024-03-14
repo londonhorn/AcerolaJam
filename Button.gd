@@ -13,6 +13,7 @@ func _process(_delta):
 		wait_timer.wait_time = 0.5
 		wait_timer.start()
 
+
 func _ready():
 	await wait_timer.timeout
 	animation()
@@ -32,3 +33,5 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	$ButtonHover.play()
+
+

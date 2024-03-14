@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://dm0fv6shcm6lu"]
+
+[ext_resource type="Texture2D" uid="uid://cfgyu78bepwuj" path="res://assets/characters/Hat13.png" id="1_ifjy7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je726"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pafch"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcrvn"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6jos"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_638qy"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3onw"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8aby"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrhi5"]
+atlas = ExtResource("1_ifjy7")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je726")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pafch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcrvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6jos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_638qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3onw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8aby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrhi5")
+}],
+"loop": true,
+"name": &"Spunchbob",
+"speed": 10.0
+}]

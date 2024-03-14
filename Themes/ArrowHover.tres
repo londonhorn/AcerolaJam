@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dbgk8fl4k1ip2"]
+
+[ext_resource type="Texture2D" uid="uid://d0vt3bhmkejr8" path="res://assets/sounds/UI/HatButtonHover.png" id="1_8rppl"]
+
+[resource]
+texture = ExtResource("1_8rppl")
+texture_margin_left = 30.0
+texture_margin_top = 30.0

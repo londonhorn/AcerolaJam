@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://dbc4n1mrirdq"]
+
+[ext_resource type="Texture2D" uid="uid://bjc6otbpluijb" path="res://assets/characters/Hat8.png" id="1_evdef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2dpj"]
+atlas = ExtResource("1_evdef")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lni8v"]
+atlas = ExtResource("1_evdef")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck0g2"]
+atlas = ExtResource("1_evdef")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c43uf"]
+atlas = ExtResource("1_evdef")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk4xy"]
+atlas = ExtResource("1_evdef")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kahe"]
+atlas = ExtResource("1_evdef")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj71i"]
+atlas = ExtResource("1_evdef")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxkem"]
+atlas = ExtResource("1_evdef")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2dpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lni8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck0g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c43uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk4xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kahe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj71i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxkem")
+}],
+"loop": true,
+"name": &"Bowler",
+"speed": 10.0
+}]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx1hvas6t4cv0"]
+[gd_scene load_steps=8 format=3 uid="uid://dx1hvas6t4cv0"]
 
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="1_o6vhb"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="2_rw2ur"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://Button.gd" id="5_rs8kj"]
 [ext_resource type="AudioStream" uid="uid://dxvxp5uidhvdh" path="res://assets/sounds/pop_sound.mp3" id="6_bmqj6"]
 [ext_resource type="AudioStream" uid="uid://b2mrvh3owiq1c" path="res://assets/sounds/tap-notification-180637.mp3" id="7_d0umg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srnr4"]
 
 [node name="OutroScene" type="CanvasLayer"]
 
@@ -62,13 +60,14 @@ offset_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
+theme_override_colors/font_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 theme_override_fonts/font = ExtResource("1_o6vhb")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_rw2ur")
 theme_override_styles/hover = ExtResource("3_uuyje")
 theme_override_styles/pressed = ExtResource("4_xmor1")
 theme_override_styles/disabled = ExtResource("4_xmor1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_srnr4")
+theme_override_styles/focus = ExtResource("3_uuyje")
 text = "Return to Main Menu"
 script = ExtResource("5_rs8kj")
 
@@ -87,4 +86,6 @@ volume_db = -10.0
 wait_time = 5.0
 autostart = true
 
+[connection signal="focus_entered" from="Control/Button" to="Control/Button" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Control/Button" to="Control/Button" method="_on_mouse_entered"]
 [connection signal="pressed" from="Control/Button" to="Control/Button" method="_on_pressed"]

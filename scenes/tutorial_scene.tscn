@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxk2qllmv0xb0"]
+[gd_scene load_steps=14 format=3 uid="uid://dxk2qllmv0xb0"]
 
 [ext_resource type="FontFile" uid="uid://psucj3rikhfu" path="res://assets/Fonts/SpiritsRegular-OEKo.ttf" id="1_k2gtx"]
 [ext_resource type="StyleBox" uid="uid://1w14wqut0rd" path="res://Themes/ButtonNormal.tres" id="2_hocw3"]
@@ -33,8 +33,6 @@ tracks/0/keys = {
 _data = {
 "wiggle": SubResource("Animation_fgxa7")
 }
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26l56"]
 
 [node name="TutorialScene" type="CanvasLayer"]
 
@@ -151,7 +149,7 @@ theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = ExtResource("2_hocw3")
 theme_override_styles/hover = ExtResource("8_hilka")
 theme_override_styles/pressed = ExtResource("9_0vdh3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_26l56")
+theme_override_styles/focus = ExtResource("8_hilka")
 text = "OKAY"
 script = ExtResource("9_rik84")
 
@@ -175,5 +173,7 @@ volume_db = -10.0
 wait_time = 10.0
 autostart = true
 
+[connection signal="focus_entered" from="Button" to="Button" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="Button" to="Button" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="Button" method="_on_mouse_exited"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
